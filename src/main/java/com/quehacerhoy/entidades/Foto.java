@@ -39,6 +39,30 @@ public class Foto implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getMime() {
+        return mime;
+    }
+
+    public void setMime(String mime) {
+        this.mime = mime;
+    }
+
+    public byte[] getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(byte[] contenido) {
+        this.contenido = contenido;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
