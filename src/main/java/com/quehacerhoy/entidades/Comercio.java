@@ -45,6 +45,9 @@ public class Comercio implements Serializable {
     
     @ManyToOne
     private Usuario usuario;
+
+    public Comercio() {
+    }
     
     
     
@@ -55,6 +58,104 @@ public class Comercio implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getRangoDeHorario() {
+        return rangoDeHorario;
+    }
+
+    public void setRangoDeHorario(String rangoDeHorario) {
+        this.rangoDeHorario = rangoDeHorario;
+    }
+
+    public Rubro getRubro() {
+        return rubro;
+    }
+
+    public void setRubro(Rubro rubro) {
+        this.rubro = rubro;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getRangoEdadPublico() {
+        return rangoEdadPublico;
+    }
+
+    public void setRangoEdadPublico(String rangoEdadPublico) {
+        this.rangoEdadPublico = rangoEdadPublico;
+    }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
+
+    public Date getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Date alta) {
+        this.alta = alta;
+    }
+
+    public Date getBaja() {
+        return baja;
+    }
+
+    public void setBaja(Date baja) {
+        this.baja = baja;
+    }
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
+
+    public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
 
     @Override
     public int hashCode() {
