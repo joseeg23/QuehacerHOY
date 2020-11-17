@@ -10,6 +10,7 @@ import com.quehacerhoy.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,83 +23,93 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class UsuarioService implements UserDetailsService  {
-    
+public class UsuarioService implements UserDetailsService {
+
     @Autowired
     private UsuarioRepositorio repositorio;
-    
+
     //alta usuario admin que es el comercio que hara su publicidad
-    public void altaAdmin(String username, String nombre, String apellido, String email, String clave, String rol) throws Exception{
-         if (username.isEmpty()) {
+    @Transactional
+    public void altaAdmin(String username, String nombre, String apellido, String email, String clave, String clave2) throws Exception {
+        if (username.isEmpty()) {
             throw new Exception("Debe indicar un username");
         }
-          if (nombre.isEmpty()) {
+        if (nombre.isEmpty()) {
             throw new Exception("Debe indicar su nombre");
         }
-           if (apellido.isEmpty()) {
+        if (apellido.isEmpty()) {
             throw new Exception("Debe indicar su apellido");
         }
-            if (email.isEmpty()) {
+        if (email.isEmpty()) {
             throw new Exception("Debe indicar un email valido");
         }
-             if (clave.isEmpty() || clave.length()<5) {
+        if (clave.isEmpty() || clave.length() < 5) {
             throw new Exception("La contraseña no debe estar vacio y debe tener al menos 5 caracteres");
         }
-      try{       
-             Usuario admin = new Usuario();
-             admin.setUsername(username);
-             admin.setNombre(nombre);
-             admin.setApellido(apellido);
-             admin.setEmail(email);
-             admin.setRol("ADMIN");
-             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
-             admin.setClave(claveEncriptada);
-             
-             repositorio.save(admin);
-      }catch(Exception e){
-             throw new Exception(e.getMessage());
-      }   
+        if(clave == null ? clave2 != null : !clave.equals(clave2)){
+             throw new Exception("La contraseñas no coinciden");
+        }
+        
+        try {
+            Usuario admin = new Usuario();
+            admin.setUsername(username);
+            admin.setNombre(nombre);
+            admin.setApellido(apellido);
+            admin.setEmail(email);
+            admin.setRol("ADMIN");
+            String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
+            admin.setClave(claveEncriptada);
+
+            repositorio.save(admin);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
-    
+
     //alta usuario superadmin que seremos nosotros
-    public void altaSuperadmin(String username, String nombre, String apellido, String email, String clave, String rol) throws Exception{
-         if (username.isEmpty()) {
+    @Transactional
+    public void altaSuperadmin(String username, String nombre, String apellido, String email, String clave, String clave2) throws Exception {
+        if (username.isEmpty()) {
             throw new Exception("Debe indicar un username");
         }
-          if (nombre.isEmpty()) {
+        if (nombre.isEmpty()) {
             throw new Exception("Debe indicar su nombre");
         }
-           if (apellido.isEmpty()) {
+        if (apellido.isEmpty()) {
             throw new Exception("Debe indicar su apellido");
         }
-            if (email.isEmpty()) {
+        if (email.isEmpty()) {
             throw new Exception("Debe indicar un email valido");
         }
-             if (clave.isEmpty() || clave.length()<5) {
+        if (clave.isEmpty() || clave.length() < 5) {
             throw new Exception("La contraseña no debe estar vacio y debe tener al menos 5 caracteres");
         }
-      try{       
-             Usuario admin = new Usuario();
-             admin.setUsername(username);
-             admin.setNombre(nombre);
-             admin.setApellido(apellido);
-             admin.setEmail(email);
-             admin.setRol("SUPERADMIN");
-             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
-             admin.setClave(claveEncriptada);
-             
-             repositorio.save(admin);
-      }catch(Exception e){
-             throw new Exception(e.getMessage());
-      }   
+         if(clave !=clave2){
+             throw new Exception("La contraseñas no coinciden");
+        } 
+         
+        try {
+            Usuario admin = new Usuario();
+            admin.setUsername(username);
+            admin.setNombre(nombre);
+            admin.setApellido(apellido);
+            admin.setEmail(email);
+            admin.setRol("SUPERADMIN");
+            String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
+            admin.setClave(claveEncriptada);
+
+            repositorio.save(admin);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
-    
-     //lista de usuarios admin
-    public List lista(){
-       return repositorio.listarAdmin(); 
+
+    //lista de usuarios admin
+    public List lista() {
+        return repositorio.listarAdmin();
     }
-    
-      @Override
+
+    @Override
     public UserDetails loadUserByUsername(String username) {
 
         try {
@@ -126,8 +137,5 @@ public class UsuarioService implements UserDetailsService  {
             return null;
         }
     }
-    
-    
-    
-    
+
 }

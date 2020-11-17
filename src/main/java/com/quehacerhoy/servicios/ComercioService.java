@@ -32,7 +32,7 @@ public class ComercioService {
 
     //alta para los comercios
     @Transactional
-    public void alta(String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, boolean pago, Foto foto, String idZona, String documentoUsuario) throws Exception {
+    public void alta(String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, boolean pago, Foto foto, String idZona, String usernameUsuario) throws Exception {
 
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -58,8 +58,8 @@ public class ComercioService {
         if (idZona.isEmpty()) {
             throw new Exception("Debe indicar una zona");
         }
-        if (documentoUsuario.isEmpty()) {
-            throw new Exception("Debe indicar un nombre");
+        if (usernameUsuario.isEmpty()) {
+            throw new Exception("Debe indicar un usuario");
         }
         try {
             Comercio comercio = new Comercio();
@@ -73,7 +73,7 @@ public class ComercioService {
             comercio.setRangoDeHorario(rangoDeHorario);
             comercio.setRangoEdadPublico(rangoEdadPublico);
             //buscar usuario con id
-            Usuario usuario = usuarioR.getOne(documentoUsuario);
+            Usuario usuario = usuarioR.getOne(usernameUsuario);
             comercio.setUsuario(usuario);
             //buscar zona con id
             Zona zona = zonaR.getOne(idZona);

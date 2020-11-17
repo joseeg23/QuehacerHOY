@@ -38,8 +38,19 @@ public class Extra implements Serializable {
 
     @ManyToOne
     private Zona zona;
+    
+    @ManyToOne
+    private Usuario usuario;
 
     public Extra() {
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getNombre() {

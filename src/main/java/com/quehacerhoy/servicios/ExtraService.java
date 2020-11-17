@@ -7,8 +7,10 @@ package com.quehacerhoy.servicios;
 
 import com.quehacerhoy.entidades.Extra;
 import com.quehacerhoy.entidades.Foto;
+import com.quehacerhoy.entidades.Usuario;
 import com.quehacerhoy.entidades.Zona;
 import com.quehacerhoy.repositorios.ExtraRepositorio;
+import com.quehacerhoy.repositorios.UsuarioRepositorio;
 import com.quehacerhoy.repositorios.ZonaRepositorio;
 import java.util.Date;
 import java.util.List;
@@ -18,20 +20,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ExtraService {
-    
+
     @Autowired
     private ExtraRepositorio repositorio;
     @Autowired
     private ZonaRepositorio zonaR;
+    @Autowired
+    private UsuarioRepositorio usuarioR;
 
     //Alta para los eventos
     @Transactional
-    public void altaEvento(String nombre, String descripcion, String direccion, String edad, String hora, String capacidad, Date fecha, Foto foto, String idZona) throws Exception {
-        
+    public void altaEvento(String nombre, String descripcion, String direccion, String edad, String hora, String capacidad, Date fecha, Foto foto, String idZona, String usernameUsuario) throws Exception {
+
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
         }
-        
+
         if (descripcion.isEmpty()) {
             throw new Exception("Debe indicar una descripcion");
         }
@@ -41,11 +45,11 @@ public class ExtraService {
         if (hora.isEmpty()) {
             throw new Exception("Debe indicar la hora del evento");
         }
-        
+
         if (capacidad.isEmpty()) {
             throw new Exception("Debe indicar la capacidad del evento");
         }
-        
+
         if (fecha == null) {
             throw new Exception("Debe indicar una fecha valida");
         }
@@ -55,9 +59,13 @@ public class ExtraService {
         if (idZona.isEmpty()) {
             throw new Exception("Debe indicar una zona");
         }
+        if (usernameUsuario.isEmpty()) {
+            throw new Exception("Debe indicar un usuario");
+        }
+
         try {
             Extra evento = new Extra();
-            
+
             evento.setCapacidad(capacidad);
             evento.setDescripcion(descripcion);
             evento.setDireccion(direccion);
@@ -68,7 +76,9 @@ public class ExtraService {
             //buscar zona con id
             Zona zona = zonaR.getOne(idZona);
             evento.setZona(zona);
-            
+
+            Usuario usuario = usuarioR.getOne(usernameUsuario);
+
             repositorio.save(evento);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -78,39 +88,38 @@ public class ExtraService {
     //Alta para la publicidad
     @Transactional
     public void altaPublicidad(String nombre, String descripcion, Foto foto) throws Exception {
-        
+
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
         }
-        
+
         if (descripcion.isEmpty()) {
             throw new Exception("Debe indicar una descripcion");
         }
-        
+
         if (foto == null) {
             throw new Exception("Debe indicar una foto");
         }
-        
+
         try {
             Extra publicidad = new Extra();
-            
+
             publicidad.setDescripcion(descripcion);
-            
+
             publicidad.setFoto(foto);
             publicidad.setNombre(nombre);
             Date fechaPublicacion = new Date();
             publicidad.setFecha(fechaPublicacion);
-            
+
             repositorio.save(publicidad);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
-    
-     //lista de eventos
-    public List lista(){
-       return repositorio.listar(); 
+
+    //lista de eventos
+    public List lista() {
+        return repositorio.listar();
     }
-    
-    
+
 }
