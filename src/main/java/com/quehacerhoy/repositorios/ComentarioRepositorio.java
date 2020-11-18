@@ -2,6 +2,8 @@
 package com.quehacerhoy.repositorios;
 
 import com.quehacerhoy.entidades.Comentario;
+import com.quehacerhoy.entidades.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComentarioRepositorio extends JpaRepository<Comentario,String> {
- @Query ("SELECT c FROM Comentario c WHERE c.comentario.id = :id")   
- public List<Comentario>buscarComentarioPorUsuario (@Param("id")String id);
+ @Query ("SELECT c FROM Comentario c WHERE c.comentario.nombre = :nombre")   
+ public List<Comentario>buscarComentarioPorNombre (@Param("nombre")String nombre);
+ @Query ("SELECT c FROM Usuario c WHERE baja is false")
+ public ArrayList<Usuario> listar();
  
  }
 
