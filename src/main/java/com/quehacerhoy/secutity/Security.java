@@ -6,7 +6,6 @@
 package com.quehacerhoy.secutity;
 
 import com.quehacerhoy.servicios.UsuarioService;
-import static javafx.scene.input.KeyCode.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +29,8 @@ public class Security extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-//		auth.userDetailsService((T) usuarioService).
-//		passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(usuarioService).
+		passwordEncoder(new BCryptPasswordEncoder());
 	}
 	
 	
@@ -41,12 +40,12 @@ public class Security extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
                             .antMatchers("/css/*", "/js/*", "/img/*").permitAll()
 				.and().formLogin()
-					.loginPage("/iniciarSesion")
+					.loginPage("/login")
 						.loginProcessingUrl("/logincheck")
-						.usernameParameter("documento")
+						.usernameParameter("username")
 						.passwordParameter("clave")
 						.defaultSuccessUrl("/principal")
-						.failureUrl("/iniciarSesion?error=error")
+						.failureUrl("/login?error=error")
 						.permitAll()
 				.and().logout()
 					.logoutUrl("/logout")

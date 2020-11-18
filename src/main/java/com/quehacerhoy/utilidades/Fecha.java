@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.quehacerhoy.excepciones;
+package com.quehacerhoy.utilidades;
 
 import java.text.NumberFormat;
 import java.text.ParseException;

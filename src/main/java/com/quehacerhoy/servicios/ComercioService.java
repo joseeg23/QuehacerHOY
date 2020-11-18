@@ -19,6 +19,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ComercioService {
@@ -29,10 +30,12 @@ public class ComercioService {
     private ZonaRepositorio zonaR;
     @Autowired
     private UsuarioRepositorio usuarioR;
+    @Autowired
+    private FotoService fotoS;
 
     //alta para los comercios
     @Transactional
-    public void alta(String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, boolean pago, Foto foto, String idZona, String documentoUsuario) throws Exception {
+    public void alta(String nombre, String rangoDeHorario, String rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona, String usernameUsuario) throws Exception {
 
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -52,14 +55,15 @@ public class ComercioService {
         if (rangoEdadPublico.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
         }
-        if (foto == null) {
+        if (archivo == null) {
             throw new Exception("Debe indicar una foto");
         }
+
         if (idZona.isEmpty()) {
             throw new Exception("Debe indicar una zona");
         }
-        if (documentoUsuario.isEmpty()) {
-            throw new Exception("Debe indicar un nombre");
+        if (usernameUsuario.isEmpty()) {
+            throw new Exception("Debe indicar un usuario");
         }
         try {
             Comercio comercio = new Comercio();
@@ -67,17 +71,76 @@ public class ComercioService {
             comercio.setAlta(alta);
             comercio.setDescripcion(descripcion);
             comercio.setDireccion(direccion);
+            Foto foto = fotoS.guardar(archivo);
             comercio.setFoto(foto);
             comercio.setNombre(nombre);
-            comercio.setPago(pago);
             comercio.setRangoDeHorario(rangoDeHorario);
             comercio.setRangoEdadPublico(rangoEdadPublico);
             //buscar usuario con id
-            Usuario usuario = usuarioR.getOne(documentoUsuario);
+            Usuario usuario = usuarioR.getOne(usernameUsuario);
             comercio.setUsuario(usuario);
             //buscar zona con id
             Zona zona = zonaR.getOne(idZona);
             comercio.setZona(zona);
+            comercio.setRubro(Rubro.valueOf(rubro));
+
+            repositorio.save(comercio);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    //alta para los comercios
+    @Transactional
+    public void modificarComercio(String username, String id, String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona) throws Exception {
+        //verificar que este modificando el comercio la persona que lo creo
+        if (nombre.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+        if (rangoDeHorario.isEmpty()) {
+            throw new Exception("Debe indicar un rango de horario");
+        }
+        if (rubro == null) {
+            throw new Exception("Debe indicar un rubro");
+        }
+        if (direccion.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+        if (descripcion.isEmpty()) {
+            throw new Exception("Debe indicar una descripcion");
+        }
+        if (rangoEdadPublico.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+        if (archivo == null) {
+            throw new Exception("Debe indicar una foto");
+        }
+        if (idZona.isEmpty()) {
+            throw new Exception("Debe indicar una zona");
+        }
+
+        try {
+            Comercio comercio = repositorio.getOne(id);
+            
+            if (comercio.getUsuario().getUsername() == null ? username != null : !comercio.getUsuario().getUsername().equals(username)) {
+                throw new Exception("usurio no permitido");
+            }
+            comercio.setDescripcion(descripcion);
+            comercio.setDireccion(direccion);
+            comercio.setNombre(nombre);
+            comercio.setRangoDeHorario(rangoDeHorario);
+            comercio.setRangoEdadPublico(rangoEdadPublico);
+
+            //buscar zona con id
+            Zona zona = zonaR.getOne(idZona);
+            comercio.setZona(zona);
+
+            String idFoto = null;
+            if (comercio.getFoto().getId() != null) {
+                idFoto = comercio.getFoto().getId();
+            }
+            Foto foto = fotoS.actualizar(idFoto, archivo);
+            comercio.setFoto(foto);
 
             repositorio.save(comercio);
         } catch (Exception e) {
@@ -99,10 +162,36 @@ public class ComercioService {
             throw new Exception("No se consiguio el comercio");
         }
     }
-    
+
+    public Comercio buscarPorID(String idComercio) throws Exception {
+        Optional<Comercio> buscar = repositorio.findById(idComercio);
+        if (buscar.isPresent()) {
+            Comercio comercio = buscar.get();
+            return comercio;
+        } else {
+            throw new Exception("No se consiguio el comercio");
+
+        }
+    }
+
     //lista de comercios
-    public List lista(){
-       return repositorio.listar(); 
+    public List lista() {
+        return repositorio.listar();
+    }
+
+    //lista de comercios por rubro
+    public List listaComerciosPorRubro(String rubro) {
+        return repositorio.buscarComercioPorRubro(rubro);
+    }
+
+    //lista de comercios por zona
+    public List listaComerciosPorZona(String zona) {
+        return repositorio.buscarComercioPorZona(zona);
+    }
+
+    //lista de comercios por usuario
+    public List listaComerciosPorUsuario(String usernameUsuario) {
+        return repositorio.buscarComercioPorUsuario(usernameUsuario);
     }
 
 }
