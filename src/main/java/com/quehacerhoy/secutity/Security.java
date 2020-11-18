@@ -6,7 +6,6 @@
 package com.quehacerhoy.secutity;
 
 import com.quehacerhoy.servicios.UsuarioService;
-import static javafx.scene.input.KeyCode.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +45,7 @@ public class Security extends WebSecurityConfigurerAdapter{
 						.usernameParameter("username")
 						.passwordParameter("clave")
 						.defaultSuccessUrl("/principal")
-						.failureUrl("/iniciarSesion?error=error")
+						.failureUrl("/login?error=error")
 						.permitAll()
 				.and().logout()
 					.logoutUrl("/logout")

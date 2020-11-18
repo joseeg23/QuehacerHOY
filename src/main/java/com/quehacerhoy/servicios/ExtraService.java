@@ -17,6 +17,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ExtraService {
@@ -27,10 +28,12 @@ public class ExtraService {
     private ZonaRepositorio zonaR;
     @Autowired
     private UsuarioRepositorio usuarioR;
+    @Autowired
+    private FotoService fotoS;
 
     //Alta para los eventos
     @Transactional
-    public void altaEvento(String nombre, String descripcion, String direccion, String edad, String hora, String capacidad, Date fecha, Foto foto, String idZona, String usernameUsuario) throws Exception {
+    public void altaEvento(String nombre, String descripcion, String direccion, String edad, String hora, String capacidad, Date fecha, MultipartFile archivo, String idZona, String usernameUsuario) throws Exception {
 
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -53,7 +56,7 @@ public class ExtraService {
         if (fecha == null) {
             throw new Exception("Debe indicar una fecha valida");
         }
-        if (foto == null) {
+        if (archivo == null) {
             throw new Exception("Debe indicar una foto");
         }
         if (idZona.isEmpty()) {
@@ -71,6 +74,7 @@ public class ExtraService {
             evento.setDireccion(direccion);
             evento.setEdad(edad);
             evento.setFecha(fecha);
+            Foto foto = fotoS.guardar(archivo);
             evento.setFoto(foto);
             evento.setNombre(nombre);
             //buscar zona con id
@@ -87,7 +91,7 @@ public class ExtraService {
 
     //Alta para la publicidad
     @Transactional
-    public void altaPublicidad(String nombre, String descripcion, Foto foto) throws Exception {
+    public void altaPublicidad(String nombre, String descripcion, MultipartFile archivo) throws Exception {
 
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -96,8 +100,7 @@ public class ExtraService {
         if (descripcion.isEmpty()) {
             throw new Exception("Debe indicar una descripcion");
         }
-
-        if (foto == null) {
+           if (archivo == null) {
             throw new Exception("Debe indicar una foto");
         }
 
@@ -105,7 +108,7 @@ public class ExtraService {
             Extra publicidad = new Extra();
 
             publicidad.setDescripcion(descripcion);
-
+            Foto foto = fotoS.guardar(archivo);
             publicidad.setFoto(foto);
             publicidad.setNombre(nombre);
             Date fechaPublicacion = new Date();
