@@ -32,7 +32,7 @@ public class ComercioService {
 
     //alta para los comercios
     @Transactional
-    public void alta(String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, boolean pago, Foto foto, String idZona, String usernameUsuario) throws Exception {
+    public void alta(String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, Foto foto, String idZona, String usernameUsuario) throws Exception {
 
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -69,12 +69,59 @@ public class ComercioService {
             comercio.setDireccion(direccion);
             comercio.setFoto(foto);
             comercio.setNombre(nombre);
-            comercio.setPago(pago);
             comercio.setRangoDeHorario(rangoDeHorario);
             comercio.setRangoEdadPublico(rangoEdadPublico);
             //buscar usuario con id
             Usuario usuario = usuarioR.getOne(usernameUsuario);
             comercio.setUsuario(usuario);
+            //buscar zona con id
+            Zona zona = zonaR.getOne(idZona);
+            comercio.setZona(zona);
+
+            repositorio.save(comercio);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+    
+      //alta para los comercios
+    @Transactional
+    public void modificarComercio(String id, String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, Foto foto, String idZona) throws Exception {
+
+        if (nombre.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+        if (rangoDeHorario.isEmpty()) {
+            throw new Exception("Debe indicar un rango de horario");
+        }
+        if (rubro == null) {
+            throw new Exception("Debe indicar un rubro");
+        }
+        if (direccion.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+        if (descripcion.isEmpty()) {
+            throw new Exception("Debe indicar una descripcion");
+        }
+        if (rangoEdadPublico.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+        if (foto == null) {
+            throw new Exception("Debe indicar una foto");
+        }
+        if (idZona.isEmpty()) {
+            throw new Exception("Debe indicar una zona");
+        }
+      
+        try {
+            Comercio comercio = repositorio.getOne(id);
+            comercio.setDescripcion(descripcion);
+            comercio.setDireccion(direccion);
+            comercio.setFoto(foto);
+            comercio.setNombre(nombre);
+            comercio.setRangoDeHorario(rangoDeHorario);
+            comercio.setRangoEdadPublico(rangoEdadPublico);
+            //buscar usuario con id
             //buscar zona con id
             Zona zona = zonaR.getOne(idZona);
             comercio.setZona(zona);
@@ -100,9 +147,26 @@ public class ComercioService {
         }
     }
     
+    public Comercio 
+    
     //lista de comercios
     public List lista(){
        return repositorio.listar(); 
+    }
+    
+    //lista de comercios por rubro
+     public List listaComerciosPorRubro(String rubro){
+       return repositorio.listarPorRubro(rubro); 
+    }
+    
+     //lista de comercios por zona
+     public List listaComerciosPorZona(String zona){
+       return repositorio.listarPorZona(zona); 
+    }
+     
+        //lista de comercios por usuario
+     public List listaComerciosPorUsuario(String usernameUsuario){
+       return repositorio.listarPorUsuario(usernameUsuario); 
     }
 
 }
