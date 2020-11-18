@@ -14,8 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface ComentarioRepositorio extends JpaRepository<Comentario,String> {
  @Query ("SELECT c FROM Comentario c WHERE c.comentario.nombre = :nombre")   
  public List<Comentario>buscarComentarioPorNombre (@Param("nombre")String nombre);
- @Query ("SELECT c FROM Usuario c WHERE baja is false")
- public ArrayList<Usuario> listar();
+ 
  
  }
 

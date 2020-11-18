@@ -14,7 +14,6 @@ public interface FotoRepositorio extends JpaRepository<Foto,String> {
 @Query ("SELECT c FROM Foto c WHERE c.foto.usuario = :usuario")   
  public List<Foto>buscarFotoPorUsuario (@Param("nombre")String nombre); 
  
- @Query ("SELECT c FROM Usuario c WHRE baja is false")
- public ArrayList<Usuario> listar();
+
  
 }
