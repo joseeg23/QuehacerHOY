@@ -27,6 +27,8 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio repositorio;
+    @Autowired
+    private NotificacionService notificacion;
 
     //alta usuario admin que es el comercio que hara su publicidad
     @Transactional
@@ -59,6 +61,9 @@ public class UsuarioService implements UserDetailsService {
             admin.setRol("ADMIN");
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
+            
+            notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
+                    + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
 
             repositorio.save(admin);
         } catch (Exception e) {
@@ -97,6 +102,8 @@ public class UsuarioService implements UserDetailsService {
             admin.setRol("SUPERADMIN");
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
+            
+             notificacion.enviar("BIENVENIDO superadmin", "Usted se ha registrado exitosamente", email);
 
             repositorio.save(admin);
         } catch (Exception e) {
