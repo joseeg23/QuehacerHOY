@@ -147,7 +147,16 @@ public class ComercioService {
         }
     }
     
-    public Comercio 
+    public Comercio buscarPorID(String idComercio) throws Exception{
+        Optional<Comercio> buscar = repositorio.findById(idComercio);
+        if (buscar.isPresent()) {
+            Comercio comercio = buscar.get();
+         return comercio;
+        } else {
+            throw new Exception("No se consiguio el comercio");
+          
+        }
+    }
     
     //lista de comercios
     public List lista(){
