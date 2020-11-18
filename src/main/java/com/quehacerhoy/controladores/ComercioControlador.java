@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,14 +25,14 @@ public class ComercioControlador {
 
     @Autowired
     private ComercioService comercioS;
-     @Autowired
+    @Autowired
     private ZonaService zonaS;
 
     @GetMapping("/registro")
     public String registroComercio(ModelMap modelo) {
         //ver como pasar los rubros
         List<Enum> rubros = Arrays.asList(Rubro.values());
-        modelo.put("rubros",rubros );
+        modelo.put("rubros", rubros);
         modelo.put("zonas", zonaS.listar());
         return "registrocomercio.html";
     }
@@ -43,7 +44,7 @@ public class ComercioControlador {
             @RequestParam String username) {
 
         try {
-            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico,  archivo, idZona, username);
+            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
             modelo.put("error", ex.getMessage());
@@ -59,6 +60,33 @@ public class ComercioControlador {
 
         modelo.put("descripcion", "El comercio se registró con éxito");
         return "index.html";
-        
+
+    }
+
+    //vista para ver los comercios 
+    @GetMapping("/listarPorRubro/{rubro}")
+    public String listarPorRubro(ModelMap modelo, @PathVariable(name = "rubro") String rubro) {
+        modelo.put("comercios", comercioS.listaComerciosPorRubro(rubro));
+        return "";
+    }
+    //por zona
+    @GetMapping("/listarPorZona/{zona}")
+    public String listarPorZona(ModelMap modelo, @PathVariable(name = "zona") String zona) {
+        modelo.put("comercios", comercioS.listaComerciosPorZona(zona));
+        return "";
+    }
+
+    //vista de cuando eligen el comercio en si
+    @GetMapping("/verPerfilComercio/{id}")
+    public String verComercio(ModelMap modelo, @PathVariable(name = "id") String id) {
+        try {
+            modelo.put("comercio", comercioS.buscarPorID(id));
+            return "";
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+
     }
 }

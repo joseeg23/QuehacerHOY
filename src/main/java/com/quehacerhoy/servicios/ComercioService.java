@@ -92,8 +92,8 @@ public class ComercioService {
 
     //alta para los comercios
     @Transactional
-    public void modificarComercio(String id, String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona) throws Exception {
-
+    public void modificarComercio(String username, String id, String nombre, String rangoDeHorario, Rubro rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona) throws Exception {
+        //verificar que este modificando el comercio la persona que lo creo
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
         }
@@ -121,12 +121,16 @@ public class ComercioService {
 
         try {
             Comercio comercio = repositorio.getOne(id);
+            
+            if (comercio.getUsuario().getUsername() == null ? username != null : !comercio.getUsuario().getUsername().equals(username)) {
+                throw new Exception("usurio no permitido");
+            }
             comercio.setDescripcion(descripcion);
             comercio.setDireccion(direccion);
             comercio.setNombre(nombre);
             comercio.setRangoDeHorario(rangoDeHorario);
             comercio.setRangoEdadPublico(rangoEdadPublico);
-            //buscar usuario con id
+
             //buscar zona con id
             Zona zona = zonaR.getOne(idZona);
             comercio.setZona(zona);
