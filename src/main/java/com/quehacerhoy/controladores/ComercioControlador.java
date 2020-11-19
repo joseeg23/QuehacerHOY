@@ -2,6 +2,7 @@ package com.quehacerhoy.controladores;
 
 import com.quehacerhoy.entidades.Foto;
 import com.quehacerhoy.servicios.ComercioService;
+import com.quehacerhoy.servicios.ZonaService;
 import com.quehacerhoy.utilidades.Rubro;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ComercioControlador {
         //ver como pasar los rubros
         List<Enum> rubros = Arrays.asList(Rubro.values());
         modelo.put("rubros", rubros);
-        modelo.put("zonas", zonaS.listar());
+        modelo.put("zonas", zonaS.listarZona());
         return "registrocomercio.html";
     }
 

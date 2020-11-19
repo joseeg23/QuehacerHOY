@@ -110,6 +110,43 @@ public class UsuarioService implements UserDetailsService {
             throw new Exception(e.getMessage());
         }
     }
+        //MODIFICA USUARIO SEA ADMIN O SUPERADMIN 
+    @Transactional
+    public void modificarUsuario(String username, String nombre, String apellido, String email, String clave, String clave2) throws Exception {
+        if (username.isEmpty()) {
+            throw new Exception("Debe indicar un username");
+        }
+        if (nombre.isEmpty()) {
+            throw new Exception("Debe indicar su nombre");
+        }
+        if (apellido.isEmpty()) {
+            throw new Exception("Debe indicar su apellido");
+        }
+        if (email.isEmpty()) {
+            throw new Exception("Debe indicar un email valido");
+        }
+        if (clave.isEmpty() || clave.length() < 5) {
+            throw new Exception("La contraseña no debe estar vacio y debe tener al menos 5 caracteres");
+        }
+        if(clave == null ? clave2 != null : !clave.equals(clave2)){
+             throw new Exception("La contraseñas no coinciden");
+        }
+        
+        try {
+            Usuario admin = repositorio.getOne(username);
+
+            admin.setNombre(nombre);
+            admin.setApellido(apellido);
+            admin.setEmail(email);
+            String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
+            admin.setClave(claveEncriptada);
+
+             notificacion.enviar("MODIFICACION DE USUARIO", "Usted HA MODIFICADO SU PERFIL CORRECTAMENTE", email);
+            repositorio.save(admin);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 
     //lista de usuarios admin
     public List lista() {
