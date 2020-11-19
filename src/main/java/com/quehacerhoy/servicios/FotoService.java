@@ -2,6 +2,7 @@
 package com.quehacerhoy.servicios;
 
 import com.quehacerhoy.entidades.Foto;
+import com.quehacerhoy.repositorios.FotoRepositorio;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

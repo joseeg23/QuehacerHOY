@@ -2,6 +2,7 @@
 package com.quehacerhoy.servicios;
 
 import com.quehacerhoy.entidades.Comercio;
+import com.quehacerhoy.repositorios.ComentarioRepositorio;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service    
 public class ComentarioService {
     @Autowired
-    private comentarioRepositorio comentarioRepositorio;
+    private ComentarioRepositorio comentarioRepositorio;
 
     @Transactional
     public void altaComentario(String email, String descripcion, Comercio comercio) throws ErrorService {
