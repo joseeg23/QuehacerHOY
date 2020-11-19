@@ -48,13 +48,13 @@ public class ComentarioService {
         }
     
     
-    public List <Comentario> listarComentario () throws ErrorService{
+    public List <Comentario> listarComentario () {
            
         return comentarioRepositorio.findAll();
         
         }
         
-    public List <Comentario> listarComentarioPorComercio (String idComercio) throws ErrorService{
+    public List <Comentario> listarComentarioPorComercio (String idComercio) {
            
         return comentarioRepositorio.listarporcomercio(idComercio);
         

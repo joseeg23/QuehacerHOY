@@ -62,7 +62,7 @@ public class ZonaService {
         }
     
     
-    public List <Zona> listarZona (String id) throws ErrorService{
+    public List <Zona> listarZona (){
            
         return zonaRepositorio.findAll();
         
