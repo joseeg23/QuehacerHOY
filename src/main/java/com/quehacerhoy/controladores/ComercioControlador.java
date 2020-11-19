@@ -90,4 +90,9 @@ public class ComercioControlador {
         }
 
     }
+     @GetMapping("/listarPorUsuario/{username}")
+    public String listarPorUsuario(ModelMap modelo, @PathVariable(name = "username") String username) {
+        modelo.put("comercios", comercioS.listaComerciosPorUsuario(username));
+        return "";
+    }
 }
