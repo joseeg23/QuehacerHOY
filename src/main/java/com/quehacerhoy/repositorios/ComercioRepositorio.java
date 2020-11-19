@@ -16,12 +16,11 @@ public interface ComercioRepositorio extends JpaRepository<Comercio,String> {
  public List<Comercio>buscarComercioPorZona (@Param("nombre")String nombre);
  
  @Query ("SELECT c FROM Comercio c WHERE c.rubro = :rubro")   
- public List<Comercio>buscarComercioPorRubro (@Param("nombre")String nombre);
+ public List<Comercio>buscarComercioPorRubro (@Param("rubro")String rubro);
  
  @Query ("SELECT c FROM Comercio c WHERE c.usuario = :usuario")   
  public List<Comercio>buscarComercioPorUsuario (@Param("nombre")String nombre);
  
- @Query("SELECT c FROM Usuario c WHERE baja is false")
- public ArrayList<Usuario> listar();
+
  
 }

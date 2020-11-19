@@ -17,7 +17,6 @@ public interface ZonaRepositorio extends JpaRepository<Zona,String>{
  @Query ("SELECT c FROM Zona c WHERE c.zona.comercio = :comercio")   
  public List<Zona>buscarZonaPorComercio (@Param("comercio")String comercio); 
 
- @Query ("SELECT c FROM Usuario c WHERE baja is false")
- public ArrayList<Usuario> listar();
+ 
  
 }

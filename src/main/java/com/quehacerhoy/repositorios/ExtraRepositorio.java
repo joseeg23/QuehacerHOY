@@ -14,7 +14,6 @@ public interface ExtraRepositorio extends JpaRepository<Extra,String> {
     @Query ("SELECT c FROM Extra c WHERE c.extra.nombre = :nombre")   
  public List<Extra>buscarExtraPorNombre (@Param("nombre")String nombre);
  
-   @Query ("SELECT c FROM Usuario c WHERE BAJA IS FALSE")
-   public ArrayList<Usuario> listar();
+  
    
 }
