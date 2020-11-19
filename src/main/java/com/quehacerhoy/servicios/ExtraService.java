@@ -82,6 +82,73 @@ public class ExtraService {
             evento.setZona(zona);
 
             Usuario usuario = usuarioR.getOne(usernameUsuario);
+            evento.setUsuario(usuario);
+            repositorio.save(evento);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Transactional
+    public void modificarEvento(String id, String nombre, String descripcion, String direccion, String edad, String hora, String capacidad, Date fecha, MultipartFile archivo, String idZona, String usernameUsuario) throws Exception {
+
+        if (id == null) {
+            throw new Exception("id nulo");
+        }
+        if (nombre.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+
+        if (descripcion.isEmpty()) {
+            throw new Exception("Debe indicar una descripcion");
+        }
+        if (edad.isEmpty()) {
+            throw new Exception("Debe indicar una edad referencial");
+        }
+        if (hora.isEmpty()) {
+            throw new Exception("Debe indicar la hora del evento");
+        }
+
+        if (capacidad.isEmpty()) {
+            throw new Exception("Debe indicar la capacidad del evento");
+        }
+
+        if (fecha == null) {
+            throw new Exception("Debe indicar una fecha valida");
+        }
+        if (archivo == null) {
+            throw new Exception("Debe indicar una foto");
+        }
+        if (idZona.isEmpty()) {
+            throw new Exception("Debe indicar una zona");
+        }
+        if (usernameUsuario.isEmpty()) {
+            throw new Exception("Debe indicar un usuario");
+        }
+
+        try {
+            Extra evento = repositorio.getOne(id);
+            if (!evento.getUsuario().getUsername().equals(usernameUsuario)) {
+                throw new Exception("Usuario no permitido, no es el autor");
+            }
+
+            evento.setCapacidad(capacidad);
+            evento.setDescripcion(descripcion);
+            evento.setDireccion(direccion);
+            evento.setEdad(edad);
+            evento.setFecha(fecha);
+            //se actualiza la foto
+            String idFoto = null;
+            if (evento.getFoto().getId() != null) {
+                idFoto = evento.getFoto().getId();
+            }
+            Foto foto = fotoS.actualizar(idFoto, archivo);
+            evento.setFoto(foto);
+
+            evento.setNombre(nombre);
+            //buscar zona con id
+            Zona zona = zonaR.getOne(idZona);
+            evento.setZona(zona);
 
             repositorio.save(evento);
         } catch (Exception e) {
@@ -91,7 +158,8 @@ public class ExtraService {
 
     //Alta para la publicidad
     @Transactional
-    public void altaPublicidad(String nombre, String descripcion, MultipartFile archivo) throws Exception {
+    public void altaPublicidad(String nombre, String descripcion,
+            MultipartFile archivo, String usernameUsuario) throws Exception {
 
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -100,8 +168,11 @@ public class ExtraService {
         if (descripcion.isEmpty()) {
             throw new Exception("Debe indicar una descripcion");
         }
-           if (archivo == null) {
+        if (archivo == null) {
             throw new Exception("Debe indicar una foto");
+        }
+        if (usernameUsuario.isEmpty()) {
+            throw new Exception("Debe indicar un usuario");
         }
 
         try {
@@ -113,6 +184,8 @@ public class ExtraService {
             publicidad.setNombre(nombre);
             Date fechaPublicacion = new Date();
             publicidad.setFecha(fechaPublicacion);
+            Usuario usuario = usuarioR.getOne(usernameUsuario);
+            publicidad.setUsuario(usuario);
 
             repositorio.save(publicidad);
         } catch (Exception e) {
@@ -120,7 +193,55 @@ public class ExtraService {
         }
     }
 
+    @Transactional
+    public void modificarPublicidad(String id, String nombre, String descripcion,
+            MultipartFile archivo, String usernameUsuario) throws Exception {
+
+        if (id == null) {
+            throw new Exception("id nulo");
+        }
+        if (nombre.isEmpty()) {
+            throw new Exception("Debe indicar un nombre");
+        }
+
+        if (descripcion.isEmpty()) {
+            throw new Exception("Debe indicar una descripcion");
+        }
+        if (archivo == null) {
+            throw new Exception("Debe indicar una foto");
+        }
+        if (usernameUsuario.isEmpty()) {
+            throw new Exception("Debe indicar un usuario");
+        }
+
+        try {
+            Extra publicidad = repositorio.getOne(id);
+
+            if (!publicidad.getUsuario().getUsername().equals(usernameUsuario)) {
+                throw new Exception("Usuario no permitido, no es el autor");
+            }
+
+            publicidad.setDescripcion(descripcion);
+            String idFoto = null;
+            if (publicidad.getFoto().getId() != null) {
+                idFoto = publicidad.getFoto().getId();
+            }
+            Foto foto = fotoS.actualizar(idFoto, archivo);
+            publicidad.setFoto(foto);
+
+            publicidad.setNombre(nombre);
+            Date fechaPublicacion = new Date();
+            publicidad.setFecha(fechaPublicacion);
+            Usuario usuario = usuarioR.getOne(usernameUsuario);
+            publicidad.setUsuario(usuario);
+
+            repositorio.save(publicidad);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
     //lista de eventos
+
     public List lista() {
         return repositorio.listar();
     }
