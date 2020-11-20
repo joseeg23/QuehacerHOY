@@ -23,7 +23,7 @@ public class ExtraControlador {
     private ExtraServicio extraServicio;
     
     
-    
+    //Alta evento
     @GetMapping("/registroevento")
     public String registroEvento (){
         modelo.put("zonas", zonaS.listarZona());
@@ -66,7 +66,7 @@ public class ExtraControlador {
     }
     
    
-    
+    //Alta publicidad
     @GetMapping("/registropublicidad")
       
         public String registrarPublicidad (ModelMap modelo) {
@@ -96,6 +96,54 @@ public class ExtraControlador {
         
     }
     
+    //Baja evento
+    @GetMapping("eliminarevento/{id}")
+    public String eliminarEvento(ModelMap modelo, String id){
+        modelo.put("evento", eventoServicio.buscarPorId(id));
+        return "eliminarevento.html";
+    }
+    
+    @PostMapping("eliminarevento/{id}")
+    public String eliminarEvento1 (ModelMap modelo, @RequestParam String id){
+       
+           try {
+               extraServicio.buscarPorId(id).eliminar;
+               
+               
+           } catch (Exception) {
+               
+               modelo.put("mensaje", "Algo salió mal, vuelva a intentarlo");
+               modelo.put("evento", id);
+               return "eliminarevento.html";
+           } 
+        modelo.put("mensaje", "El evento se eliminó con éxito");
+        return "index.html";
+    }
+    
+    //Baja publicidad
+    @GetMapping("eliminarpublicidad/{id}")
+    public String eliminarPublicidad (ModelMap modelo, String id){
+        modelo.put("publicidad", extraServicio.buscarPorId(id));
+        return "eliminarpublicidad.html";
+    }
+    
+    @PostMapping("eliminarpublicidad/{id}")
+    public String eliminarPublicidad1 (ModelMap modelo, @RequestParam String id){
+       
+           try {
+                extraServicio.buscarPorId(id).eliminar;
+               
+               
+           } catch {
+               
+               modelo.put("mensaje", "Algo salió mal, vuelva a intentarlo");
+               modelo.put("publicidad", id);
+               return "eliminarpublicidad.html";
+           } 
+        modelo.put("mensaje", "La publicidad se eliminó con éxito");
+        return "index.html";
+    }
+    
     @GetMapping("/listar")
     public String listarEventos(ModelMap modelo){
         modelo.put("extras", extraServicio.listar());
@@ -106,5 +154,7 @@ public class ExtraControlador {
     public String verExtra (ModelMap modelo, @PathVariable(name="id") String id){
         modelo.put("extra", extraServicio.buscarPorId(id));
         return "listarevento.hmtl";
-    } 
+    }
+    
+    
 }
