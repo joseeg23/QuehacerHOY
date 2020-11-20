@@ -2,6 +2,7 @@
 package com.quehacerhoy.servicios;
 
 import com.quehacerhoy.entidades.Comercio;
+import com.quehacerhoy.repositorios.ComentarioRepositorio;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -13,18 +14,18 @@ import org.springframework.stereotype.Service;
 @Service    
 public class ComentarioService {
     @Autowired
-    private comentarioRepositorio comentarioRepositorio;
+    private ComentarioRepositorio comentarioRepositorio;
 
     @Transactional
-    public void altaComentario(String email, String descripcion, Comercio comercio) throws ErrorService {
+    public void altaComentario(String email, String descripcion, String idComercio) throws ErrorService {
 
-        validarComentario(email, descripcion, comercio);
+        validarComentario(email, descripcion, idComercio);
 
         Comentario comentario = new Comentario();
         
         comentario.setMail(email);
         comentario.setDescripcion (descripcion);
-        comentario.setComercio(comercio);
+        comentario.setComercio(idComercio);
 
         comentarioRepositorio.save(comentario);
 
@@ -47,13 +48,13 @@ public class ComentarioService {
         }
     
     
-    public List <Comentario> listarComentario () throws ErrorService{
+    public List <Comentario> listarComentario () {
            
         return comentarioRepositorio.findAll();
         
         }
         
-    public List <Comentario> listarComentarioPorComercio (String idComercio) throws ErrorService{
+    public List <Comentario> listarComentarioPorComercio (String idComercio) {
            
         return comentarioRepositorio.listarporcomercio(idComercio);
         
@@ -61,7 +62,7 @@ public class ComentarioService {
     
        
 
-    public void validarComentario(String email, String descripcion, Comercio comercio) throws ErrorService {
+    public void validarComentario(String email, String descripcion, String idComercio) throws ErrorService {
         if (email == null || email.isEmpty()) {
             throw new ErrorService("El email no puede ser nulo ni vacio");
 
@@ -70,8 +71,8 @@ public class ComentarioService {
             throw new ErrorService("La descripcion no puede ser nulo ni vacio");
 
         }
-        if (comercio == null ) {
-            throw new ErrorService("Debe especificar el comercio sobre el que realizará el comentario");
+        if (idComercio == null ) {
+            throw new ErrorService("Debe especificar el ID comercio sobre el que realizará el comentario");
 
         }
 
