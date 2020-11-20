@@ -89,7 +89,7 @@ public class UsuarioService implements UserDetailsService {
         if (clave.isEmpty() || clave.length() < 5) {
             throw new Exception("La contraseña no debe estar vacio y debe tener al menos 5 caracteres");
         }
-         if(clave !=clave2){
+         if(!clave.equals(clave2)){
              throw new Exception("La contraseñas no coinciden");
         } 
          
@@ -149,7 +149,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
     //lista de usuarios admin
-    public List lista() {
+    public List listaAdministradores() {
         return repositorio.listarAdmin();
     }
 

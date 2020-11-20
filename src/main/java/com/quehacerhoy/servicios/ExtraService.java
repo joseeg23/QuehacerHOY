@@ -14,6 +14,7 @@ import com.quehacerhoy.repositorios.UsuarioRepositorio;
 import com.quehacerhoy.repositorios.ZonaRepositorio;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -240,9 +241,20 @@ public class ExtraService {
             throw new Exception(e.getMessage());
         }
     }
-    //lista de eventos
+//busca un evento, esto es para la vista para detallar los eventos
+    public Extra buscarPorId(String id) throws Exception{
+        Optional<Extra> optional = repositorio.findById(id);
+        
+        if(optional.isPresent()){
+            Extra extra = optional.get();
+            return extra;
+        }else{
+            throw new Exception("no se consiguio el extra");
+        }
+    }
 
-    public List lista() {
+    //lista de eventos
+    public List listar() {
         return repositorio.listar();
     }
 
