@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FotoRepositorio extends JpaRepository<Foto,String> {
-@Query ("SELECT c FROM Foto c WHERE c.foto.usuario = :usuario")   
- public List<Foto>buscarFotoPorUsuario (@Param("nombre")String nombre); 
+@Query ("SELECT u FROM Usuario u WHERE u.username = :username")   
+ public Foto buscarFotoPorUsuario (@Param("username")String username); 
  
 
  
