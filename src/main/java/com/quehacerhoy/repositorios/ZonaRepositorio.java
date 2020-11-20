@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ZonaRepositorio extends JpaRepository<Zona,String>{
-@Query ("SELECT c FROM Zona c WHERE c.zona.nombre = :nombre")   
+@Query ("SELECT c FROM Zona c WHERE c.nombre = :nombre")   
  public Zona buscarZonaPorNombre (@Param("nombre")String nombre);
  
 

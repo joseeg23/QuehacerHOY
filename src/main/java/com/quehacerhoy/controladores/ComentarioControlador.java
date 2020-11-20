@@ -50,7 +50,7 @@ public class ComentarioControlador {
 
     }
     
-    //Baja Comentario
+    Baja Comentario
     @GetMapping("/bajacomentario/{id}")
     public String bajaComentario (ModelMap modelo, @PathVariable String id){
         try{
