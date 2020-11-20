@@ -255,7 +255,7 @@ public class ExtraService {
 
     //lista de eventos
     public List listar() {
-        return repositorio.listar();
+        return repositorio.listarExtras();
     }
 
 }
