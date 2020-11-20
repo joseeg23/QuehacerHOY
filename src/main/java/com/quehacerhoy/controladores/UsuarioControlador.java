@@ -1,6 +1,8 @@
 
 package com.quehacerhoy.controladores;
 
+
+import com.quehacerhoy.servicios.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +17,7 @@ public class UsuarioControlador {
     
     //Inicializar un usuario
     @Autowired
-    private UsuarioServicio usuarioServicio;
+    private UsuarioService usuarioServicio;
     
     // /usuario/registro
     
@@ -27,22 +29,22 @@ public class UsuarioControlador {
     //Registro Admin
     @PostMapping("/registrarAdmin")
     public String registrarAdmin (
-            ModelMap model,
+            ModelMap modelo,
+            @RequestParam String username,
             @RequestParam String nombre, 
             @RequestParam String apellido, 
             @RequestParam String mail,
-            @RequestParam Long telefono,
             @RequestParam String clave, 
             @RequestParam String clave2){
         
         try {
-            usuarioServicio.registrar(nombre, apellido, mail, telefono, clave, clave2);
-        } catch {
+            usuarioServicio.altaAdmin(username, nombre, apellido, mail, clave, clave2);
+        } catch (Exception e) {
                 modelo.put("error", e.getMessage());
+                modelo.put("username", username);
 		modelo.put("nombre", nombre);
                 modelo.put("apellido", apellido);
 		modelo.put("mail", mail);
-		modelo.put("telefono", telefono);
 		modelo.put("clave", clave);
                 modelo.put("clave2", clave2);
                 
@@ -53,30 +55,30 @@ public class UsuarioControlador {
     
     @GetMapping("/registroSuperAdmin/262628")
     public String registroSuperAdmin (){
-        return "registroSuperAdmin.html"
+        return "registroSuperAdmin.html";
     }
     
     //Validar mail, es decir buscar la forma para
     
-    //Registro Admin
+    //Registro SuperAdmin
     @PostMapping("/registrarSuperAdmin")
     public String registrarSuperAdmin (
-            ModelMap model,
+                      ModelMap modelo,
+            @RequestParam String username,
             @RequestParam String nombre, 
             @RequestParam String apellido, 
             @RequestParam String mail,
-            @RequestParam Long telefono,
             @RequestParam String clave, 
             @RequestParam String clave2){
         
         try {
-            usuarioServicio.registrar(nombre, apellido, mail, telefono, clave, clave2);
-        } catch {
+            usuarioServicio.altaSuperadmin(username, nombre, apellido, mail, clave, clave2);
+        } catch (Exception e) {
                 modelo.put("error", e.getMessage());
+                modelo.put("username", username);
 		modelo.put("nombre", nombre);
                 modelo.put("apellido", apellido);
 		modelo.put("mail", mail);
-		modelo.put("telefono", telefono);
 		modelo.put("clave", clave);
                 modelo.put("clave2", clave2);
                 

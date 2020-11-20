@@ -1,6 +1,7 @@
 
 package com.quehacerhoy.controladores;
 
+import com.quehacerhoy.servicios.FotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -8,13 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/foto")
 public class FotoControlador {
     
     @Autowired
-    private FotoServicio fotoServicio;
+    private FotoService fotoServicio;
     
     @GetMapping("/registrar")
     public String registrarFoto(){
@@ -24,16 +26,14 @@ public class FotoControlador {
     @PostMapping("/registrar")
     public String registrarFoto(
         ModelMap modelo,
-        @RequestParam String nombre,
-        @RequestParam String mime){
+        @RequestParam MultipartFile archivo){
         
         try {
-            fotoServicio.registrar(nombre, mime);
-        } catch {
+            fotoServicio.guardar(archivo);
+        } catch (Exception e) {
             
             modelo.put("error", e.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("mime", mime);
+            
             
             return "registrarfoto.html";
         }
