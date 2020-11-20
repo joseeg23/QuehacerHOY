@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,10 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ExtraControlador {
     
     @Autowired
+    private ZonaServicio zonaServicio;
+    
+    @Autowired
     private ExtraServicio extraServicio;
+    
+    
     
     @GetMapping("/registroevento")
     public String registroEvento (){
+        modelo.put("zonas", zonaS.listarZona());
         return "registroevento.html";
     } 
     
@@ -33,11 +40,11 @@ public class ExtraControlador {
             @RequestParam String hora,
             @RequestParam String capacidad,
             @RequestParam Date fecha,
-            @RequestParam Foto foto,
+            @RequestParam MultipartFile archivo,
             @RequestParam String idZona) {
         
         try {
-            extraServicio.registrar(nombre, descripcion, direccion, edad, hora, capacidad, fecha, foto, idZona);
+            extraServicio.registrar(nombre, descripcion, direccion, edad, hora, capacidad, fecha, archivo, idZona);
         } catch {
             
                 modelo.put("error", e.getMessage());
@@ -47,7 +54,7 @@ public class ExtraControlador {
 		modelo.put("hora", hora);
 		modelo.put("capacidad", capacidad);
                 modelo.put("fecha", fecha);
-                modelo.put("foto", foto);
+                modelo.put("foto", archivo);
                 modelo.put("idZona", idZona);
                 
                 return "registroevento.html";
@@ -61,6 +68,13 @@ public class ExtraControlador {
    
     
     @GetMapping("/registropublicidad")
+      
+        public String registrarPublicidad (ModelMap modelo) {
+            modelo.put("zonas", zonaS.listarZona());
+            return "registropublicidad.html";
+        }
+    
+    @PostMapping("registropublicidad")
     public String registroPublicidad(
             ModelMap modelo,
             @RequestParam String nombre,
@@ -77,9 +91,20 @@ public class ExtraControlador {
             return "registropublicidad.html";
         }
         
-        return "index.html";
         modelo.put("descripcion", "Te registraste con éxito");
+        return "index.html";
+        
     }
     
+    @GetMapping("/listar")
+    public String listarEventos(ModelMap modelo){
+        modelo.put("extras", extraServicio.listar());
+        return "listar.html";
+    }
     
+    @GetMapping("/verextra/{id}")
+    public String verExtra (ModelMap modelo, @PathVariable(name="id") String id){
+        modelo.put("extra", extraServicio.buscarPorId(id));
+        return "listarevento.hmtl";
+    } 
 }
