@@ -44,5 +44,23 @@ public class ZonaControlador {
         }
 
     }
+    
+     @GetMapping("/modificar")
+    public String modificar(ModelMap modelo) {
+        modelo.put("zonas", zonaS.listarZona());
+        return "";
+    }
+    
+     @PostMapping("/modifico")
+    public String modifico(@RequestParam String idZona, @RequestParam String nombre) {
+        try {
+            zonaS.modificarZona(idZona, nombre);
+            return "";
+        } catch (ErrorService ex) {
+            Logger.getLogger(ZonaControlador.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+
+    }
 
 }

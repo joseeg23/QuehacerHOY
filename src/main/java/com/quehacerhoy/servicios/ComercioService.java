@@ -174,7 +174,7 @@ public class ComercioService {
         }
     }
 
-    //lista de comercios
+//    lista de comercios
     public List lista() {
         return repositorio.listar();
     }
