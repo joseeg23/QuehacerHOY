@@ -31,7 +31,8 @@ public class Comercio implements Serializable {
     private String descripcion; //breve resumen de lo que se ofrece
     private String rangoEdadPublico;
     private boolean pago;
-
+    private String puntuacion;
+    
     @Temporal(TemporalType.DATE)
     private Date alta;
     @Temporal(TemporalType.DATE)
