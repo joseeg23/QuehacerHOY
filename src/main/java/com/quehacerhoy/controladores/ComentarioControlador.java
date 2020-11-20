@@ -1,5 +1,6 @@
 package com.quehacerhoy.controladores;
 
+import com.quehacerhoy.servicios.ComentarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ComentarioControlador {
 
     @Autowired
-    private ComentarioServicio comentarioServicio;
+    private ComentarioService comentarioServicio;
 
     @GetMapping("/registrar")
     public String registrarComentario() {
@@ -23,14 +24,15 @@ public class ComentarioControlador {
     @PostMapping("/registrar")
     public String registrarComentario(
             ModelMap modelo,
+            @RequestParam String idComercio,
             @RequestParam String email,
             @RequestParam String descripcion) {
 
         try {
             
-            comentarioServicio.registrar(email, descripcion);
+            comentarioServicio.altaComentario(email, descripcion, idComercio);
 
-        } catch {
+        } catch (Exception e) {
             
             modelo.put("error", e.getMessage());
             modelo.put("email", email);

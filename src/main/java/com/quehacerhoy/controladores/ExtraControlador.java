@@ -2,7 +2,12 @@
 package com.quehacerhoy.controladores;
 
 import com.quehacerhoy.entidades.Foto;
+import com.quehacerhoy.servicios.ExtraService;
+import com.quehacerhoy.servicios.ZonaService;
+import com.quehacerhoy.utilidades.Fecha;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,22 +16,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/extra")
 public class ExtraControlador {
     
     @Autowired
-    private ZonaServicio zonaServicio;
+    private ZonaService zonaServicio;
     
     @Autowired
-    private ExtraServicio extraServicio;
+    private ExtraService extraServicio;
     
     
     //Alta evento
     @GetMapping("/registroevento")
-    public String registroEvento (){
-        modelo.put("zonas", zonaS.listarZona());
+    public String registroEvento (ModelMap modelo){
+        modelo.put("zonas", zonaServicio.listarZona());
         return "registroevento.html";
     } 
     
@@ -39,13 +45,15 @@ public class ExtraControlador {
             @RequestParam String edad,
             @RequestParam String hora,
             @RequestParam String capacidad,
-            @RequestParam Date fecha,
+            @RequestParam String fecha,
             @RequestParam MultipartFile archivo,
-            @RequestParam String idZona) {
+            @RequestParam String idZona,
+            @RequestParam String username) {
         
         try {
-            extraServicio.registrar(nombre, descripcion, direccion, edad, hora, capacidad, fecha, archivo, idZona);
-        } catch {
+            Date fecha2 = Fecha.parseFechaGuiones(fecha);
+            extraServicio.altaEvento(nombre, descripcion, direccion, edad, hora, capacidad, fecha2, archivo, idZona, username);
+        } catch (Exception e){
             
                 modelo.put("error", e.getMessage());
 		modelo.put("nombre", nombre);
@@ -67,26 +75,27 @@ public class ExtraControlador {
     
    
     //Alta publicidad
-    @GetMapping("/registropublicidad")
+    @GetMapping("/registrarpublicidad")
       
         public String registrarPublicidad (ModelMap modelo) {
-            modelo.put("zonas", zonaS.listarZona());
+            modelo.put("zonas", zonaServicio.listarZona());
             return "registropublicidad.html";
         }
     
-    @PostMapping("registropublicidad")
+    @PostMapping("/registropublicidad")
     public String registroPublicidad(
             ModelMap modelo,
             @RequestParam String nombre,
             @RequestParam String descripcion,
-            @RequestParam Foto foto) {
+            @RequestParam MultipartFile archivo,
+            @RequestParam String username) {
         try {
-            extraServicio.registrar(nombre, descripcion, foto);
-        } catch {
+            extraServicio.altaPublicidad(nombre, descripcion, archivo, username);
+        } catch (Exception e) {
             modelo.put("error", e.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("descripcion", descripcion);
-            modelo.put("foto", foto);
+            
             
             return "registropublicidad.html";
         }
@@ -97,23 +106,28 @@ public class ExtraControlador {
     }
     
     //Baja evento
-    @GetMapping("eliminarevento/{id}")
-    public String eliminarEvento(ModelMap modelo, String id){
-        modelo.put("evento", eventoServicio.buscarPorId(id));
+    @GetMapping("/eliminarevento/{id}")
+    public String eliminarEvento(ModelMap modelo, @PathVariable String id){
+        try {
+            modelo.put("evento", extraServicio.buscarPorId(id));
+        } catch (Exception ex) {
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, ex);
+            return "eliminarevento.html";
+        }
         return "eliminarevento.html";
     }
     
-    @PostMapping("eliminarevento/{id}")
+    @PostMapping("/eliminarevento")
     public String eliminarEvento1 (ModelMap modelo, @RequestParam String id){
        
            try {
-               extraServicio.buscarPorId(id).eliminar;
+               //extraServicio.eliminar(id);
                
                
-           } catch (Exception) {
+           } catch (Exception e) {
                
-               modelo.put("mensaje", "Algo salió mal, vuelva a intentarlo");
-               modelo.put("evento", id);
+               modelo.put("mensaje", e.getMessage());
+               
                return "eliminarevento.html";
            } 
         modelo.put("mensaje", "El evento se eliminó con éxito");
@@ -123,7 +137,12 @@ public class ExtraControlador {
     //Baja publicidad
     @GetMapping("eliminarpublicidad/{id}")
     public String eliminarPublicidad (ModelMap modelo, String id){
-        modelo.put("publicidad", extraServicio.buscarPorId(id));
+        try {
+            modelo.put("publicidad", extraServicio.buscarPorId(id));
+        } catch (Exception ex) {
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, ex);
+            return "eliminarpublicidad.html";
+        }
         return "eliminarpublicidad.html";
     }
     
@@ -131,10 +150,10 @@ public class ExtraControlador {
     public String eliminarPublicidad1 (ModelMap modelo, @RequestParam String id){
        
            try {
-                extraServicio.buscarPorId(id).eliminar;
+                //extraServicio.eliminar(id);
                
                
-           } catch {
+           } catch (Exception e) {
                
                modelo.put("mensaje", "Algo salió mal, vuelva a intentarlo");
                modelo.put("publicidad", id);
@@ -152,7 +171,12 @@ public class ExtraControlador {
     
     @GetMapping("/verextra/{id}")
     public String verExtra (ModelMap modelo, @PathVariable(name="id") String id){
-        modelo.put("extra", extraServicio.buscarPorId(id));
+        try {
+            modelo.put("extra", extraServicio.buscarPorId(id));
+        } catch (Exception ex) {
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, ex);
+            return "listarevento.html";
+        }
         return "listarevento.hmtl";
     }
     
