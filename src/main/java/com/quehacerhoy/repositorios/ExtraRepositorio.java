@@ -11,8 +11,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExtraRepositorio extends JpaRepository<Extra,String> {
-    @Query ("SELECT c FROM Extra c WHERE c.extra.nombre = :nombre")   
- public List<Extra>buscarExtraPorNombre (@Param("nombre")String nombre);
+    @Query ("SELECT c FROM Extra c")   
+ public List<Extra> listarExtras ();
+ 
+ @Query ("SELECT c FROM Extra c WHERE c.id = :id")
+ public Extra buscarPorId (@Param("id") String id);
  
   
    

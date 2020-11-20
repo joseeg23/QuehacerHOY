@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario,String> {
- @Query ("SELEC c FROM Usuario c WHERE baja is false")
+ @Query ("SELEC c FROM Usuario c WHERE baja is not null")
  public ArrayList<Usuario> listar();
  
  @Query ("SELECT c FROM Usuario c WHERE c.rol Like 'ADMIN'")
