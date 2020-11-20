@@ -1,8 +1,10 @@
 
 package com.quehacerhoy.servicios;
 
+import com.quehacerhoy.entidades.Comentario;
 import com.quehacerhoy.entidades.Comercio;
 import com.quehacerhoy.repositorios.ComentarioRepositorio;
+import com.quehacerhoy.repositorios.ComercioRepositorio;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 public class ComentarioService {
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
+    @Autowired 
+    private ComercioRepositorio comercioRepositorio;
 
     @Transactional
     public void altaComentario(String email, String descripcion, String idComercio) throws ErrorService {
@@ -23,9 +27,12 @@ public class ComentarioService {
 
         Comentario comentario = new Comentario();
         
-        comentario.setMail(email);
+        comentario.setEmail(email);
         comentario.setDescripcion (descripcion);
-        comentario.setComercio(idComercio);
+        
+        Comercio c = comercioRepositorio.getOne(idComercio);
+        
+        comentario.setComercio(c);
 
         comentarioRepositorio.save(comentario);
 
@@ -56,7 +63,7 @@ public class ComentarioService {
         
     public List <Comentario> listarComentarioPorComercio (String idComercio) {
            
-        return comentarioRepositorio.listarporcomercio(idComercio);
+        return comentarioRepositorio.listarComentarioPorComercio(idComercio);
         
         }
     
