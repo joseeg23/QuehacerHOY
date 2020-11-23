@@ -73,6 +73,10 @@ body {
   outline: 0 !important;
 }
 
+button[type="submit"] {
+  background-color: rgb(0, 0, 0);
+}
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -7385,7 +7389,7 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: -webkit-sticky) or (position: sticky)) {
   .sticky-top {
     position: -webkit-sticky;
     position: sticky;

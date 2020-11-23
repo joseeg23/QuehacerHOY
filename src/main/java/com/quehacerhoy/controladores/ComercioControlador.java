@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@PreAuthorize("ROLE_ADMIN || ROLE_SUPERADMIN")
+//@PreAuthorize("ROLE_ADMIN || ROLE_SUPERADMIN")
 @RequestMapping("/comercio")
 public class ComercioControlador {
 
@@ -46,6 +46,8 @@ public class ComercioControlador {
 
         try {
             comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
+             modelo.put("exito", "zona registrada con exito");
+            return "registrossuperadmin.html";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
             modelo.put("error", ex.getMessage());
@@ -56,11 +58,10 @@ public class ComercioControlador {
             modelo.put("descripcion", descripcion);
             modelo.put("rangoEdadPublico", rangoEdadPublico);
 
-            return "registrocomercio.html";
+             return "registrossuperadmin.html";
         }
 
-        modelo.put("descripcion", "El comercio se registró con éxito");
-        return "index.html";
+   
 
     }
 

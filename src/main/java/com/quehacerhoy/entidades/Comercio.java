@@ -48,6 +48,7 @@ public class Comercio implements Serializable {
     private Usuario usuario;
 
     public Comercio() {
+        this.puntuacion="5";
     }
     
     

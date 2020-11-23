@@ -28,17 +28,17 @@ public class ComentarioControlador {
     public String registrarComentario(
             ModelMap modelo,
             @RequestParam String idComercio,
-            @RequestParam String email,
+            @RequestParam String mail,
             @RequestParam String descripcion) {
 
         try {
             
-            comentarioServicio.altaComentario(email, descripcion, idComercio);
+            comentarioServicio.altaComentario(mail, descripcion, idComercio);
 
         } catch (Exception e) {
             
             modelo.put("error", e.getMessage());
-            modelo.put("email", email);
+            modelo.put("mail", mail);
             modelo.put("descripcion", descripcion);
             
             return "registrarcomercio.html";
@@ -49,14 +49,14 @@ public class ComentarioControlador {
         
 
     }
-    
-    Baja Comentario
-    @GetMapping("/bajacomentario/{id}")
-    public String bajaComentario (ModelMap modelo, @PathVariable String id){
-        try{
-            modelo.put("comentario",)
-        }
-    }
+//    
+//    Baja Comentario
+//    @GetMapping("/bajacomentario/{id}")
+//    public String bajaComentario (ModelMap modelo, @PathVariable String id){
+//        try{
+//            modelo.put("comentario",)
+//        }
+//    }
     
     @PostMapping("/bajacomentario")
     public String bajacomentario1 (ModelMap modelo, @RequestParam String id){

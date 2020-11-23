@@ -9,6 +9,7 @@ import com.quehacerhoy.entidades.Usuario;
 import com.quehacerhoy.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class UsuarioService implements UserDetailsService {
         if (username.isEmpty()) {
             throw new Exception("Debe indicar un username");
         }
+        if (repositorio.findById(username).isPresent()) {
+            throw new Exception("username no disponible");
+        }
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar su nombre");
         }
@@ -48,10 +52,10 @@ public class UsuarioService implements UserDetailsService {
         if (clave.isEmpty() || clave.length() < 5) {
             throw new Exception("La contraseña no debe estar vacio y debe tener al menos 5 caracteres");
         }
-        if(clave == null ? clave2 != null : !clave.equals(clave2)){
-             throw new Exception("La contraseñas no coinciden");
+        if (clave == null ? clave2 != null : !clave.equals(clave2)) {
+            throw new Exception("La contraseñas no coinciden");
         }
-        
+
         try {
             Usuario admin = new Usuario();
             admin.setUsername(username);
@@ -61,9 +65,9 @@ public class UsuarioService implements UserDetailsService {
             admin.setRol("ADMIN");
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
-            
-            notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
-                    + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
+//            
+//            notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
+//                    + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
 
             repositorio.save(admin);
         } catch (Exception e) {
@@ -89,10 +93,10 @@ public class UsuarioService implements UserDetailsService {
         if (clave.isEmpty() || clave.length() < 5) {
             throw new Exception("La contraseña no debe estar vacio y debe tener al menos 5 caracteres");
         }
-         if(!clave.equals(clave2)){
-             throw new Exception("La contraseñas no coinciden");
-        } 
-         
+        if (!clave.equals(clave2)) {
+            throw new Exception("La contraseñas no coinciden");
+        }
+
         try {
             Usuario admin = new Usuario();
             admin.setUsername(username);
@@ -102,15 +106,15 @@ public class UsuarioService implements UserDetailsService {
             admin.setRol("SUPERADMIN");
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
-            
-             notificacion.enviar("BIENVENIDO superadmin", "Usted se ha registrado exitosamente", email);
 
+            //    notificacion.enviar("BIENVENIDO superadmin", "Usted se ha registrado exitosamente", email);
             repositorio.save(admin);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
-        //MODIFICA USUARIO SEA ADMIN O SUPERADMIN 
+    //MODIFICA USUARIO SEA ADMIN O SUPERADMIN 
+
     @Transactional
     public void modificarUsuario(String username, String nombre, String apellido, String email, String clave, String clave2) throws Exception {
         if (username.isEmpty()) {
@@ -128,10 +132,10 @@ public class UsuarioService implements UserDetailsService {
         if (clave.isEmpty() || clave.length() < 5) {
             throw new Exception("La contraseña no debe estar vacio y debe tener al menos 5 caracteres");
         }
-        if(clave == null ? clave2 != null : !clave.equals(clave2)){
-             throw new Exception("La contraseñas no coinciden");
+        if (clave == null ? clave2 != null : !clave.equals(clave2)) {
+            throw new Exception("La contraseñas no coinciden");
         }
-        
+
         try {
             Usuario admin = repositorio.getOne(username);
 
@@ -141,11 +145,15 @@ public class UsuarioService implements UserDetailsService {
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
 
-             notificacion.enviar("MODIFICACION DE USUARIO", "Usted HA MODIFICADO SU PERFIL CORRECTAMENTE", email);
+            //  notificacion.enviar("MODIFICACION DE USUARIO", "Usted HA MODIFICADO SU PERFIL CORRECTAMENTE", email);
             repositorio.save(admin);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    public List listar() {
+        return repositorio.findAll();
     }
 
     //lista de usuarios admin
@@ -157,10 +165,14 @@ public class UsuarioService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
 
         try {
-            Usuario usuario = repositorio.getOne(username);
+            Optional<Usuario> respuesta = repositorio.findById(username);
 
-            System.out.println(usuario.toString());
-            if (usuario != null) {
+            if (respuesta.isPresent()) {
+                Usuario usuario = respuesta.get();
+
+                System.out.println(usuario.getUsername());
+                 System.out.println(usuario.getRol());
+
                 List<GrantedAuthority> permisos = new ArrayList();
 
                 GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + usuario.getRol());
@@ -174,8 +186,8 @@ public class UsuarioService implements UserDetailsService {
                 return user;
             } else {
                 return null;
-
             }
+
         } catch (Exception e) {
             System.out.println(e);
             return null;

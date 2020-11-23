@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@PreAuthorize("ROLE_SUPERADMIN")
+//@PreAuthorize("ROLE_SUPERADMIN")
 @RequestMapping("/zona")
 public class ZonaControlador {
 
@@ -36,11 +36,13 @@ public class ZonaControlador {
     public String registrar(ModelMap modelo, @RequestParam String nombre) {
         try {
             zonaS.altaZona(nombre);
-            return "";
+            modelo.put("exito", "zona registrada con exito");
+            return "registrossuperadmin.html";
         } catch (ErrorService ex) {
             Logger.getLogger(ZonaControlador.class.getName()).log(Level.SEVERE, null, ex);
+            modelo.put("nombre", nombre);
             modelo.put("error", ex.getMessage());
-            return "";
+           return "registrossuperadmin.html";
         }
 
     }
