@@ -23,7 +23,7 @@ public class UsuarioControlador {
     
     @GetMapping("/registroAdmin")
     public String registroAdmin () {
-        return "registroAdmin.html";
+        return "registro.html";
     }
     
     //Registro Admin
@@ -39,23 +39,24 @@ public class UsuarioControlador {
         
         try {
             usuarioServicio.altaAdmin(username, nombre, apellido, mail, clave, clave2);
+              modelo.put("exito", "Ha sido registrado con exito, ya puede iniciar sesion");
+             return "login.html";
         } catch (Exception e) {
                 modelo.put("error", e.getMessage());
                 modelo.put("username", username);
 		modelo.put("nombre", nombre);
                 modelo.put("apellido", apellido);
 		modelo.put("mail", mail);
-		modelo.put("clave", clave);
-                modelo.put("clave2", clave2);
+
                 
                 return "registro.html";
         }
-         return "index.html";
+        
     }
     
     @GetMapping("/registroSuperAdmin/262628")
     public String registroSuperAdmin (){
-        return "registroSuperAdmin.html";
+        return "registrosuperadmin.html";
     }
     
     //Validar mail, es decir buscar la forma para
@@ -73,18 +74,18 @@ public class UsuarioControlador {
         
         try {
             usuarioServicio.altaSuperadmin(username, nombre, apellido, mail, clave, clave2);
+             modelo.put("exito", "Ha sido registrado con exito, ya puede iniciar sesion");
+             return "login.html";
         } catch (Exception e) {
                 modelo.put("error", e.getMessage());
                 modelo.put("username", username);
 		modelo.put("nombre", nombre);
                 modelo.put("apellido", apellido);
 		modelo.put("mail", mail);
-		modelo.put("clave", clave);
-                modelo.put("clave2", clave2);
-                
-                return "registro.html";
+	
+                return "registrosuperadmin.html";
         }
-         return "index.html";
+ 
     }
 
 }

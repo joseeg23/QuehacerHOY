@@ -68,9 +68,28 @@ body {
   text-align: left;
   background-color: #fff;
 }
+#lista1 {
+  font-family:Arial;
+  font-weight:bold;
+  padding-left: 70%;
+}
+#lista1 li {
+  display:inline;
+  padding-left:3px;
+  padding-right:3px;
+
+}
+#lista1 a{
+  color: red;
+  font-size: large;
+}
 
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
+}
+
+button[type="submit"] {
+  background-color: rgb(0, 0, 0);
 }
 
 hr {
@@ -7385,7 +7404,7 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: -webkit-sticky) or (position: sticky)) {
   .sticky-top {
     position: -webkit-sticky;
     position: sticky;

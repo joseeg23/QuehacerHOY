@@ -10,27 +10,25 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Foto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
     private String mime;
-    
-    @Lob @Basic(fetch= FetchType.LAZY)
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
-    
-  
-    
-    
+
     public String getId() {
         return id;
     }
@@ -87,5 +85,5 @@ public class Foto implements Serializable {
     public String toString() {
         return "com.quehacerhoy.entidades.Foto[ id=" + id + " ]";
     }
-    
+
 }
