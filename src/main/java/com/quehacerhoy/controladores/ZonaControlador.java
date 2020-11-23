@@ -36,12 +36,12 @@ public class ZonaControlador {
     public String registrar(ModelMap modelo, @RequestParam String nombre) {
         try {
             zonaS.altaZona(nombre);
-            modelo.put("exito", "zona registrada con exito");
+            modelo.put("exitoz", "zona registrada con exito");
             return "registrossuperadmin.html";
         } catch (ErrorService ex) {
             Logger.getLogger(ZonaControlador.class.getName()).log(Level.SEVERE, null, ex);
             modelo.put("nombre", nombre);
-            modelo.put("error", ex.getMessage());
+            modelo.put("errorz", ex.getMessage());
            return "registrossuperadmin.html";
         }
 

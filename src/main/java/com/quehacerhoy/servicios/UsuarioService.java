@@ -151,6 +151,16 @@ public class UsuarioService implements UserDetailsService {
             throw new Exception(e.getMessage());
         }
     }
+    
+    public Usuario buscarPorId(String username) throws Exception{
+        Optional<Usuario> buscar = repositorio.findById(username);
+        if(buscar.isPresent()){
+            Usuario usuario = buscar.get();
+            return usuario;
+        }else{
+            throw new Exception("usuario no encontrado");
+        }
+    }
 
     public List listar() {
         return repositorio.findAll();

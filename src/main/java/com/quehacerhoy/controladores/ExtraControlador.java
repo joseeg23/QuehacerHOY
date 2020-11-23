@@ -51,11 +51,11 @@ public class ExtraControlador {
         try {
             Date fecha2 = Fecha.parseFechaGuiones(fecha);
             extraServicio.altaEvento(nombre, descripcion, direccion, edad, hora, capacidad, fecha2, archivo, idZona, username);
-            modelo.put("exito", "zona registrada con exito");
+            modelo.put("exitoe", "zona registrada con exito");
             return "registrossuperadmin.html";
         } catch (Exception e) {
 
-            modelo.put("error", e.getMessage());
+            modelo.put("errore", e.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("descripcion", descripcion);
             modelo.put("edad", edad);
@@ -64,9 +64,8 @@ public class ExtraControlador {
             modelo.put("fecha", fecha);
             modelo.put("idZona", idZona);
 
-           return "registrossuperadmin.html";
+            return "registrossuperadmin.html";
         }
-
 
     }
 
@@ -87,16 +86,15 @@ public class ExtraControlador {
             @RequestParam String username) {
         try {
             extraServicio.altaPublicidad(nombre, descripcion, archivo, username);
+            modelo.put("exitop", "Te registraste con éxito");
+            return "registrossuperadmin.html";
         } catch (Exception e) {
-            modelo.put("error", e.getMessage());
+            modelo.put("errorp", e.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("descripcion", descripcion);
 
-            return "registropublicidad.html";
+              return "registrossuperadmin.html";
         }
-
-        modelo.put("descripcion", "Te registraste con éxito");
-        return "index.html";
 
     }
 

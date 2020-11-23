@@ -24,50 +24,34 @@
 
     </head>
 
-    <body>
-            <!--Navbar-->
-            <div class="sb-nav-fixed">
-                <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-                    <!--Parte izquierda del navar-->
-                    <h2 class="navbar-brand">Qué Hacer Hoy?</h2>
-                    <!--Barra para esconder/mostrar la sidebar-->
+    <body style="background-color: aliceblue;">
+        <!--Navbar-->
+        <div class="sb-nav-fixed">
+            <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+                <!--Parte izquierda del navar-->
+                <h2 class="navbar-brand">Qué Hacer Hoy?</h2>
+                <lu id="lista1">
+                    <li>
+                        <a href="/registros/superadmin">home</a>
+                    </li>
+                    <li>
+                        <a href="/tablas/superadmin" >listas</a>
+                    </li>
+                    <li>
+                        <a href="/logout" >salir</a>
+                    </li>
+                </lu>
 
-                    <!--Este codigo separa la parte derecha del nav de la izquierda-->
-                    <form class="d-none d-md-inline-block form-inline ml-auto
-                        mr-0
-                        mr-md-3 my-2 my-md-0">
-                        <div class="input-group">
-                            <ul class="navbar-nav ml-auto ml-md-0">
-                                <li class="nav-item dropdown">
-                                    <!--Opciones del usuario-->
-                                    <a class="nav-link dropdown-toggle"
-                                        id="userDropdown" href="#" role="button"
-                                        data-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="false"><i class="fas
-                                            fa-user
-                                            fa-fw"></i></a>
-                                    <div class="dropdown-menu
-                                        dropdown-menu-right"
-                                        aria-labelledby="userDropdown">
-                                        <a href="#" class="dropdown-item">Listas</a>
-                                        <a href="#" class="dropdown-item">Modificar</a>
-                                        <a href="#" class="dropdown-item">Registros</a>
-                                        <a class="dropdown-item" href="/logout">salir!</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </form>
-                </nav>
-            </div>
 
-          <!-- registrar comercio -->
+            </nav>
+        </div>
+
+        <!-- registrar comercio -->
         <div class="registroComercio">
             <h2>Registrar Comercio</h2>
             <form action="/comercio/registrar" method="POST">
-                <p class="text-success" th:text="${exito}"></p>
-                <p class="text-danger" th:text="${error}"></p>
+                <p class="text-success" th:text="${exitoco}"></p>
+                <p class="text-danger" th:text="${errorco}"></p>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">nombre del comercio
@@ -77,11 +61,13 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text">rango de horario (* / *) </span>
-                    <input type="text" class="form-control" name="rangoDeHorario"
+                    <span class="input-group-text">rango de horario (* / *)
+                    </span>
+                    <input type="text" class="form-control"
+                        name="rangoDeHorario"
                         th:value="${rangoDeHorario}" required>
                 </div>
-                
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">Rubro</span>
                     <select class="form-control" name="rubro">
@@ -93,23 +79,26 @@
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">direccion </span>
-                    <input type="number" class="form-control" name="direccion"
+                    <input type="text" class="form-control" name="direccion"
                         th:value="${direccion}" required>
                 </div>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text">descripcion completa del comercio, detallar lo que ofrece y precio por persona
+                    <span class="input-group-text">descripcion completa del
+                        comercio, detallar lo que ofrece y precio por persona
                     </span>
                     <input type="text" class="form-control" name="descripcion"
                         th:value="${descripcion}" required>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text">rango de edad publico (* / *) </span>
-                    <input type="text" class="form-control" name="rangoDeHorario"
-                        th:value="${rangoDeHorario}" required>
+                    <span class="input-group-text">rango de edad publico (* / *)
+                    </span>
+                    <input type="text" class="form-control"
+                        name="rangoEdadPublico"
+                        th:value="${rangoEdadPublico}" required>
                 </div>
 
-                  
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">Zona</span>
                     <select class="form-control" name="idZona">
@@ -119,7 +108,7 @@
                     </select>
                 </div>
 
-                  
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">dueño del comercio</span>
                     <select class="form-control" name="username">
@@ -128,16 +117,16 @@
 
                     </select>
                 </div>
-               
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">subir foto </span>
                     <input type="file" class="form-control" name="archivo"
                         th:value="${archivo}" required>
                 </div>
                 <div class="input-group mb-3">
-                    
+
                 </div>
-                
+
 
                 <button type="submit" class="btn btn-primary">REGISTRAR</button>
             </form>
@@ -148,16 +137,16 @@
         <div class="registrozona">
             <h2>Registrar zona</h2>
             <form action="/zona/registrar" method="POST">
-                <p class="text-success" th:text="${exitoCf}"></p>
-                <p class="text-danger" th:text="${errorCf}"></p>
+                <p class="text-success" th:text="${exitoz}"></p>
+                <p class="text-danger" th:text="${errorz}"></p>
 
-             
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">nombre </span>
                     <input type="text" class="form-control" name="nombre"
                         th:value="${nombre}" required>
                 </div>
-               
+
 
                 <button type="submit" class="btn btn-primary">REGISTRAR</button>
             </form>
@@ -167,8 +156,8 @@
         <div class="registroevento">
             <h2>Registrar evento</h2>
             <form action="/extra/registroevento" method="POST">
-                <p class="text-success" th:text="${exito}"></p>
-                <p class="text-danger" th:text="${error}"></p>
+                <p class="text-success" th:text="${exitoe}"></p>
+                <p class="text-danger" th:text="${errore}"></p>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">nombre del evento
@@ -176,7 +165,7 @@
                     <input type="text" class="form-control" name="nombre"
                         th:value="${nombre}" required>
                 </div>
-                
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">direccion </span>
                     <input type="number" class="form-control" name="direccion"
@@ -184,15 +173,18 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text">descripcion completa del evento, detallar lo que ofrece y precio por persona
+                    <span class="input-group-text">descripcion completa del
+                        evento, detallar lo que ofrece y precio por persona
                     </span>
                     <input type="text" class="form-control" name="descripcion"
                         th:value="${descripcion}" required>
                 </div>
-               
+
                 <div class="input-group mb-3">
-                    <span class="input-group-text">rango de edad publico (* / *) </span>
-                    <input type="text" class="form-control" name="rangoDeHorario"
+                    <span class="input-group-text">rango de edad publico (* / *)
+                    </span>
+                    <input type="text" class="form-control"
+                        name="rangoDeHorario"
                         th:value="${rangoDeHorario}" required>
                 </div>
                 <div class="input-group mb-3">
@@ -210,7 +202,7 @@
                     <input type="text" class="form-control" name="hora"
                         th:value="${hora}" required>
                 </div>
-               
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">Zona</span>
                     <select class="form-control" name="idZona">
@@ -219,7 +211,7 @@
 
                     </select>
                 </div>
-               
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">subir foto </span>
                     <input type="file" class="form-control" name="archivo"
@@ -228,14 +220,15 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">Quien hace el evento</span>
                     <select class="form-control" name="username">
-                        <option th:each="a : ${usuarios}" th:value="${a.username}"
+                        <option th:each="a : ${usuarios}"
+                            th:value="${a.username}"
                             th:text="${a.username}"></option>
 
                     </select>
                 </div>
-               
 
-               
+
+
 
                 <button type="submit" class="btn btn-primary">REGISTRAR</button>
             </form>
@@ -246,15 +239,15 @@
         <div class="registropublicidad">
             <h2>Registrar publicidad</h2>
             <form action="/extra/registropublicidad" method="POST">
-                <p class="text-success" th:text="${exito}"></p>
-                <p class="text-danger" th:text="${error}"></p>
+                <p class="text-success" th:text="${exitop}"></p>
+                <p class="text-danger" th:text="${errorp}"></p>
                 <div class="input-group mb-3">
                     <span class="input-group-text">titulo de la publicidad
                     </span>
                     <input type="text" class="form-control" name="nombre"
                         th:value="${nombre}" required>
                 </div>
-                
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">descripcion completa
                     </span>
@@ -270,7 +263,8 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">Quien hace el evento</span>
                     <select class="form-control" name="username">
-                        <option th:each="a : ${usuarios}" th:value="${a.username}"
+                        <option th:each="a : ${usuarios}"
+                            th:value="${a.username}"
                             th:text="${a.username}"></option>
 
                     </select>
@@ -284,11 +278,12 @@
         <div class="registrocomentario">
             <h2>Registrar comentario</h2>
             <form action="/comentario/registrar" method="POST">
-                <p class="text-success" th:text="${exitoCo}"></p>
-                <p class="text-danger" th:text="${errorCo}"></p>
+                <p class="text-success" th:text="${exitoc}"></p>
+                <p class="text-danger" th:text="${errorc}"></p>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text">Comercio que recibe el comentario</span>
+                    <span class="input-group-text">Comercio que recibe el
+                        comentario</span>
                     <select class="form-control" name="idComercio">
                         <option th:each="c : ${comercios}" th:value="${c.id}"
                             th:text="${c.nombre}"></option>

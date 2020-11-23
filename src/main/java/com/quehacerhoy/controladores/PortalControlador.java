@@ -1,5 +1,7 @@
 package com.quehacerhoy.controladores;
 
+import com.quehacerhoy.servicios.ComercioService;
+import com.quehacerhoy.servicios.ExtraService;
 import com.quehacerhoy.servicios.UsuarioService;
 import com.quehacerhoy.servicios.ZonaService;
 import com.quehacerhoy.utilidades.Rubro;
@@ -19,8 +21,12 @@ public class PortalControlador {
 
     @Autowired
     private ZonaService zonaS;
-     @Autowired
+    @Autowired
     private UsuarioService usuarioS;
+    @Autowired
+    private ExtraService extraS;
+    @Autowired
+    private ComercioService comercioS;
 
     @GetMapping("/")
     public String index() {
@@ -59,6 +65,19 @@ public class PortalControlador {
         modelo.put("admin", usuarioS.listaAdministradores());
         modelo.put("usuarios", usuarioS.listar());
         return "registrossuperadmin.html";
+    }
+
+    @GetMapping("/tablas/superadmin")
+    public String tablas(ModelMap modelo) {
+        List<Enum> rubros = Arrays.asList(Rubro.values());
+        modelo.put("rubros", rubros);
+        modelo.put("zonas", zonaS.listarZona());
+        modelo.put("admin", usuarioS.listaAdministradores());
+        modelo.put("usuarios", usuarioS.listar());
+        modelo.put("comercios", comercioS.lista());
+        modelo.put("Extras", extraS.listar());
+//          modelo.put("publicidad", );
+        return "tablas.html";
     }
 
 }

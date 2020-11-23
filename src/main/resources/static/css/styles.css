@@ -68,6 +68,21 @@ body {
   text-align: left;
   background-color: #fff;
 }
+#lista1 {
+  font-family:Arial;
+  font-weight:bold;
+  padding-left: 70%;
+}
+#lista1 li {
+  display:inline;
+  padding-left:3px;
+  padding-right:3px;
+
+}
+#lista1 a{
+  color: red;
+  font-size: large;
+}
 
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;

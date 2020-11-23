@@ -9,19 +9,20 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Extra implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
     private String descripcion;
@@ -38,7 +39,7 @@ public class Extra implements Serializable {
 
     @ManyToOne
     private Zona zona;
-    
+
     @ManyToOne
     private Usuario usuario;
 
@@ -124,8 +125,6 @@ public class Extra implements Serializable {
     public void setZona(Zona zona) {
         this.zona = zona;
     }
-    
-    
 
     public String getId() {
         return id;

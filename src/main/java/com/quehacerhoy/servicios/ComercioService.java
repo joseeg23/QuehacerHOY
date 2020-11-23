@@ -175,9 +175,9 @@ public class ComercioService {
     }
 
 //    lista de comercios
-//    public List lista() {
-//        return repositorio.listar();
-//    }
+    public List lista() {
+        return repositorio.listar();
+    }
 
     //lista de comercios por rubro
     public List listaComerciosPorRubro(String rubro) {

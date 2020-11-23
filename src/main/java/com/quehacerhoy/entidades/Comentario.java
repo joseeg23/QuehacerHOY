@@ -8,28 +8,26 @@ package com.quehacerhoy.entidades;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Comentario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String email;
     private String descripcion;
-    
+
     @ManyToOne
     private Comercio comercio;
 
     public Comentario() {
     }
-    
-    
 
     public String getId() {
         return id;
@@ -87,5 +85,5 @@ public class Comentario implements Serializable {
     public String toString() {
         return "com.quehacerhoy.entidades.Comentario[ id=" + id + " ]";
     }
-    
+
 }

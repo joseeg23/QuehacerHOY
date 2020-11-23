@@ -46,11 +46,11 @@ public class ComercioControlador {
 
         try {
             comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
-             modelo.put("exito", "zona registrada con exito");
+             modelo.put("exitoco", "zona registrada con exito");
             return "registrossuperadmin.html";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
-            modelo.put("error", ex.getMessage());
+            modelo.put("errorco", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("rangoDeHorario", rangoDeHorario);
             modelo.put("rubro", rubro);
