@@ -24,7 +24,8 @@
 
     </head>
 
-    <body style="background-color: aliceblue;">
+    <body style="background-color: aliceblue;display: flex;
+    flex-flow: column nowrap;">
         <!--Navbar-->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!--Parte izquierda del navar-->
@@ -35,10 +36,10 @@
             +session.usuariosession.apellido}"></h3>
                 <lu id="lista1">
                     <li>
-                        <a href="/registros/superadmin">home</a>
+                        <a href="/registros/socio">home</a>
                     </li>
                     <li>
-                        <a href="/tablas/superadmin" >listas</a>
+                        <a href="/tablas/socio" >listas</a>
                     </li>
                     <li>
                         <a href="/logout" >salir</a>
@@ -52,9 +53,13 @@
         <!-- registrar comercio -->
         <div class="registroComercio">
             <h2>Registrar Comercio</h2>
-            <form action="/comercio/registrar" method="POST">
+            <form action="/comercio/registrar/socio" method="POST">
                 <p class="text-success" th:text="${exitoco}"></p>
                 <p class="text-danger" th:text="${errorco}"></p>
+
+                <div class="input-group mb-3">
+                    <input type="hidden" name="username" th:value="${session.usuariosession.username}" ></input>
+                </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">nombre del comercio
@@ -111,16 +116,6 @@
                     </select>
                 </div>
 
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text">dueño del comercio</span>
-                    <select class="form-control" name="username">
-                        <option th:each="a : ${admin}" th:value="${a.username}"
-                            th:text="${a.username}"></option>
-
-                    </select>
-                </div>
-
                 <div class="input-group mb-3">
                     <span class="input-group-text">subir foto </span>
                     <input type="file" class="form-control" name="archivo"
@@ -136,31 +131,17 @@
 
         </div>
 
-        <!-- registrar zona -->
-        <div class="registrozona">
-            <h2>Registrar zona</h2>
-            <form action="/zona/registrar" method="POST">
-                <p class="text-success" th:text="${exitoz}"></p>
-                <p class="text-danger" th:text="${errorz}"></p>
-
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text">nombre </span>
-                    <input type="text" class="form-control" name="nombre"
-                        th:value="${nombre}" required>
-                </div>
-
-
-                <button type="submit" class="btn btn-primary">REGISTRAR</button>
-            </form>
-        </div>
-
+       
         <!-- registrar evento-->
         <div class="registroevento">
             <h2>Registrar evento</h2>
-            <form action="/extra/registroevento" method="POST">
+            <form action="/extra/registroevento/socio" method="POST">
                 <p class="text-success" th:text="${exitoe}"></p>
                 <p class="text-danger" th:text="${errore}"></p>
+
+                <div class="input-group mb-3">
+                    <input type="hidden" name="username" th:value="${session.usuariosession.username}" ></input>
+                </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">nombre del evento
@@ -220,19 +201,7 @@
                     <input type="file" class="form-control" name="archivo"
                         th:value="${archivo}" required>
                 </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Quien hace el evento</span>
-                    <select class="form-control" name="username">
-                        <option th:each="a : ${usuarios}"
-                            th:value="${a.username}"
-                            th:text="${a.username}"></option>
-
-                    </select>
-                </div>
-
-
-
-
+             
                 <button type="submit" class="btn btn-primary">REGISTRAR</button>
             </form>
         </div>
@@ -241,9 +210,14 @@
         <!-- registrar publicidad -->
         <div class="registropublicidad">
             <h2>Registrar publicidad</h2>
-            <form action="/extra/registropublicidad" method="POST">
+            <form action="/extra/registropublicidad/socio" method="POST">
                 <p class="text-success" th:text="${exitop}"></p>
                 <p class="text-danger" th:text="${errorp}"></p>
+
+                <div class="input-group mb-3">
+                    <input type="hidden" name="username" th:value="${session.usuariosession.username}" ></input>
+                </div>
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">titulo de la publicidad
                     </span>
@@ -263,62 +237,10 @@
                     <input type="file" class="form-control" name="archivo"
                         th:value="${archivo}" required>
                 </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Quien hace el evento</span>
-                    <select class="form-control" name="username">
-                        <option th:each="a : ${usuarios}"
-                            th:value="${a.username}"
-                            th:text="${a.username}"></option>
-
-                    </select>
-                </div>
+               
                 <button type="submit" class="btn btn-primary">REGISTRAR</button>
             </form>
         </div>
-
-
-        <!-- registrar comentario -->
-        <div class="registrocomentario">
-            <h2>Registrar comentario</h2>
-            <form action="/comentario/registrar" method="POST">
-                <p class="text-success" th:text="${exitoc}"></p>
-                <p class="text-danger" th:text="${errorc}"></p>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Comercio que recibe el
-                        comentario</span>
-                    <select class="form-control" name="idComercio">
-                        <option th:each="c : ${comercios}" th:value="${c.id}"
-                            th:text="${c.nombre}"></option>
-
-                    </select>
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text">comentario</span>
-                    <input type="text" class="form-control" name="comentario"
-                        th:value="${comentario}" required>
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text">email</span>
-                    <input type="text" class="form-control" name="mail"
-                        th:value="${mail}" required>
-                </div>
-                <div class="input-group mb-3"> puntuacion
-                    <input type="range" name="rangeInput" min="1" max="5" onchange="updateTextInput(this.value);">
-                    
-                    
-                </div>
-              
-
-                <button type="submit" class="btn btn-primary">REGISTRAR</button>
-            </form>
-        </div>
-
-
-
-
 
     </body>
 </html>

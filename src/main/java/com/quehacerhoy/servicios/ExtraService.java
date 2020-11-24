@@ -257,5 +257,18 @@ public class ExtraService {
     public List listar() {
         return repositorio.listarExtras();
     }
+    
+    public List listarEventos(){
+        return repositorio.eventos();
+    }
+    public List listarEventosPorUsuario(String username){
+        return repositorio.eventosUsuario(username);
+    }
+     public List listarPublicidades(){
+        return repositorio.publicidades();
+    }
+     public List listarPublicidadesPorUsuario(String username){
+        return repositorio.publicidadesUsuario(username);
+    }
 
 }

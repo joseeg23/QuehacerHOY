@@ -117,9 +117,7 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public void modificarUsuario(String username, String nombre, String apellido, String email, String clave, String clave2) throws Exception {
-        if (username.isEmpty()) {
-            throw new Exception("Debe indicar un username");
-        }
+       
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar su nombre");
         }
@@ -176,7 +174,7 @@ public class UsuarioService implements UserDetailsService {
 
         try {
             Optional<Usuario> respuesta = repositorio.findById(username);
-
+            
             if (respuesta.isPresent()) {
                 Usuario usuario = respuesta.get();
 

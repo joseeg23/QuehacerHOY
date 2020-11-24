@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,20 +48,23 @@ public class ZonaControlador {
 
     }
     
-     @GetMapping("/modificar")
-    public String modificar(ModelMap modelo) {
-        modelo.put("zonas", zonaS.listarZona());
-        return "";
+    @GetMapping("/modificar/{id}")
+    public String modificar(ModelMap modelo, @PathVariable String id) {
+        modelo.put("id", id);
+        return "editarzona.html";
+
     }
     
      @PostMapping("/modifico")
-    public String modifico(@RequestParam String idZona, @RequestParam String nombre) {
+    public String modifico(ModelMap modelo, @RequestParam String id, @RequestParam String nombre) {
         try {
-            zonaS.modificarZona(idZona, nombre);
-            return "";
+            zonaS.modificarZona(id, nombre);
+            modelo.put("exitoz", "zona editada con exito");
+            return "redirect:/tablas/superadmin";
         } catch (ErrorService ex) {
             Logger.getLogger(ZonaControlador.class.getName()).log(Level.SEVERE, null, ex);
-            return "";
+             modelo.put("errorz", ex.getMessage());
+            return "editarzona.html";
         }
 
     }
