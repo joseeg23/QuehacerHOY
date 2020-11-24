@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/foto")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN || ROLE_SUPERADMIN')")
 public class FotoControlador {
 
     @Autowired
-    private FotoService fotoServicio;
+    private FotoService fotoService;
 
 //
 //    @GetMapping("/load/{id}")
@@ -43,7 +45,7 @@ public class FotoControlador {
             @RequestParam MultipartFile archivo) {
 
         try {
-            fotoServicio.guardar(archivo);
+            fotoService.guardar(archivo);
         } catch (Exception e) {
 
             modelo.put("error", e.getMessage());
@@ -54,5 +56,16 @@ public class FotoControlador {
         modelo.put("texto", "La foto se cargó con éxito");
         return "index.html";
     }
+    
+    
+    //Crear metodo buscar por id
+	@GetMapping("/load/{id}")
+	public ResponseEntity<byte[]> foto(@PathVariable String id) {
+		Foto foto = fotoService.buscarPorId(id);
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		return new ResponseEntity<>(foto.getContenido(), headers, HttpStatus.OK);
+	}
+
 
 }
