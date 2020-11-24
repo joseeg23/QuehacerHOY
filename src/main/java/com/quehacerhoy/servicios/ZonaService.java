@@ -1,4 +1,3 @@
-
 package com.quehacerhoy.servicios;
 
 import com.quehacerhoy.entidades.Zona;
@@ -18,10 +17,10 @@ public class ZonaService {
     @Transactional
     public void altaZona(String nombre) throws ErrorService {
 
-        validarZona( nombre);
+        validarZona(nombre);
 
         Zona zona = new Zona();
-        
+
         zona.setNombre(nombre);
 
         zonaRepositorio.save(zona);
@@ -29,7 +28,7 @@ public class ZonaService {
     }
 
     @Transactional
-    public void modificarZona(String id,String nombre) throws ErrorService {
+    public void modificarZona(String id, String nombre) throws ErrorService {
 
         validarZona(nombre);
 
@@ -48,35 +47,40 @@ public class ZonaService {
     }
 
     @Transactional
-    public void eliminarZona (String id) throws ErrorService{
-           
-        Optional<Zona> zona = zonaRepositorio.findById(id);
-            if (zona.isPresent()) {
-                Zona z = zona.get();
-                zonaRepositorio.delete(z);
-               
-                
-            } else {
-                throw new ErrorService("La zona ingresada no es correcta");
-            }
-        }
-    
-    
-    public List <Zona> listarZona (){
-           
-        return zonaRepositorio.findAll();
-        
-        }
-        
+    public void eliminarZona(String id) throws ErrorService {
 
-    public void validarZona( String nombre) throws ErrorService {
+        Optional<Zona> zona = zonaRepositorio.findById(id);
+        if (zona.isPresent()) {
+            Zona z = zona.get();
+            zonaRepositorio.delete(z);
+
+        } else {
+            throw new ErrorService("La zona ingresada no es correcta");
+        }
+    }
+    
+    public Zona buscarPorId(String id) throws ErrorService{
+          Optional<Zona> zona = zonaRepositorio.findById(id);
+        if (zona.isPresent()) {
+            Zona z = zona.get();
+            return z;
+
+        } else {
+            throw new ErrorService("no se ha podido encontrar la zona");
+        }
+    }
+
+    public List<Zona> listarZona() {
+
+        return zonaRepositorio.findAll();
+
+    }
+
+    public void validarZona(String nombre) throws ErrorService {
         if (nombre == null || nombre.isEmpty()) {
             throw new ErrorService("El nombre de la zona no puede ser nulo ni vacio");
 
         }
-        
 
     }
 }
-
-    

@@ -67,11 +67,12 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fff;
+  text-transform: uppercase;
 }
 #lista1 {
   font-family:Arial;
   font-weight:bold;
-  padding-left: 70%;
+  padding-left: 35%;
 }
 #lista1 li {
   display:inline;
@@ -97,6 +98,7 @@ hr {
   height: 0;
   overflow: visible;
 }
+
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
@@ -407,6 +409,16 @@ h5, .h5 {
 h6, .h6 {
   font-size: 1rem;
 }
+.carousel-item {
+  height: 100vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 
 .lead {
   font-size: 1.25rem;

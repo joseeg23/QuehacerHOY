@@ -51,10 +51,10 @@ public class ExtraControlador {
         try {
             Date fecha2 = Fecha.parseFechaGuiones(fecha);
             extraServicio.altaEvento(nombre, descripcion, direccion, edad, hora, capacidad, fecha2, archivo, idZona, username);
-            modelo.put("exitoe", "zona registrada con exito");
+            modelo.put("exitoe", "evento registrado con exito");
             return "registrossuperadmin.html";
         } catch (Exception e) {
-
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
             modelo.put("errore", e.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("descripcion", descripcion);
@@ -65,6 +65,41 @@ public class ExtraControlador {
             modelo.put("idZona", idZona);
 
             return "registrossuperadmin.html";
+        }
+
+    }
+
+    @PostMapping("/registroevento/socio")
+    public String registrarEvento2(
+            ModelMap modelo,
+            @RequestParam String nombre,
+            @RequestParam String descripcion,
+            @RequestParam String direccion,
+            @RequestParam String edad,
+            @RequestParam String hora,
+            @RequestParam String capacidad,
+            @RequestParam String fecha,
+            @RequestParam MultipartFile archivo,
+            @RequestParam String idZona,
+            @RequestParam String username) {
+
+        try {
+            Date fecha2 = Fecha.parseFechaGuiones(fecha);
+            extraServicio.altaEvento(nombre, descripcion, direccion, edad, hora, capacidad, fecha2, archivo, idZona, username);
+            modelo.put("exitoe", "evento registrado con exito");
+            return "registrossocios.html";
+        } catch (Exception e) {
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
+            modelo.put("errore", e.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("descripcion", descripcion);
+            modelo.put("edad", edad);
+            modelo.put("hora", hora);
+            modelo.put("capacidad", capacidad);
+            modelo.put("fecha", fecha);
+            modelo.put("idZona", idZona);
+
+            return "registrossocios.html";
         }
 
     }
@@ -84,16 +119,40 @@ public class ExtraControlador {
             @RequestParam String descripcion,
             @RequestParam MultipartFile archivo,
             @RequestParam String username) {
+       
         try {
             extraServicio.altaPublicidad(nombre, descripcion, archivo, username);
-            modelo.put("exitop", "Te registraste con éxito");
+            modelo.put("exitop", "publicidad registrada con exito");
             return "registrossuperadmin.html";
         } catch (Exception e) {
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
             modelo.put("errorp", e.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("descripcion", descripcion);
 
-              return "registrossuperadmin.html";
+            return "registrossuperadmin.html";
+        }
+
+    }
+
+    @PostMapping("/registropublicidad/socio")
+    public String registroPublicidad2(
+            ModelMap modelo,
+            @RequestParam String nombre,
+            @RequestParam String descripcion,
+            @RequestParam MultipartFile archivo,
+            @RequestParam String username) {
+        try {
+            extraServicio.altaPublicidad(nombre, descripcion, archivo, username);
+            modelo.put("exitop", "publicidad registrada con exito");
+            return "registrossuperadmin.html";
+        } catch (Exception e) {
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
+            modelo.put("errorp", e.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("descripcion", descripcion);
+
+            return "registrossuperadmin.html";
         }
 
     }
@@ -117,7 +176,7 @@ public class ExtraControlador {
             //extraServicio.eliminar(id);
 
         } catch (Exception e) {
-
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
             modelo.put("mensaje", e.getMessage());
 
             return "eliminarevento.html";
@@ -145,7 +204,7 @@ public class ExtraControlador {
             //extraServicio.eliminar(id);
 
         } catch (Exception e) {
-
+            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
             modelo.put("mensaje", "Algo salió mal, vuelva a intentarlo");
             modelo.put("publicidad", id);
             return "eliminarpublicidad.html";

@@ -32,7 +32,7 @@ public class Comercio implements Serializable {
     private String descripcion; //breve resumen de lo que se ofrece
     private String rangoEdadPublico;
     private boolean pago;
-    private String puntuacion;
+    private int puntuacion;
 
     @Temporal(TemporalType.DATE)
     private Date alta;
@@ -49,7 +49,7 @@ public class Comercio implements Serializable {
     private Usuario usuario;
 
     public Comercio() {
-        this.puntuacion = "5";
+        this.puntuacion =5;
     }
 
     public String getId() {
@@ -154,6 +154,14 @@ public class Comercio implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
     }
 
     @Override
