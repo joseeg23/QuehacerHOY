@@ -23,7 +23,7 @@ public class NotificacionService {
 		SimpleMailMessage mensaje = new SimpleMailMessage();
 		
 		mensaje.setTo(mail);
-		mensaje.setFrom("tinderdemascotas@gmail.com");
+		mensaje.setFrom("quehacerhoy23@gmail.com");
 		mensaje.setSubject(titulo);
 		mensaje.setText(cuerpo);
 		

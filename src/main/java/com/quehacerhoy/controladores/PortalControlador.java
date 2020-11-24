@@ -58,7 +58,7 @@ public class PortalControlador {
         return "contacto.html";
     }
 
-//    @PreAuthorize("ROLE_SUPERADMIN")
+    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
     @GetMapping("/registros/superadmin")
     public String registrosSuperAdmin(ModelMap modelo) {
         List<Enum> rubros = Arrays.asList(Rubro.values());
@@ -69,7 +69,7 @@ public class PortalControlador {
         return "registrossuperadmin.html";
     }
 
-    //    @PreAuthorize("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/registros/socio")
     public String registrosAdmin(ModelMap modelo) {
         List<Enum> rubros = Arrays.asList(Rubro.values());
@@ -78,6 +78,7 @@ public class PortalControlador {
         return "registrossocios.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
     @GetMapping("/tablas/superadmin")
     public String tablas(ModelMap modelo) {
         List<Enum> rubros = Arrays.asList(Rubro.values());
@@ -91,12 +92,13 @@ public class PortalControlador {
         return "tablas.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/tablas/socio")
     public String tablas2(ModelMap modelo, HttpSession session) {
-        
+
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         String username = usuario.getUsername();
-        
+
         modelo.put("comercios", comercioS.listaComerciosPorUsuario(username));
         modelo.put("eventos", extraS.listarEventosPorUsuario(username));
         modelo.put("publicidades", extraS.listarPublicidadesPorUsuario(username));

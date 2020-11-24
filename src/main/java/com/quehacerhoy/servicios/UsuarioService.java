@@ -65,9 +65,9 @@ public class UsuarioService implements UserDetailsService {
             admin.setRol("ADMIN");
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
-//            
-//            notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
-//                    + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
+            
+            notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
+                    + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
 
             repositorio.save(admin);
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class UsuarioService implements UserDetailsService {
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
 
-            //    notificacion.enviar("BIENVENIDO superadmin", "Usted se ha registrado exitosamente", email);
+                notificacion.enviar("BIENVENIDO superadmin", "Usted se ha registrado exitosamente", email);
             repositorio.save(admin);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -143,7 +143,7 @@ public class UsuarioService implements UserDetailsService {
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
 
-            //  notificacion.enviar("MODIFICACION DE USUARIO", "Usted HA MODIFICADO SU PERFIL CORRECTAMENTE", email);
+              notificacion.enviar("MODIFICACION DE USUARIO", "Usted HA MODIFICADO SU PERFIL CORRECTAMENTE", email);
             repositorio.save(admin);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
