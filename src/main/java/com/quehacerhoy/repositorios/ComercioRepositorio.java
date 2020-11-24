@@ -19,6 +19,8 @@ public interface ComercioRepositorio extends JpaRepository<Comercio,String> {
  @Query ("SELECT c FROM Comercio c WHERE c.usuario.username = :username")   
  public List<Comercio>buscarComercioPorUsuario (@Param("username")String username);
  
-
+  @Query ("SELECT c FROM Comercio c")   
+ public List<Comercio> listar ();
  
+  
 }

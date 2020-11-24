@@ -16,8 +16,7 @@ public class ComentarioControlador {
 
     @Autowired
     private ComentarioService comentarioServicio;
-    
-    
+
     //Alta Comentario
     @GetMapping("/registrar")
     public String registrarComentario() {
@@ -28,39 +27,36 @@ public class ComentarioControlador {
     public String registrarComentario(
             ModelMap modelo,
             @RequestParam String idComercio,
-            @RequestParam String email,
+            @RequestParam String mail,
             @RequestParam String descripcion) {
 
         try {
-            
-            comentarioServicio.altaComentario(email, descripcion, idComercio);
 
+            comentarioServicio.altaComentario(mail, descripcion, idComercio);
+            modelo.put("exitoc", "El comentario se ha registrado con éxito");
+            return "index.html";
         } catch (Exception e) {
-            
-            modelo.put("error", e.getMessage());
-            modelo.put("email", email);
+
+            modelo.put("errorc", e.getMessage());
+            modelo.put("mail", mail);
             modelo.put("descripcion", descripcion);
-            
+
             return "registrarcomercio.html";
         }
-        
-        modelo.put("text", "El comentario se ha registrado con éxito");
-        return "index.html";
-        
 
     }
-    
-    Baja Comentario
-    @GetMapping("/bajacomentario/{id}")
-    public String bajaComentario (ModelMap modelo, @PathVariable String id){
-        try{
-            modelo.put("comentario",)
-        }
-    }
-    
+//    
+//    Baja Comentario
+//    @GetMapping("/bajacomentario/{id}")
+//    public String bajaComentario (ModelMap modelo, @PathVariable String id){
+//        try{
+//            modelo.put("comentario",)
+//        }
+//    }
+
     @PostMapping("/bajacomentario")
-    public String bajacomentario1 (ModelMap modelo, @RequestParam String id){
-        
+    public String bajacomentario1(ModelMap modelo, @RequestParam String id) {
+
         try {
             comentarioServicio.eliminarComentario(id);
         } catch (Exception e) {
@@ -69,7 +65,6 @@ public class ComentarioControlador {
         }
         modelo.put("mensaje", "El comentario se eliminó con éxito");
         return "index.html";
-    } 
-        
+    }
 
 }

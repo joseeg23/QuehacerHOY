@@ -10,19 +10,20 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Comercio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
     private String rangoDeHorario;
@@ -32,7 +33,7 @@ public class Comercio implements Serializable {
     private String rangoEdadPublico;
     private boolean pago;
     private String puntuacion;
-    
+
     @Temporal(TemporalType.DATE)
     private Date alta;
     @Temporal(TemporalType.DATE)
@@ -40,18 +41,17 @@ public class Comercio implements Serializable {
 
     @OneToOne
     private Foto foto;
-    
+
     @ManyToOne
     private Zona zona;
-    
+
     @ManyToOne
     private Usuario usuario;
 
     public Comercio() {
+        this.puntuacion = "5";
     }
-    
-    
-    
+
     public String getId() {
         return id;
     }
@@ -155,8 +155,6 @@ public class Comercio implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
 
     @Override
     public int hashCode() {
