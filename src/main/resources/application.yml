@@ -9,8 +9,8 @@ spring:
                 starttls:
                     required: true
                     enable: true
-    username: jose_eduardog-23@hotmail.es
-    password: jose23459
+    username: quehacerhoy23@gmail.com
+    password: quehacerhoy1010
     
   datasource: 
     url: jdbc:mysql://localhost:3306/quehacerhoy?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8

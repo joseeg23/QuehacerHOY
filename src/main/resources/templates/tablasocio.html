@@ -36,10 +36,10 @@
                 +session.usuariosession.apellido}"></h3>
                 <lu id="lista1">
                     <li>
-                        <a href="/registros/superadmin">home</a>
+                        <a href="/registros/socio">home</a>
                     </li>
                     <li>
-                        <a href="/tablas/superadmin">listas</a>
+                        <a href="/tablas/socio" >listas</a>
                     </li>
                     <li>
                         <a href="/logout">salir</a>
@@ -53,111 +53,8 @@
             </nav>
         </div>
 
-        <!-- lista de zonas -->
-        <section style="padding:  0 10px;">
-            <p class="text-success" th:text="${exitoz}"></p>
-            <p class="text-danger" th:text="${errorz}"></p>
-            <table class="table table-bordered">
-
-                <caption></caption>
-                <thead class="table-info">
-                    <tr class="text-info">
-
-                        <th scope="col">ZONAS</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="z : ${zonas}">
-
-                        <td th:text="${z.nombre}"></td>
-                        <td>
-                            <a class="btn btn-info" name="id"
-                                th:href="@{/zona/modificar/} + ${z.id}">modificar
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" name="id"
-                                th:href="@{/zona/eliminar/} + ${z.id}">eliminar</a>
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
-
-        </section>
-        <section >
-            <div class="card" style="width: 18rem;"  th:each="z : ${zonas}" >
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p  class="card-text" th:text="${z.nombre}"></p>
-                </div>
-              </div>
-        </section>
-        <!-- lista de RUBROS -->
-        <section style="padding:  0 10px;">
-
-            <table class="table table-bordered">
-
-                <caption></caption>
-                <thead class="table-info">
-                    <tr class="text-info">
-
-                        <th scope="col">RUBROS</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="r : ${rubros}">
-
-                        <td th:text="${r}"></td>
-
-
-                    </tr>
-                </tbody>
-            </table>
-
-        </section>
-        <!-- lista de SOCIOS -->
-        <section style="padding:  0 10px;">
-            <p class="text-success" th:text="${exito}"></p>
-            <p class="text-danger" th:text="${error}"></p>
-
-            <table class="table table-bordered">
-
-                <caption></caption>
-                <thead class="table-info">
-                    <tr class="text-info">
-                        <th scope="col">SOCIO</th>
-                        <th scope="col">USERNAME</th>
-                        <th scope="col">EMAIL</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="a : ${admin}">
-                        <td th:text="${a.nombre}"></td>
-                        <td th:text="${a.username}"></td>
-                        <td th:text="${a.email}"></td>
-                        <td>
-                            <a class="btn btn-info" name="username"
-                                th:href="@{/usuario/modificar/} + ${a.username}">modificar
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" name="username"
-                                th:href="@{/usuario/eliminado/} +
-                                ${a.username}">eliminar</a>
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
-
-        </section>
+   
+      
         <!-- lista de Comercios -->
         <section style="padding:  0 10px;">
 
@@ -176,6 +73,11 @@
                         <td th:text="${c.nombre} "></td>
                         <td th:text="${c.rubro}"></td>
                         <td th:text="${c.puntuacion} + ' *'"></td>
+                        <td>
+                            <a class="btn btn-info" name="id"
+                                th:href="@{/comentario/listar/socio} + ${c.id}">ver comentarios
+                            </a>
+                        </td>
                         <td>
                             <a class="btn btn-info" name="id"
                                 th:href="@{/comercio/modifico/} + ${c.id}">modificar

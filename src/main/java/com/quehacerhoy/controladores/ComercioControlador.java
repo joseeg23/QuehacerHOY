@@ -46,7 +46,7 @@ public class ComercioControlador {
 
         try {
             comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
-             modelo.put("exitoco", "zona registrada con exito");
+            modelo.put("exitoco", "zona registrada con exito");
             return "registrossuperadmin.html";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,10 +58,33 @@ public class ComercioControlador {
             modelo.put("descripcion", descripcion);
             modelo.put("rangoEdadPublico", rangoEdadPublico);
 
-             return "registrossuperadmin.html";
+            return "registrossuperadmin.html";
         }
 
-   
+    }
+
+    @PostMapping("/registrar/socio")
+    public String registrarComercioSocio(ModelMap modelo, @RequestParam String nombre, @RequestParam String rangoDeHorario,
+            @RequestParam String rubro, @RequestParam String direccion, @RequestParam String descripcion,
+            @RequestParam String rangoEdadPublico, @RequestParam MultipartFile archivo, @RequestParam String idZona,
+            @RequestParam String username) {
+
+        try {
+            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
+            modelo.put("exitoco", "zona registrada con exito");
+            return "registrossocios.html";
+        } catch (Exception ex) {
+            Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
+            modelo.put("errorco", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("rangoDeHorario", rangoDeHorario);
+            modelo.put("rubro", rubro);
+            modelo.put("direccion", direccion);
+            modelo.put("descripcion", descripcion);
+            modelo.put("rangoEdadPublico", rangoEdadPublico);
+
+            return "registrossocios.html";
+        }
 
     }
 
@@ -71,6 +94,7 @@ public class ComercioControlador {
         modelo.put("comercios", comercioS.listaComerciosPorRubro(rubro));
         return "";
     }
+
     //por zona
     @GetMapping("/listarPorZona/{zona}")
     public String listarPorZona(ModelMap modelo, @PathVariable(name = "zona") String zona) {
@@ -91,7 +115,8 @@ public class ComercioControlador {
         }
 
     }
-     @GetMapping("/listarPorUsuario/{username}")
+
+    @GetMapping("/listarPorUsuario/{username}")
     public String listarPorUsuario(ModelMap modelo, @PathVariable(name = "username") String username) {
         modelo.put("comercios", comercioS.listaComerciosPorUsuario(username));
         return "";

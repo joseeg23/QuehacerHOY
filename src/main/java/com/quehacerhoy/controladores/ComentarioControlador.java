@@ -28,11 +28,12 @@ public class ComentarioControlador {
             ModelMap modelo,
             @RequestParam String idComercio,
             @RequestParam String mail,
-            @RequestParam String descripcion) {
+            @RequestParam String descripcion,
+            @RequestParam String puntuacion) {
 
         try {
-
-            comentarioServicio.altaComentario(mail, descripcion, idComercio);
+            Integer punt = Integer.parseInt(puntuacion);
+            comentarioServicio.altaComentario(mail, descripcion,punt, idComercio);
             modelo.put("exitoc", "El comentario se ha registrado con éxito");
             return "index.html";
         } catch (Exception e) {
