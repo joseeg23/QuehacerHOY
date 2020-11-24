@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FotoControlador {
 
     @Autowired
-    private FotoService photoService;
+    private FotoService fotoService;
 
 //
 //    @GetMapping("/load/{id}")
@@ -45,7 +45,7 @@ public class FotoControlador {
             @RequestParam MultipartFile archivo) {
 
         try {
-            photoService.guardar(archivo);
+            fotoService.guardar(archivo);
         } catch (Exception e) {
 
             modelo.put("error", e.getMessage());
@@ -60,11 +60,11 @@ public class FotoControlador {
     
     //Crear metodo buscar por id
 	@GetMapping("/load/{id}")
-	public ResponseEntity<byte[]> photo(@PathVariable String id) {
-		Foto photo = photoService.getOne(id);
+	public ResponseEntity<byte[]> foto(@PathVariable String id) {
+		Foto foto = fotoService.buscarPorId(id);
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.IMAGE_PNG);
-		return new ResponseEntity<>(photo.getContenido(), headers, HttpStatus.OK);
+		return new ResponseEntity<>(foto.getContenido(), headers, HttpStatus.OK);
 	}
 
 
