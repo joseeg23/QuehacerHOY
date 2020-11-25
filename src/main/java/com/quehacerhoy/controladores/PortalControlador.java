@@ -1,6 +1,7 @@
 package com.quehacerhoy.controladores;
 
 import com.quehacerhoy.entidades.Usuario;
+import com.quehacerhoy.servicios.ComentarioService;
 import com.quehacerhoy.servicios.ComercioService;
 import com.quehacerhoy.servicios.ExtraService;
 import com.quehacerhoy.servicios.UsuarioService;
@@ -29,6 +30,8 @@ public class PortalControlador {
     private ExtraService extraS;
     @Autowired
     private ComercioService comercioS;
+     @Autowired
+    private ComentarioService comentarioS;
 
     @GetMapping("/")
     public String index() {
@@ -66,6 +69,7 @@ public class PortalControlador {
         modelo.put("zonas", zonaS.listarZona());
         modelo.put("admin", usuarioS.listaAdministradores());
         modelo.put("usuarios", usuarioS.listar());
+        modelo.put("comercios", comercioS.lista());
         return "registrossuperadmin.html";
     }
 
@@ -89,6 +93,7 @@ public class PortalControlador {
         modelo.put("comercios", comercioS.lista());
         modelo.put("eventos", extraS.listarEventos());
         modelo.put("publicidades", extraS.listarPublicidades());
+        modelo.put("comentarios", comentarioS.listarComentario());
         return "tablas.html";
     }
 

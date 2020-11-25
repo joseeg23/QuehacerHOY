@@ -34,7 +34,7 @@ public class ComentarioService {
             puntos = (c.getPuntuacion() + puntuacion) / 2;
         }
         
-        c.setPuntuacion(puntuacion);
+        c.setPuntuacion(puntos);
         comentario.setComercio(c);
         
         comentarioRepositorio.save(comentario);
