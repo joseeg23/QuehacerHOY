@@ -34,8 +34,8 @@ public class ComentarioControlador {
         try {
             Integer punt = Integer.parseInt(puntuacion);
             comentarioServicio.altaComentario(mail, descripcion, punt, idComercio);
-            modelo.put("exitoc", "El comentario se ha registrado con éxito");
-            return "index.html";
+           
+            return "redirect:/registros/superadmin";
         } catch (Exception e) {
 
             modelo.put("errorc", e.getMessage());
@@ -62,7 +62,7 @@ public class ComentarioControlador {
             comentarioServicio.eliminarComentario(id);
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
-            return "bajacomentario.html";
+             return "redirect:/tablas/superadmin";
         }
         modelo.put("mensaje", "El comentario se eliminó con éxito");
         return "index.html";
@@ -71,7 +71,7 @@ public class ComentarioControlador {
     @GetMapping("/listar/{id}")
     public String listar(ModelMap modelo, @PathVariable String id){
         modelo.put("comentarios", comentarioServicio.listarComentarioPorComercio(id));
-       return "comentarioslista.html"; 
+       return "tablascomentariossocio.html"; 
     }
 
     

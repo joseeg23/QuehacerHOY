@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registros superadmin!</title>
+        <title>tablas superadmin!</title>
 
         <!-- Colocar favicon en sitio -->
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -57,8 +57,9 @@
 
         <!-- lista de zonas -->
         <section style="padding: 0 10px;">
-            <p class="text-success" th:text="${exitoz}"></p>
-            <p class="text-danger" th:text="${errorz}"></p>
+            <h4 class="text-info">Zonas</h4>
+            <p class="text-success" th:text="${exito}"></p>
+            <p class="text-danger" th:text="${error}"></p>
             <table class="table table-bordered">
 
                 <caption></caption>
@@ -90,10 +91,10 @@
             </table>
 
         </section>
-      
+
         <!-- lista de RUBROS -->
         <section style="padding: 0 10px;">
-
+            <h4 class="text-info">Rubros</h4>
             <table class="table table-bordered">
 
                 <caption></caption>
@@ -117,6 +118,7 @@
         </section>
         <!-- lista de SOCIOS -->
         <section style="padding: 0 10px;">
+            <h4 class="text-info">Socios</h4>
             <p class="text-success" th:text="${exito}"></p>
             <p class="text-danger" th:text="${error}"></p>
 
@@ -155,10 +157,12 @@
 
         </section>
 
-              
+
         <!-- lista de Comercios -->
         <section style="padding: 0 10px;">
-
+            <h4 class="text-info">Comercios</h4>
+            <p class="text-success" th:text="${exito}"></p>
+            <p class="text-danger" th:text="${error}"></p>
             <table class="table table-bordered">
 
                 <caption></caption>
@@ -168,6 +172,8 @@
                         <th scope="col">rubro</th>
                         <th scope="col">puntuacion</th>
                         <th scope="col">foto</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -176,20 +182,20 @@
                         <td th:text="${c.rubro}"></td>
                         <td th:text="${c.puntuacion} + ' *'"></td>
                         <td> <section>
-                            <div class="card" style="width: 18rem;" >
-                                <img alt="" class="rounded mx-auto d-block"
-                                th:if="${c.foto != null}"
-                                th:src="@{/foto/load/__${c.foto.id}__}"
-                                id="img" style="width: 200px;" >
-                                <img alt="" class="rounded mx-auto d-block"
-                                    th:unless="${c.foto != null}"
-                                    src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg" id="img" style="width: 200px;"
-                                    >
-                                <div class="card-body">
-                                    <!-- <p class="card-text" th:text="${c.foto.id}"></p> -->
+                                <div class="card" style="width: 18rem;">
+                                    <img alt="" class="rounded mx-auto d-block"
+                                        th:if="${c.foto != null}"
+                                        th:src="@{/foto/load/__${c.foto.id}__}"
+                                        id="img" style="width: 200px;">
+                                    <img alt="" class="rounded mx-auto d-block"
+                                        th:unless="${c.foto != null}"
+                                        src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg"
+                                        id="img" style="width: 200px;">
+                                    <div class="card-body">
+                                        <!-- <p class="card-text" th:text="${c.foto.id}"></p> -->
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
 
                         </td>
                         <td>
@@ -211,7 +217,9 @@
         <!-- lista de EVENTOS -->
 
         <section style="padding: 0 10px;">
-
+            <h4 class="text-info">Eventos</h4>
+            <p class="text-success" th:text="${exito}"></p>
+            <p class="text-danger" th:text="${error}"></p>
             <table class="table table-bordered">
 
                 <caption></caption>
@@ -221,6 +229,9 @@
                         <th scope="col">auspiciante</th>
                         <th scope="col">direccion</th>
                         <th scope="col">descripcion del evento</th>
+                        <th scope="col">foto</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -229,26 +240,26 @@
                         <td th:text="${e.usuario.username}"></td>
                         <td th:text="${e.direccion}"></td>
                         <td th:text="${e.descripcion}"></td>
-                        <td> <section>
-                            <div class="card" style="width: 18rem;" >
+                        <td>
+                            <div class="card" style="width: 18rem;">
                                 <img alt="" class="rounded mx-auto d-block"
-                                th:if="${e.foto != null}"
-                                th:src="@{/foto/load/__${e.foto.id}__}"
-                                id="img" style="width: 200px;" >
+                                    th:if="${e.foto != null}"
+                                    th:src="@{/foto/load/__${e.foto.id}__}"
+                                    id="img" style="width: 200px;">
                                 <img alt="" class="rounded mx-auto d-block"
                                     th:unless="${e.foto != null}"
-                                    src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg" id="img" style="width: 200px;"
-                                    >
+                                    src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg"
+                                    id="img" style="width: 200px;">
                                 <div class="card-body">
                                     <!-- <p class="card-text" th:text="${c.foto.id}"></p> -->
                                 </div>
                             </div>
-                        </section>
+
 
                         </td>
                         <td>
                             <a class="btn btn-info" name="id"
-                                th:href="@{/extra/modifico/} + ${e.id}">modificar
+                                th:href="@{/extra/modificoevento/} + ${e.id}">modificar
                             </a>
                         </td>
                         <td>
@@ -264,7 +275,9 @@
         </section>
         <!-- lista de PUBLICIDADES -->
         <section>
-
+            <h4 class="text-info">Publicidades</h4>
+            <p class="text-success" th:text="${exito}"></p>
+            <p class="text-danger" th:text="${error}"></p>
             <table class="table table-bordered">
 
                 <caption></caption>
@@ -273,6 +286,9 @@
                         <th scope="col">nombre de la publicidad</th>
                         <th scope="col">auspiciante</th>
                         <th scope="col">descripcion </th>
+                        <th scope="col">foto</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -281,25 +297,26 @@
                         <td th:text="${p.usuario.username}"></td>
                         <td th:text="${p.descripcion}"></td>
                         <td> <section>
-                            <div class="card" style="width: 18rem;" >
-                                <img alt="" class="rounded mx-auto d-block"
-                                th:if="${p.foto != null}"
-                                th:src="@{/foto/load/__${p.foto.id}__}"
-                                id="img" style="width: 200px;" >
-                                <img alt="" class="rounded mx-auto d-block"
-                                    th:unless="${p.foto != null}"
-                                    src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg" id="img" style="width: 200px;"
-                                    >
-                                <div class="card-body">
-                                    <!-- <p class="card-text" th:text="${c.foto.nombre}"></p> -->
+                                <div class="card" style="width: 18rem;">
+                                    <img alt="" class="rounded mx-auto d-block"
+                                        th:if="${p.foto != null}"
+                                        th:src="@{/foto/load/__${p.foto.id}__}"
+                                        id="img" style="width: 200px;">
+                                    <img alt="" class="rounded mx-auto d-block"
+                                        th:unless="${p.foto != null}"
+                                        src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg"
+                                        id="img" style="width: 200px;">
+                                    <div class="card-body">
+                                        <!-- <p class="card-text" th:text="${c.foto.nombre}"></p> -->
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
 
                         </td>
                         <td>
                             <a class="btn btn-info" name="id"
-                                th:href="@{/extra/modifico/} + ${p.id}">modificar
+                                th:href="@{/extra/modificopublicidad/} +
+                                ${p.id}">modificar
                             </a>
                         </td>
                         <td>
@@ -313,8 +330,11 @@
             </table>
 
         </section>
-          <!-- lista de comentarios -->
-          <section style="padding: 0 10px;">
+        <!-- lista de comentarios -->
+        <section style="padding: 0 10px;">
+            <h4 class="text-info">Comentarios</h4>
+            <p class="text-success" th:text="${exito}"></p>
+            <p class="text-danger" th:text="${error}"></p>
 
             <table class="table table-bordered">
 
@@ -323,34 +343,37 @@
                     <tr class="text-info">
                         <th scope="col">comercio</th>
                         <th scope="col">comentario</th>
-                   
+
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="c : ${comentarios}">
                         <td th:text="${c.comercio.nombre}"></td>
                         <td th:text="${c.descripcion}"></td>
-                    
+
                     </tr>
                 </tbody>
             </table>
 
         </section>
 
-           
+
         <section>
-            <div class="card" style="width: 18rem;" th:each="c : ${comercios}">
-                <img alt="" class="rounded mx-auto d-block"
-                th:if="${c.foto != null}"
-                th:src="@{/foto/load/__${c.foto.id}__}"
-                id="img" style="width: 200px;" >
-                <img alt="" class="rounded mx-auto d-block"
-                    th:unless="${c.foto != null}"
-                    src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg" id="img" style="width: 200px;"
-                    >
-                <div class="card-body">
-                    <h2 class="card-text" th:text="${c.nombre}"></h2>
-                    <p class="card-text" th:text="${c.rubro}"></p>
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="card" style="width: 18rem;" th:each="c :
+                    ${comercios}">
+                    <img alt="" class="rounded mx-auto d-block"
+                        th:if="${c.foto != null}"
+                        th:src="@{/foto/load/__${c.foto.id}__}"
+                        id="img" style="width: 200px;">
+                    <img alt="" class="rounded mx-auto d-block"
+                        th:unless="${c.foto != null}"
+                        src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg"
+                        id="img" style="width: 200px;">
+                    <div class="card-body">
+                        <h2 class="card-text" th:text="${c.nombre}"></h2>
+                        <p class="card-text" th:text="${c.rubro}"></p>
+                    </div>
                 </div>
             </div>
         </section>

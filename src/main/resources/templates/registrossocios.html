@@ -152,10 +152,16 @@
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">direccion </span>
-                    <input type="number" class="form-control" name="direccion"
+                    <input type="text" class="form-control" name="direccion"
                         th:value="${direccion}" required>
                 </div>
-
+                <div class="input-group mb-3">
+                    <span class="input-group-text">edad del publico al que va dirigido
+                    </span>
+                    <input type="text" class="form-control"
+                        name="edad"
+                        th:value="${edad}" required>
+                </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">descripcion completa del
                         evento, detallar lo que ofrece y precio por persona

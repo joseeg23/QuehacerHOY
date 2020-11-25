@@ -55,7 +55,7 @@ public class PortalControlador {
         return "login.html";
     }
 
-//    @PreAuthorize("ROLE_ADMIN || ROLE_SUPERADMIN")
+    
     @GetMapping("/principal")
     public String principal() {
         return "contacto.html";

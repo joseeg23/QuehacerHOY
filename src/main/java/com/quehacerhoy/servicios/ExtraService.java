@@ -91,7 +91,7 @@ public class ExtraService {
     }
 
     @Transactional
-    public void modificarEvento(String id, String nombre, String descripcion, String direccion, String edad, String hora, String capacidad, Date fecha, MultipartFile archivo, String idZona, String usernameUsuario) throws Exception {
+    public void modificarEvento(String id, String nombre, String descripcion, String direccion, String edad, String hora, String capacidad, Date fecha, MultipartFile archivo, String idZona) throws Exception {
 
         if (id == null) {
             throw new Exception("id nulo");
@@ -123,15 +123,11 @@ public class ExtraService {
         if (idZona.isEmpty()) {
             throw new Exception("Debe indicar una zona");
         }
-        if (usernameUsuario.isEmpty()) {
-            throw new Exception("Debe indicar un usuario");
-        }
+        
 
         try {
             Extra evento = repositorio.getOne(id);
-            if (!evento.getUsuario().getUsername().equals(usernameUsuario)) {
-                throw new Exception("Usuario no permitido, no es el autor");
-            }
+          
 
             evento.setCapacidad(capacidad);
             evento.setDescripcion(descripcion);
@@ -196,7 +192,7 @@ public class ExtraService {
 
     @Transactional
     public void modificarPublicidad(String id, String nombre, String descripcion,
-            MultipartFile archivo, String usernameUsuario) throws Exception {
+            MultipartFile archivo) throws Exception {
 
         if (id == null) {
             throw new Exception("id nulo");
@@ -211,16 +207,11 @@ public class ExtraService {
         if (archivo == null) {
             throw new Exception("Debe indicar una foto");
         }
-        if (usernameUsuario.isEmpty()) {
-            throw new Exception("Debe indicar un usuario");
-        }
+        
 
         try {
             Extra publicidad = repositorio.getOne(id);
 
-            if (!publicidad.getUsuario().getUsername().equals(usernameUsuario)) {
-                throw new Exception("Usuario no permitido, no es el autor");
-            }
 
             publicidad.setDescripcion(descripcion);
             String idFoto = null;
@@ -233,9 +224,7 @@ public class ExtraService {
             publicidad.setNombre(nombre);
             Date fechaPublicacion = new Date();
             publicidad.setFecha(fechaPublicacion);
-            Usuario usuario = usuarioR.getOne(usernameUsuario);
-            publicidad.setUsuario(usuario);
-
+          
             repositorio.save(publicidad);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
