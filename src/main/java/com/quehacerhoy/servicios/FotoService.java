@@ -67,14 +67,12 @@ public class FotoService {
     
     public Foto buscarPorId(String id){
         Optional<Foto> buscar = fotoRepositorio.findById(id);
-        
         if(buscar.isPresent()){
             Foto foto= buscar.get();
             return foto;
         }else{
             return null;
         }
-  
     }
     
     

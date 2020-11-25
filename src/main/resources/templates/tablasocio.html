@@ -53,118 +53,172 @@
             </nav>
         </div>
 
-   
-      
-        <!-- lista de Comercios -->
-        <section style="padding:  0 10px;">
+   <!-- lista de Comercios -->
+   <section style="padding: 0 10px;">
+    <h4 class="text-info">Comercios</h4>
+    <p class="text-success" th:text="${exito}"></p>
+    <p class="text-danger" th:text="${error}"></p>
+    <table class="table table-bordered">
 
-            <table class="table table-bordered">
+        <caption></caption>
+        <thead class="table-info">
+            <tr class="text-info">
+                <th scope="col">nombre</th>
+                <th scope="col">rubro</th>
+                <th scope="col">puntuacion</th>
+                <th scope="col">foto</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+            <tbody>
+                <tr th:each="c : ${comercios}">
+                    <td th:text="${c.nombre}"></td>
+                    <td th:text="${c.rubro}"></td>
+                    <td th:text="${c.puntuacion} + ' *'"></td>
+                    <td> <section>
+                      
+                            <img alt="" class="rounded mx-auto d-block"
+                            th:if="${c.foto != null}"
+                            th:src="@{/foto/load/__${c.foto.id}__}"
+                            id="img" style="width: 200px;" >
+                            <img alt="" class="rounded mx-auto d-block"
+                                th:unless="${c.foto != null}"
+                                src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg" id="img" style="width: 200px;"
+                                >
+                           
+                    </section>
 
-                <caption></caption>
-                <thead class="table-info">
-                    <tr class="text-info">
-                        <th scope="col">nombre</th>
-                        <th scope="col">rubro</th>
-                        <th scope="col">puntuacion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="c : ${comercios}">
-                        <td th:text="${c.nombre} "></td>
-                        <td th:text="${c.rubro}"></td>
-                        <td th:text="${c.puntuacion} + ' *'"></td>
-                        <td>
-                            <a class="btn btn-info" name="id"
-                                th:href="@{/comentario/listar/socio} + ${c.id}">ver comentarios
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-info" name="id"
-                                th:href="@{/comercio/modifico/} + ${c.id}">modificar
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" name="id"
-                                th:href="@{/comercio/eliminado/} +
-                                ${c.id}">eliminar</a>
-                        </td>
+                    </td>
+                    <td>
+                        <a class="btn btn-info" name="id"
+                            th:href="@{/comentario/listar/} + ${c.id}">ver comentarios
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-info" name="id"
+                            th:href="@{/comercio/modifico/socio/} + ${c.id}">modificar
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" name="id"
+                            th:href="@{/comercio/eliminado/} +
+                            ${c.id}">eliminar</a>
+                    </td>
 
-                    </tr>
-                </tbody>
-            </table>
+                </tr>
+            </tbody>
+        </table>
 
-        </section>
-        <!-- lista de EVENTOS -->
+    </section>
+     <!-- lista de EVENTOS -->
 
-        <section style="padding:  0 10px;">
+     <section style="padding: 0 10px;">
+        <h4 class="text-info">Eventos</h4>
+        <p class="text-success" th:text="${exito}"></p>
+        <p class="text-danger" th:text="${error}"></p>
+        <table class="table table-bordered">
 
-            <table class="table table-bordered">
+            <caption></caption>
+            <thead class="table-info">
+                <tr class="text-info">
+                    <th scope="col">nombre del evento</th>
+                    <th scope="col">auspiciante</th>
+                    <th scope="col">direccion</th>
+                    <th scope="col">descripcion del evento</th>
+                    <th scope="col">foto</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="e : ${eventos}">
+                    <td th:text="${e.nombre}"></td>
+                    <td th:text="${e.usuario.username}"></td>
+                    <td th:text="${e.direccion}"></td>
+                    <td th:text="${e.descripcion}"></td>
+                    <td> <section>
+                       
+                            <img alt="" class="rounded mx-auto d-block"
+                            th:if="${e.foto != null}"
+                            th:src="@{/foto/load/__${e.foto.id}__}"
+                            id="img" style="width: 200px;" >
+                            <img alt="" class="rounded mx-auto d-block"
+                                th:unless="${e.foto != null}"
+                                src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg" id="img" style="width: 200px;"
+                                >
+                            
+                    </section>
 
-                <caption></caption>
-                <thead class="table-info">
-                    <tr class="text-info">
-                        <th scope="col">nombre del evento</th>
-                        <th scope="col">auspiciante</th>
-                        <th scope="col">direccion</th>
-                        <th scope="col">descripcion del evento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="e : ${eventos}">
-                        <td th:text="${e.nombre}"></td>
-                        <td th:text="${e.usuario.username}"></td>
-                        <td th:text="${e.direccion}"></td>
-                        <td th:text="${e.descripcion}"></td>
-                        <td>
-                            <a class="btn btn-info" name="id"
-                                th:href="@{/extra/modifico/} + ${e.id}">modificar
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" name="id"
-                                th:href="@{/evento/eliminado/} +
-                                ${e.id}">eliminar</a>
-                        </td>
+                    </td>
+                    <td>
+                        <a class="btn btn-info" name="id"
+                            th:href="@{/extra/modificoevento/socio/} + ${e.id}">modificar
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" name="id"
+                            th:href="@{/evento/eliminado/} +
+                            ${e.id}">eliminar</a>
+                    </td>
 
-                    </tr>
-                </tbody>
-            </table>
+                </tr>
+            </tbody>
+        </table>
 
-        </section>
-        <!-- lista de PUBLICIDADES -->
-        <section>
+    </section>
+     <!-- lista de PUBLICIDADES -->
+     <section>
+        <h4 class="text-info">Publicidades</h4>
+        <p class="text-success" th:text="${exito}"></p>
+        <p class="text-danger" th:text="${error}"></p>
+        <table class="table table-bordered">
 
-            <table class="table table-bordered ">
+            <caption></caption>
+            <thead class="table-info">
+                <tr class="text-info">
+                    <th scope="col">nombre de la publicidad</th>
+                    <th scope="col">auspiciante</th>
+                    <th scope="col">descripcion </th>
+                    <th scope="col">foto</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${publicidades}">
+                    <td th:text="${p.nombre}"></td>
+                    <td th:text="${p.usuario.username}"></td>
+                    <td th:text="${p.descripcion}"></td>
+                    <td> <section>
+                       
+                            <img alt="" class="rounded mx-auto d-block"
+                            th:if="${p.foto != null}"
+                            th:src="@{/foto/load/__${p.foto.id}__}"
+                            id="img" style="width: 200px;" >
+                            <img alt="" class="rounded mx-auto d-block"
+                                th:unless="${p.foto != null}"
+                                src="https://estaticos.elperiodico.com/resources/jpg/0/5/worlds-ugliest-dog-competition-1529838820550.jpg" id="img" style="width: 200px;"
+                                >
+                         
+                    </section>
 
-                <caption></caption>
-                <thead class="table-info">
-                    <tr class="text-info">
-                        <th scope="col">nombre de la publicidad</th>
-                        <th scope="col">auspiciante</th>
-                        <th scope="col">descripcion </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="p : ${publicidades}">
-                        <td th:text="${p.nombre}"></td>
-                        <td th:text="${p.usuario.username}"></td>
-                        <td th:text="${p.descripcion}"></td>
-                        <td>
-                            <a class="btn btn-info" name="id"
-                                th:href="@{/extra/modifico/} + ${p.id}">modificar
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" name="id"
-                                th:href="@{/extra/eliminado/} +
-                                ${p.id}">eliminar</a>
-                        </td>
+                    </td>
+                    <td>
+                        <a class="btn btn-info" name="id"
+                            th:href="@{/extra/modificopublicidad/socio/} + ${p.id}">modificar
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" name="id"
+                            th:href="@{/extra/eliminado/} +
+                            ${p.id}">eliminar</a>
+                    </td>
 
-                    </tr>
-                </tbody>
-            </table>
-
-        </section>
+                </tr>
+            </tbody>
+        </table>
 
 
 
