@@ -19,6 +19,7 @@ public class FotoControlador {
     @Autowired
     private FotoService fotoService;
 
+
    @GetMapping("/load/{id}")
     public ResponseEntity<byte[]> foto(@PathVariable String id) {
         Foto foto = fotoService.buscarPorId(id);

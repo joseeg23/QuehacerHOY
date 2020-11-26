@@ -10,6 +10,7 @@ import com.quehacerhoy.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class UsuarioService implements UserDetailsService {
             admin.setRol("ADMIN");
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
-            
+
             notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
                     + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
 
@@ -107,7 +108,7 @@ public class UsuarioService implements UserDetailsService {
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
 
-                notificacion.enviar("BIENVENIDO superadmin", "Usted se ha registrado exitosamente", email);
+            notificacion.enviar("BIENVENIDO superadmin", "Usted se ha registrado exitosamente", email);
             repositorio.save(admin);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -117,7 +118,7 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public void modificarUsuario(String username, String nombre, String apellido, String email, String clave, String clave2) throws Exception {
-       
+
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar su nombre");
         }
@@ -143,19 +144,19 @@ public class UsuarioService implements UserDetailsService {
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
 
-              notificacion.enviar("MODIFICACION DE USUARIO", "Usted HA MODIFICADO SU PERFIL CORRECTAMENTE", email);
+            notificacion.enviar("MODIFICACION DE USUARIO", "Usted HA MODIFICADO SU PERFIL CORRECTAMENTE", email);
             repositorio.save(admin);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
-    
-    public Usuario buscarPorId(String username) throws Exception{
+
+    public Usuario buscarPorId(String username) throws Exception {
         Optional<Usuario> buscar = repositorio.findById(username);
-        if(buscar.isPresent()){
+        if (buscar.isPresent()) {
             Usuario usuario = buscar.get();
             return usuario;
-        }else{
+        } else {
             throw new Exception("usuario no encontrado");
         }
     }
@@ -168,18 +169,38 @@ public class UsuarioService implements UserDetailsService {
     public List listaAdministradores() {
         return repositorio.listarAdmin();
     }
+    
+    //creación de método para recuperar contraseña (Enzo)
+    @Transactional
+    public void recuperarClave(String username) throws Exception {
+
+        Optional<Usuario> buscar = repositorio.findById(username);
+
+        if (buscar.isPresent()) {
+            Usuario admin = repositorio.getOne(username);
+            UUID idNueva = UUID.randomUUID();
+            admin.setClave(idNueva);
+
+            String mensaje = "Su nueva contraseña es: " + idNueva;
+            notificacion.enviar("CAMBIO DE CONTRASEÑA", mensaje, admin.getEmail());
+
+        } else {
+            throw new Exception("El usuario ingresado es inexistente");
+        }
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
 
         try {
             Optional<Usuario> respuesta = repositorio.findById(username);
-            
+
             if (respuesta.isPresent()) {
                 Usuario usuario = respuesta.get();
 
                 System.out.println(usuario.getUsername());
-                 System.out.println(usuario.getRol());
+                System.out.println(usuario.getRol());
 
                 List<GrantedAuthority> permisos = new ArrayList();
 
@@ -202,4 +223,5 @@ public class UsuarioService implements UserDetailsService {
         }
     }
 
+    
 }
