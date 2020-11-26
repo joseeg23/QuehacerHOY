@@ -6,6 +6,7 @@
 package com.quehacerhoy.entidades;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -70,6 +71,10 @@ public class Usuario implements Serializable {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public void setClave(UUID idNueva) {
+        this.clave = idNueva.toString();
     }
 
 }

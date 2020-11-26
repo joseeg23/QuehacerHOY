@@ -25,14 +25,14 @@ public class FotoControlador {
     @Autowired
     private FotoService fotoService;
 
-//
-//    @GetMapping("/load/{id}")
-//    public ResponseEntity<byte[]> photo(@PathVariable String id) {
-//        Foto photo = fotoServicio.buscarPorId(id);
-//        final HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.IMAGE_PNG);
-//        return new ResponseEntity<>(photo.getContent(), headers, HttpStatus.OK);
-//    }
+     //Crear metodo buscar por id
+	@GetMapping("/load/{id}")
+	public ResponseEntity<byte[]> foto(@PathVariable String id) {
+		Foto foto = fotoService.buscarPorId(id);
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		return new ResponseEntity<>(foto.getContenido(), headers, HttpStatus.OK);
+	}
 
     @GetMapping("/registrar")
     public String registrarFoto() {
@@ -58,14 +58,5 @@ public class FotoControlador {
     }
     
     
-    //Crear metodo buscar por id
-	@GetMapping("/load/{id}")
-	public ResponseEntity<byte[]> foto(@PathVariable String id) {
-		Foto foto = fotoService.buscarPorId(id);
-		final HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.IMAGE_PNG);
-		return new ResponseEntity<>(foto.getContenido(), headers, HttpStatus.OK);
-	}
-
-
+   
 }
