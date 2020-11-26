@@ -57,8 +57,19 @@ public class PortalControlador {
 
     
     @GetMapping("/principal")
-    public String principal() {
-        return "contacto.html";
+    public String principal(HttpSession session) {
+         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        String rol = usuario.getRol();
+        
+        switch (rol) {
+            case "SUPERADMIN":
+                return "redirect:/registros/superadmin";
+            case "ADMIN":
+                return "redirect:/registros/socio";
+            default:
+                return null;
+        }
+        
     }
 
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
