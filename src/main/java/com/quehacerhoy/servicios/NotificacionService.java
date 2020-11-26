@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.quehacerhoy.servicios;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

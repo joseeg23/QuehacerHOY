@@ -110,5 +110,25 @@ public class UsuarioControlador {
         
 
     }
+    
+    //Método recuperar clave
+    @GetMapping("/recuperarclave/{username}")
+    public String recuperarClave (ModelMap modelo, @RequestParam String username){
+        modelo.put("username", username);
+        return "recuperarclave.html";
+    }
+    
+    @PostMapping("/recuperarclave")
+    public String recuperarClave1 (ModelMap modelo, @RequestParam String username){
+        try {
+            usuarioServicio.recuperarClave(username);
+            return "revisatuemail.html";
+        } catch (Exception e) {
+            modelo.put("error", e.getMessage());
+            return "recuperarclave.html";
+        }
+        
+    }
+    
 
 }
