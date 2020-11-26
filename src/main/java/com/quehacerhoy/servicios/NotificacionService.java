@@ -25,8 +25,8 @@ public class NotificacionService {
 		
 		mensaje.setTo(mail);
 		mensaje.setFrom("quehacerhoy23@gmail.com");
-		mensaje.setSubject(titulo);
-		mensaje.setText(cuerpo);
+		mensaje.setSubject(cuerpo);
+		mensaje.setText(titulo);
 		
 		mailSender.send(mensaje);
 		
