@@ -1,7 +1,9 @@
 package com.quehacerhoy.controladores;
 
 import com.quehacerhoy.entidades.Comercio;
+import com.quehacerhoy.servicios.ComentarioService;
 import com.quehacerhoy.servicios.ComercioService;
+import com.quehacerhoy.servicios.UsuarioService;
 import com.quehacerhoy.servicios.ZonaService;
 import com.quehacerhoy.utilidades.Rubro;
 import java.util.Arrays;
@@ -26,6 +28,10 @@ public class ComercioControlador {
     private ComercioService comercioS;
     @Autowired
     private ZonaService zonaS;
+    @Autowired
+    private UsuarioService usuarioS;
+    @Autowired
+    private ComentarioService comentarioS;
 
     @GetMapping("/registro")
     public String registroComercio(ModelMap modelo) {
@@ -51,6 +57,7 @@ public class ComercioControlador {
             List<Enum> rubros = Arrays.asList(Rubro.values());
             modelo.put("rubros", rubros);
             modelo.put("zonas", zonaS.listarZona());
+            modelo.put("admin", usuarioS.listaAdministradores());
             modelo.put("nombre", nombre);
             modelo.put("rangoDeHorario", rangoDeHorario);
             modelo.put("rubro", rubro);
@@ -72,11 +79,14 @@ public class ComercioControlador {
 
         try {
             comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
-            modelo.put("exitoco", "zona registrada con exito");
-            return "registrossocios.html";
+            return "redirect:/registros/socio";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
             modelo.put("errorco", ex.getMessage());
+            List<Enum> rubros = Arrays.asList(Rubro.values());
+            modelo.put("rubros", rubros);
+            modelo.put("zonas", zonaS.listarZona());
+            modelo.put("admin", usuarioS.listaAdministradores());
             modelo.put("nombre", nombre);
             modelo.put("rangoDeHorario", rangoDeHorario);
             modelo.put("rubro", rubro);
@@ -134,8 +144,8 @@ public class ComercioControlador {
         }
 
     }
-    
-     //modifico desde vista de socio
+
+    //modifico desde vista de socio
     @GetMapping("/modifico/socio/{id}")
     public String modifico2(ModelMap modelo, @PathVariable String id) {
         try {
@@ -184,27 +194,32 @@ public class ComercioControlador {
     //vista para ver los comercios 
     @GetMapping("/listarPorRubro/{rubro}")
     public String listarPorRubro(ModelMap modelo, @PathVariable(name = "rubro") String rubro) {
+        System.out.println(rubro);
+        modelo.put("zonass", zonaS.listarZona());
         modelo.put("comercios", comercioS.listaComerciosPorRubro(rubro));
-        return "";
+        return "comercios.html";
     }
 
     //por zona
-    @GetMapping("/listarPorZona/{zona}")
-    public String listarPorZona(ModelMap modelo, @PathVariable(name = "zona") String zona) {
-        modelo.put("comercios", comercioS.listaComerciosPorZona(zona));
-        return "";
+    @GetMapping("/listarPorZona/{idzona}")
+    public String listarPorZona(ModelMap modelo, @PathVariable(name = "idzona") String idzona) {
+        modelo.put("zonass", zonaS.listarZona());
+        modelo.put("comercios", comercioS.listaComerciosPorZona(idzona));
+        return "comercios.html";
     }
 
     //vista de cuando eligen el comercio en si
     @GetMapping("/verPerfilComercio/{id}")
     public String verComercio(ModelMap modelo, @PathVariable(name = "id") String id) {
         try {
+            modelo.put("zonass", zonaS.listarZona());
             modelo.put("comercio", comercioS.buscarPorID(id));
-            return "";
+            modelo.put("comentarios", comentarioS.listarComentarioPorComercio(id));
+            return "perfilsitio.html";
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
-            return "";
+            return "redirect:/principal";
         }
 
     }

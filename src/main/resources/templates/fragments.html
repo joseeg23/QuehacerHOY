@@ -1,0 +1,81 @@
+<!-- navbar -->
+<div th:fragment="navbar" class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" >Qué Hacer Hoy</a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+    
+    <!-- Navbar Search-->
+    <form
+        class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Buscar..."
+                aria-label="Search" aria-describedby="basic-addon2" />
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+      
+    </form>
+    <a  class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/principal">inicio</a>
+	<a  class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/">salir</a>
+
+
+</nav>
+    </div>
+
+<!-- sidebar -->
+<div th:fragment="sidebar">
+	<div id="layoutSidenav_nav">
+		<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+			<div class="sb-sidenav-menu">
+				<div class="nav">
+
+					<div class="sb-sidenav-menu-heading">Menú</div>
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
+						aria-expanded="false" aria-controls="collapseLayouts">
+						<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+						Zonas
+						<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+					</a>
+					
+						<div class="collapse" id="collapseLayouts"
+							aria-labelledby="headingOne" data-parent="#sidenavAccordion"  th:each=" z : ${zonas}">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a  class="nav-link" th:text="z.nombre" href="/comercio/listarPorZona/  +
+                                ${z.id}" ></a> 
+							</nav>
+						</div>
+					
+						<a class="nav-link collapsed" href="" data-toggle="collapse"
+							data-target="#collapseLayouts" aria-expanded="false"
+							aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-book-open"></i>
+							</div> Sitios
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
+						</a>
+						<div id="collapseLayouts" aria-labelledby="headingOne"
+							data-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="restaurantes.html">Restaurantes</a> <a
+									class="nav-link" href="cines.html">Cines</a> <a
+									class="nav-link" href="museos.html">Museos</a> <a
+									class="nav-link" href="recorridos.html">Recorridos</a> <a
+									class="nav-link" href="plazas.html">Plazas</a> <a
+									class="nav-link" href="vidaNocturna.html">Vida Nocturna</a>
+							</nav>
+						</div>
+
+						<a class="nav-link" href="eventos.html"> Eventos </a> <a
+							class="nav-link" href="publicidad.html"> Publicidad </a> <a
+							class="nav-link" href="/contacto"> Contactanos </a>
+					</div>
+				</div>
+
+			</nav>
+        </div>
+</div>

@@ -6,10 +6,13 @@
 package com.quehacerhoy.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -22,6 +25,11 @@ public class Comentario implements Serializable {
     private String id;
     private String email;
     private String descripcion;
+
+    @Temporal(TemporalType.DATE)
+    private Date alta;
+    @Temporal(TemporalType.DATE)
+    private Date baja;
 
     @ManyToOne
     private Comercio comercio;
@@ -60,6 +68,23 @@ public class Comentario implements Serializable {
     public void setComercio(Comercio comercio) {
         this.comercio = comercio;
     }
+
+    public Date getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Date alta) {
+        this.alta = alta;
+    }
+
+    public Date getBaja() {
+        return baja;
+    }
+
+    public void setBaja(Date baja) {
+        this.baja = baja;
+    }
+    
 
     @Override
     public int hashCode() {

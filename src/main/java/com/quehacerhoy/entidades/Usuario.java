@@ -6,9 +6,12 @@
 package com.quehacerhoy.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Usuario implements Serializable {
@@ -21,6 +24,11 @@ public class Usuario implements Serializable {
     private String email;
     private String clave;
     private String rol;
+
+    @Temporal(TemporalType.DATE)
+    private Date alta;
+    @Temporal(TemporalType.DATE)
+    private Date baja;
 
     public Usuario() {
     }
@@ -76,5 +84,22 @@ public class Usuario implements Serializable {
     public void setClave(UUID idNueva) {
         this.clave = idNueva.toString();
     }
+
+    public Date getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Date alta) {
+        this.alta = alta;
+    }
+
+    public Date getBaja() {
+        return baja;
+    }
+
+    public void setBaja(Date baja) {
+        this.baja = baja;
+    }
+    
 
 }

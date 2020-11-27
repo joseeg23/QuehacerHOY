@@ -12,7 +12,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario,String> {
  @Query ("SELECT c FROM Usuario c WHERE baja is null")
  public ArrayList<Usuario> listar();
  
- @Query ("SELECT c FROM Usuario c WHERE c.rol Like 'ADMIN'")
+ @Query ("SELECT c FROM Usuario c WHERE c.rol Like 'ADMIN' and c.baja is null")
  public ArrayList<Usuario> listarAdmin();
  
  

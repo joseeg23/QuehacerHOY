@@ -6,5 +6,5 @@
 package com.quehacerhoy.utilidades;
 
 public enum Rubro {
- Restaurante, Cine, Plaza, Recorrido, vidaNocturna,Museo ;
+    Restaurante, Cine, Plaza, Recorrido, vidaNocturna, Museo;
 }

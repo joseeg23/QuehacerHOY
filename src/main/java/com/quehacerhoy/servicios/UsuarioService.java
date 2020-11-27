@@ -162,7 +162,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public List listar() {
-        return repositorio.findAll();
+        return repositorio.listar();
     }
 
     //lista de usuarios admin

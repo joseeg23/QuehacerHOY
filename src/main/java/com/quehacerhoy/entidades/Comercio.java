@@ -9,12 +9,16 @@ import com.quehacerhoy.utilidades.Rubro;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -27,11 +31,14 @@ public class Comercio implements Serializable {
     private String id;
     private String nombre;
     private String rangoDeHorario;
+    
+    @Enumerated(EnumType.STRING)
     private Rubro rubro;
     private String direccion; //calle...
+    @Lob 
+    @Size(max=4000)
     private String descripcion; //breve resumen de lo que se ofrece
     private String rangoEdadPublico;
-    private boolean pago;
     private int puntuacion;
 
     @Temporal(TemporalType.DATE)
@@ -49,7 +56,7 @@ public class Comercio implements Serializable {
     private Usuario usuario;
 
     public Comercio() {
-        this.puntuacion =5;
+        this.puntuacion = 5;
     }
 
     public String getId() {
@@ -108,13 +115,7 @@ public class Comercio implements Serializable {
         this.rangoEdadPublico = rangoEdadPublico;
     }
 
-    public boolean isPago() {
-        return pago;
-    }
 
-    public void setPago(boolean pago) {
-        this.pago = pago;
-    }
 
     public Date getAlta() {
         return alta;
