@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-//@PreAuthorize("ROLE_SUPERADMIN")
+@PreAuthorize("hasRole('ROLE_SUPERADMIN')")
 @RequestMapping("/zona")
 public class ZonaControlador {
 
@@ -37,25 +37,24 @@ public class ZonaControlador {
     public String registrar(ModelMap modelo, @RequestParam String nombre) {
         try {
             zonaS.altaZona(nombre);
-            modelo.put("exitoz", "zona registrada con exito");
-            return "registrossuperadmin.html";
+            return "redirect:/registros/superadmin";
         } catch (ErrorService ex) {
             Logger.getLogger(ZonaControlador.class.getName()).log(Level.SEVERE, null, ex);
             modelo.put("nombre", nombre);
             modelo.put("errorz", ex.getMessage());
-           return "registrossuperadmin.html";
+            return "registrossuperadmin.html";
         }
 
     }
-    
+
     @GetMapping("/modificar/{id}")
     public String modificar(ModelMap modelo, @PathVariable String id) {
         modelo.put("id", id);
         return "editarzona.html";
 
     }
-    
-     @PostMapping("/modifico")
+
+    @PostMapping("/modifico")
     public String modifico(ModelMap modelo, @RequestParam String id, @RequestParam String nombre) {
         try {
             zonaS.modificarZona(id, nombre);
@@ -63,7 +62,7 @@ public class ZonaControlador {
             return "redirect:/tablas/superadmin";
         } catch (ErrorService ex) {
             Logger.getLogger(ZonaControlador.class.getName()).log(Level.SEVERE, null, ex);
-             modelo.put("errorz", ex.getMessage());
+            modelo.put("errorz", ex.getMessage());
             return "editarzona.html";
         }
 

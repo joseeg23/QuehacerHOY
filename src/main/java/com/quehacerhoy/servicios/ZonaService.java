@@ -2,6 +2,7 @@ package com.quehacerhoy.servicios;
 
 import com.quehacerhoy.entidades.Zona;
 import com.quehacerhoy.repositorios.ZonaRepositorio;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -52,7 +53,9 @@ public class ZonaService {
         Optional<Zona> zona = zonaRepositorio.findById(id);
         if (zona.isPresent()) {
             Zona z = zona.get();
-            zonaRepositorio.delete(z);
+             Date baja = new Date();
+            z.setBaja(baja);
+            zonaRepositorio.save(z);
 
         } else {
             throw new ErrorService("La zona ingresada no es correcta");
@@ -72,7 +75,7 @@ public class ZonaService {
 
     public List<Zona> listarZona() {
 
-        return zonaRepositorio.findAll();
+        return zonaRepositorio.listar();
 
     }
 

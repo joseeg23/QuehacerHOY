@@ -92,7 +92,7 @@ public class ComercioService {
 
     //alta para los comercios
     @Transactional
-    public void modificarComercio( String id, String nombre, String rangoDeHorario, String rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona) throws Exception {
+    public void modificarComercio(String id, String nombre, String rangoDeHorario, String rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona) throws Exception {
         //verificar que este modificando el comercio la persona que lo creo
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -121,8 +121,7 @@ public class ComercioService {
 
         try {
             Comercio comercio = repositorio.getOne(id);
-          
-        
+
             comercio.setDescripcion(descripcion);
             comercio.setDireccion(direccion);
             comercio.setNombre(nombre);
@@ -179,12 +178,13 @@ public class ComercioService {
 
     //lista de comercios por rubro
     public List listaComerciosPorRubro(String rubro) {
-        return repositorio.buscarComercioPorRubro(rubro);
+        
+        return repositorio.buscarComercioPorRubro(Rubro.valueOf(rubro));
     }
 
     //lista de comercios por zona
-    public List listaComerciosPorZona(String zona) {
-        return repositorio.buscarComercioPorZona(zona);
+    public List listaComerciosPorZona(String idzona) {
+        return repositorio.buscarComercioPorZona(idzona);
     }
 
     //lista de comercios por usuario

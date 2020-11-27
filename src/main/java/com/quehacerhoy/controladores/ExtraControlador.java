@@ -27,6 +27,9 @@ public class ExtraControlador {
     @Autowired
     private ExtraService extraServicio;
 
+    @Autowired
+    private ZonaService zonaS;
+
     //Alta evento
     @GetMapping("/registroevento")
     public String registroEvento(ModelMap modelo) {
@@ -86,7 +89,7 @@ public class ExtraControlador {
         try {
             Date fecha2 = Fecha.parseFechaGuiones(fecha);
             extraServicio.altaEvento(nombre, descripcion, direccion, edad, hora, capacidad, fecha2, archivo, idZona, username);
-       
+
             return "redirect:/registros/socio";
         } catch (Exception e) {
             Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
@@ -212,7 +215,7 @@ public class ExtraControlador {
         }
 
     }
-    
+
     //vista socio modificar evento
     @GetMapping("/modificoevento/socio/{id}")
     public String modificoEvento2(ModelMap modelo, @PathVariable String id) {
@@ -264,7 +267,7 @@ public class ExtraControlador {
             modelo.put("fecha", fecha);
             modelo.put("idZona", idZona);
 
-             return "editoeventoad.html";
+            return "editoeventoad.html";
         }
 
     }
@@ -306,8 +309,8 @@ public class ExtraControlador {
         }
 
     }
-    
-       //vista socio modificar publicidad
+
+    //vista socio modificar publicidad
     @GetMapping("/modificopublicidad/socio/{id}")
     public String modificoPublicidad2(ModelMap modelo, @PathVariable String id) {
 
@@ -401,21 +404,31 @@ public class ExtraControlador {
         return "index.html";
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/eventos")
     public String listarEventos(ModelMap modelo) {
-        modelo.put("extras", extraServicio.listar());
-        return "listar.html";
+        modelo.put("eventos", extraServicio.listarEventos());
+        return "eventos.html";
     }
 
-    @GetMapping("/verextra/{id}")
+    @GetMapping("/publicidades")
+    public String listarPublicidad(ModelMap modelo) {
+        modelo.put("zonass", zonaS.listarZona());
+        modelo.put("publicidad", extraServicio.listarPublicidades());
+        return "publicidad.html";
+    }
+
+    @GetMapping("/perfilextra/{id}")
     public String verExtra(ModelMap modelo, @PathVariable(name = "id") String id) {
+
         try {
             modelo.put("extra", extraServicio.buscarPorId(id));
+            modelo.put("zonass", zonaS.listarZona());
+            return "perfilextra.hmtl";
         } catch (Exception ex) {
             Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, ex);
-            return "listarevento.html";
+            return "redirect:/principal";
         }
-        return "listarevento.hmtl";
-    }
 
+    }
+    
 }

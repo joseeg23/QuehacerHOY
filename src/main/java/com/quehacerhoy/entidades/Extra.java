@@ -33,6 +33,10 @@ public class Extra implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    @Temporal(TemporalType.DATE)
+    private Date alta;
+    @Temporal(TemporalType.DATE)
+    private Date baja;
 
     @OneToOne
     private Foto foto;
@@ -132,6 +136,22 @@ public class Extra implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Date getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Date alta) {
+        this.alta = alta;
+    }
+
+    public Date getBaja() {
+        return baja;
+    }
+
+    public void setBaja(Date baja) {
+        this.baja = baja;
     }
 
     @Override

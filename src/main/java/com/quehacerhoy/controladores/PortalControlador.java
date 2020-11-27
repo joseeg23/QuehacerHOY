@@ -30,17 +30,12 @@ public class PortalControlador {
     private ExtraService extraS;
     @Autowired
     private ComercioService comercioS;
-     @Autowired
+    @Autowired
     private ComentarioService comentarioS;
 
     @GetMapping("/")
     public String index() {
         return "indexalterno.html";
-    }
-
-    @GetMapping("/propuesta")
-    public String propuesta() {
-        return "contacto.html";
     }
 
     @GetMapping("/login")
@@ -55,12 +50,11 @@ public class PortalControlador {
         return "login.html";
     }
 
-    
-    @GetMapping("/principal")
-    public String principal(HttpSession session) {
-         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+    @GetMapping("/portaladministrador")
+    public String portal(HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         String rol = usuario.getRol();
-        
+
         switch (rol) {
             case "SUPERADMIN":
                 return "redirect:/registros/superadmin";
@@ -69,7 +63,23 @@ public class PortalControlador {
             default:
                 return null;
         }
-        
+
+    }
+
+    @GetMapping("/principal")
+    public String principal(ModelMap modelo) {
+        modelo.put("comercios", comercioS.lista());
+        modelo.put("zonass", zonaS.listarZona());
+        System.out.println(zonaS.listarZona());
+        return "principal.html";
+    }
+
+    @GetMapping("/contacto")
+    public String contacto(ModelMap modelo) {
+        modelo.put("comercios", comercioS.lista());
+        modelo.put("zonasss", zonaS.listarZona());
+        System.out.println(zonaS.listarZona());
+        return "contacto.html";
     }
 
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")

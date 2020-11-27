@@ -6,9 +6,12 @@
 package com.quehacerhoy.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -20,6 +23,11 @@ public class Zona implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
+
+    @Temporal(TemporalType.DATE)
+    private Date alta;
+    @Temporal(TemporalType.DATE)
+    private Date baja;
 
     public Zona() {
     }
@@ -38,6 +46,22 @@ public class Zona implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Date getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Date alta) {
+        this.alta = alta;
+    }
+
+    public Date getBaja() {
+        return baja;
+    }
+
+    public void setBaja(Date baja) {
+        this.baja = baja;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.quehacerhoy.entidades.Comentario;
 import com.quehacerhoy.entidades.Comercio;
 import com.quehacerhoy.repositorios.ComentarioRepositorio;
 import com.quehacerhoy.repositorios.ComercioRepositorio;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -24,7 +25,8 @@ public class ComentarioService {
         validarComentario(email, descripcion, idComercio);
         
         Comentario comentario = new Comentario();
-        
+        Date now = new Date();
+        comentario.setAlta(now);
         comentario.setEmail(email);
         comentario.setDescripcion(descripcion);
         
@@ -42,13 +44,14 @@ public class ComentarioService {
     }
     
     @Transactional
-    public void eliminarComentario(String id) throws ErrorService {
+    public void baja(String id) throws ErrorService {
         
         Optional<Comentario> comentario = comentarioRepositorio.findById(id);
         if (comentario.isPresent()) {
             Comentario c = comentario.get();
-            comentarioRepositorio.delete(c);
-            
+            Date now = new Date();
+            c.setBaja(now);
+            comentarioRepositorio.save(c);
         } else {
             throw new ErrorService("El comentario seleccionado no existe");
         }
@@ -56,7 +59,7 @@ public class ComentarioService {
     
     public List<Comentario> listarComentario() {
         
-        return comentarioRepositorio.findAll();
+        return comentarioRepositorio.listarComentariosAlta();
         
     }
     
