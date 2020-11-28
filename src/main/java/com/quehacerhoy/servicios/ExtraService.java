@@ -84,6 +84,9 @@ public class ExtraService {
 
             Usuario usuario = usuarioR.getOne(usernameUsuario);
             evento.setUsuario(usuario);
+            
+            Date now = new Date();
+            evento.setAlta(now);
             repositorio.save(evento);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -183,6 +186,9 @@ public class ExtraService {
             publicidad.setFecha(fechaPublicacion);
             Usuario usuario = usuarioR.getOne(usernameUsuario);
             publicidad.setUsuario(usuario);
+            
+            Date now = new Date();
+            publicidad.setAlta(now);
 
             repositorio.save(publicidad);
         } catch (Exception e) {
@@ -239,6 +245,17 @@ public class ExtraService {
             return extra;
         }else{
             throw new Exception("no se consiguio el extra");
+        }
+    }
+    
+    public void baja(String id){
+           Optional<Extra> optional = repositorio.findById(id);
+        
+        if(optional.isPresent()){
+            Extra extra = optional.get();
+            Date now = new Date();
+            extra.setBaja(now);
+            repositorio.save(extra);
         }
     }
 

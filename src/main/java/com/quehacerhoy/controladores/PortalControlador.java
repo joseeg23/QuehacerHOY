@@ -71,7 +71,7 @@ public class PortalControlador {
         modelo.put("comercios", comercioS.lista());
         modelo.put("zonass", zonaS.listarZona());
         System.out.println(zonaS.listarZona());
-        return "principal.html";
+        return "principalalterno.html";
     }
 
     @GetMapping("/contacto")
@@ -131,4 +131,12 @@ public class PortalControlador {
         return "tablasocio.html";
     }
 
+    @GetMapping("/buscar")
+    public String buscador(ModelMap modelo, @RequestParam String buscar){
+        
+         modelo.put("comercio", comercioS.listaComerciosPorPalabras(buscar));
+        return "perfilsitio.html";
+        
+        
+    }
 }

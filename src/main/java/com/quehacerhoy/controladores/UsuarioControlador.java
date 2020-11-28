@@ -1,9 +1,11 @@
 package com.quehacerhoy.controladores;
 
+import com.quehacerhoy.entidades.Usuario;
 import com.quehacerhoy.servicios.ErrorService;
 import com.quehacerhoy.servicios.UsuarioService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -109,6 +111,12 @@ public class UsuarioControlador {
            
         
 
+    }
+    
+    @GetMapping("/baja/{username}")
+    public String baja( @PathVariable String username) {
+      usuarioServicio.baja(username);
+      return"redirect:/tablas/superadmin";
     }
     
     //Método recuperar clave
