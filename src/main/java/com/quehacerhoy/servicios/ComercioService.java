@@ -191,5 +191,10 @@ public class ComercioService {
     public List listaComerciosPorUsuario(String usernameUsuario) {
         return repositorio.buscarComercioPorUsuario(usernameUsuario);
     }
+    
+      //lista de comercios por usuario
+    public List listaComerciosPorPalabras(String buscar) {
+        return repositorio.buscar(buscar);
+    }
 
 }

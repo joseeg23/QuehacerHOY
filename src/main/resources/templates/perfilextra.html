@@ -49,7 +49,8 @@
 							<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
 								data-parent="#sidenavAccordion">
 								<nav class="sb-sidenav-menu-nested nav">
-									<a class="nav-link" th:each=" z : ${zonass}"  th:text="${z.nombre}" name="idzona" th:href="@{/comercio/listarPorZona/} + ${z.id}"></a> 
+									<a class="nav-link" th:each="z : ${zonass}" th:text="${z.nombre}"
+										name="idzona" th:href="@{/comercio/listarPorZona/} + ${z.id}"></a>
 								</nav>
 							</div>
 							<a class="nav-link collapsed" data-toggle="collapse"
@@ -93,18 +94,21 @@
 							<div class="col-lg-8" th:each="e : ${extra}">
 
 								<!-- Title -->
-								<h1 class="mt-4" style="color: rgb(27, 82, 146);"  th:if="${e.nombre != null}" th:text="${e.nombre}"></h1>
+								<h1 class="mt-4" style="color: rgb(27, 82, 146);" th:if="${e.nombre !=
+									null}" th:text="${e.nombre}"></h1>
 
-								
+
 								<!-- <h3  style="color: rgb(27, 82, 146);" th:text="${c.rubro}"></h3> -->
-
 								<hr>
 
 								<!-- Preview Image -->
-								<img class="card-img-top" th:if="${e.foto != null}"
+								<div class="card-img-top">
+										<img class="card-img-top" th:if="${e.foto != null}"
 									th:src="@{/foto/load/__${e.foto.id}__}" id="img" alt="...">
+								</div>
+							
 								<hr>
-								
+
 
 								<!-- Post Content -->
 
@@ -114,25 +118,24 @@
 								<hr>
 
 								<br>
-								<p th:if="${e.direccion != null}" th:text="${e.direccion}"></p>
+								<p  th:text="${e.direccion}"></p>
 								<hr>
 
 								<br>
-								<p th:if="${e.hora != null}" th:text="${e.hora}"></p>
+								<p th:text="${e.hora}"></p>
 								<hr>
 
 								<br>
-								<p th:if="${e.capacidad != null}" th:text="${e.capacidad}"></p>
+								<p  th:text="${e.capacidad}"></p>
 								<hr>
 
 								
 								<br>
 								<p th:if="${e.fecha!= null}" th:text="${e.fecha}"></p>
-
 							</div>
 						</div>
 					</div>
-					
+
 				</main>
 				<footer class="py-4 bg-light mt-auto">
 					<div class="container-fluid">

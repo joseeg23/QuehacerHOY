@@ -8,6 +8,7 @@ package com.quehacerhoy.servicios;
 import com.quehacerhoy.entidades.Usuario;
 import com.quehacerhoy.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -66,6 +67,8 @@ public class UsuarioService implements UserDetailsService {
             admin.setRol("ADMIN");
             String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
             admin.setClave(claveEncriptada);
+            Date now = new Date();
+            admin.setAlta(now);
 
             notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
                     + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
@@ -100,6 +103,8 @@ public class UsuarioService implements UserDetailsService {
 
         try {
             Usuario admin = new Usuario();
+            Date now = new Date();
+            admin.setAlta(now);
             admin.setUsername(username);
             admin.setNombre(nombre);
             admin.setApellido(apellido);
@@ -160,6 +165,18 @@ public class UsuarioService implements UserDetailsService {
             throw new Exception("usuario no encontrado");
         }
     }
+    
+     public void baja(String username){
+           Optional<Usuario> optional = repositorio.findById(username);
+        
+        if(optional.isPresent()){
+            Usuario usuario = optional.get();
+            Date now = new Date();
+            usuario.setClave("baja");
+            usuario.setBaja(now);
+            repositorio.save(usuario);
+        }
+    }
 
     public List listar() {
         return repositorio.listar();
@@ -169,7 +186,7 @@ public class UsuarioService implements UserDetailsService {
     public List listaAdministradores() {
         return repositorio.listarAdmin();
     }
-    
+
     //creación de método para recuperar contraseña (Enzo)
     @Transactional
     public void recuperarClave(String username) throws Exception {
@@ -223,5 +240,4 @@ public class UsuarioService implements UserDetailsService {
         }
     }
 
-    
 }

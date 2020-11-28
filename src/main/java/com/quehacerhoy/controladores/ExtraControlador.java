@@ -1,12 +1,14 @@
 package com.quehacerhoy.controladores;
 
 import com.quehacerhoy.entidades.Extra;
+import com.quehacerhoy.entidades.Usuario;
 import com.quehacerhoy.servicios.ExtraService;
 import com.quehacerhoy.servicios.ZonaService;
 import com.quehacerhoy.utilidades.Fecha;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -349,63 +351,35 @@ public class ExtraControlador {
     }
 
     //Baja evento
-    @GetMapping("/eliminarevento/{id}")
-    public String eliminarEvento(ModelMap modelo, @PathVariable String id) {
+    @GetMapping("/baja/{id}")
+    public String baja(@PathVariable String id, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        String rol = usuario.getRol();
+
         try {
-            modelo.put("evento", extraServicio.buscarPorId(id));
+            extraServicio.baja(id);
+
+            switch (rol) {
+                case "SUPERADMIN":
+                    return "redirect:/tablas/superadmin";
+                case "ADMIN":
+                    return "redirect:/tablas/socio";
+            }
         } catch (Exception ex) {
             Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, ex);
-            return "eliminarevento.html";
+            switch (rol) {
+                case "SUPERADMIN":
+                    return "redirect:/tablas/superadmin";
+                case "ADMIN":
+                    return "redirect:/tablas/socio";
+            }
         }
-        return "eliminarevento.html";
-    }
-
-    @PostMapping("/eliminarevento")
-    public String eliminarEvento1(ModelMap modelo, @RequestParam String id) {
-
-        try {
-            //extraServicio.eliminar(id);
-
-        } catch (Exception e) {
-            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
-            modelo.put("mensaje", e.getMessage());
-
-            return "eliminarevento.html";
-        }
-        modelo.put("mensaje", "El evento se eliminó con éxito");
-        return "index.html";
-    }
-
-    //Baja publicidad
-    @GetMapping("eliminarpublicidad/{id}")
-    public String eliminarPublicidad(ModelMap modelo, String id) {
-        try {
-            modelo.put("publicidad", extraServicio.buscarPorId(id));
-        } catch (Exception ex) {
-            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, ex);
-            return "eliminarpublicidad.html";
-        }
-        return "eliminarpublicidad.html";
-    }
-
-    @PostMapping("eliminarpublicidad/{id}")
-    public String eliminarPublicidad1(ModelMap modelo, @RequestParam String id) {
-
-        try {
-            //extraServicio.eliminar(id);
-
-        } catch (Exception e) {
-            Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, e);
-            modelo.put("mensaje", "Algo salió mal, vuelva a intentarlo");
-            modelo.put("publicidad", id);
-            return "eliminarpublicidad.html";
-        }
-        modelo.put("mensaje", "La publicidad se eliminó con éxito");
-        return "index.html";
+        return null;
     }
 
     @GetMapping("/eventos")
     public String listarEventos(ModelMap modelo) {
+        modelo.put("zonass", zonaS.listarZona());
         modelo.put("eventos", extraServicio.listarEventos());
         return "eventos.html";
     }
@@ -417,18 +391,18 @@ public class ExtraControlador {
         return "publicidad.html";
     }
 
-    @GetMapping("/perfilextra/{id}")
-    public String verExtra(ModelMap modelo, @PathVariable(name = "id") String id) {
-
+ 
+    @GetMapping("/sitio/{id}")
+    public String sitio(ModelMap modelo, @PathVariable String id) {
         try {
             modelo.put("extra", extraServicio.buscarPorId(id));
             modelo.put("zonass", zonaS.listarZona());
-            return "perfilextra.hmtl";
+            return "perfilextra.html";
         } catch (Exception ex) {
             Logger.getLogger(ExtraControlador.class.getName()).log(Level.SEVERE, null, ex);
             return "redirect:/principal";
         }
 
     }
-    
+
 }

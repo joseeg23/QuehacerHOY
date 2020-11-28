@@ -91,59 +91,42 @@
 						<div class="row">
 
 							<!-- Post Content Column -->
-							<div class="col-lg-8" th:each="c : ${comercio}">
-
-								<!-- Title -->
-								<h1 class="mt-4" style="color: rgb(27, 82, 146);" th:text="${c.nombre}"></h1>
-
-								
-								<h3  style="color: rgb(27, 82, 146);" th:text="${c.rubro}"></h3>
-
-							
-
-								<!-- Preview Image -->
-								<img class="card-img-top" th:if="${c.foto != null}"
-									th:src="@{/foto/load/__${c.foto.id}__}" id="img" object-fit="cover" width="900" height="300" alt="...">
-								<hr>
-								
-
-								<!-- Post Content -->
-
-								<br>
-								<p class="lead" th:text="${c.puntuacion}"></p>
-							
-								<hr>
-
-								<span class="input-group-text">descripcion</span>
-								<br>
-								<p class="lead" th:text="${c.descripcion}"></p>
-								<hr>
-
-								<label class="input-group-text">horario</label>
-								<br>
-								<p th:text="${c.rangoDeHorario}"></p>
-								<hr>
-
-								<label class="input-group-text">publico</label>
-								<br>
-								<p th:text="${c.rangoEdadPublico}"></p>
-								<hr>
-
-								<label class="input-group-text">zona</label>
-								<br>
-								<p class="lead" zona th:text="${c.zona.nombre}"></p>
-								<hr>
-
-								<label class="input-group-text">direccion</label>
-								<br>
-								<p th:text="${c.direccion}"></p>
-
-
-
-
-								<hr>
+							<br>
+							<hr>
 							</div>
+							<div class="container">
+								<div class="content-wrapper">
+									<div class="row align-items-center"  th:each="c : ${comercio}">
+										<div class="col-12 col-lg-6">
+											<div class="image-wrapper">
+												<img class="card-img-top" th:if="${c.foto != null}"
+									th:src="@{/foto/load/__${c.foto.id}__}" id="img" object-fit="cover" width="900" height="300" alt="...">
+											</div>
+										</div>
+										<div class="col-12 col-lg">
+											<div class="text-wrapper">
+												<h6 class="card-title mbr-fonts-style display-5">
+													<strong ><p th:text="${c.nombre}"></p></strong>
+												</h6>
+												<p  th:text="${c.descripcion}">
+													</p>
+													<p class="lead" zona th:text="${c.zona.nombre}"></p>
+													<p th:text="${c.rangoEdadPublico}"></p>
+													<p th:text="${c.direccion}"></p>
+													<p th:text="${c.rangoDeHorario}"></p>
+								
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+					
 						</div>
+						<hr>
+						<!-- dddd -->
+				 
+						  
+						<!-- lll -->
 								<!-- Comments Form -->
 								<div class="card my-4">
 									<h5 class="card-header">Deja un comentario</h5>
@@ -185,6 +168,7 @@
 							
 							</div>
 						</div>
+						
 
 				</main>
 			</div>

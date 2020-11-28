@@ -1,6 +1,7 @@
 package com.quehacerhoy.controladores;
 
 import com.quehacerhoy.entidades.Comercio;
+import com.quehacerhoy.entidades.Usuario;
 import com.quehacerhoy.servicios.ComentarioService;
 import com.quehacerhoy.servicios.ComercioService;
 import com.quehacerhoy.servicios.UsuarioService;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -188,6 +190,33 @@ public class ComercioControlador {
             modelo.put("rangoEdadPublico", rangoEdadPublico);
             return "modificoComercioad.html";
         }
+
+    }
+
+    @GetMapping("/baja/{id}")
+    public String baja( @PathVariable String id, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        String rol = usuario.getRol();
+
+        try {
+            comercioS.baja(id);
+
+            switch (rol) {
+                case "SUPERADMIN":
+                    return "redirect:/tablas/superadmin";
+                case "ADMIN":
+                    return "redirect:/tablas/socio";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
+            switch (rol) {
+                case "SUPERADMIN":
+                    return "redirect:/tablas/superadmin";
+                case "ADMIN":
+                    return "redirect:/tablas/socio";
+            }
+        }
+        return null;
 
     }
 

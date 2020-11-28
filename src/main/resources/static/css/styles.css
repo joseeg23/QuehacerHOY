@@ -96,10 +96,20 @@ h1,h4{
   }
 
 .body2{
-  background-image: url(../imagenesproyecto/DSC_5768.jpg);
+  background-image: url(../imagenesproyecto/Banner_Top_Mendoza.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+}
+.carousel-item {
+  width: auto; height: 60px;
+ 
+  min-height: 150px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -10014,6 +10024,7 @@ h3 {
   .container {
     min-width: 992px !important;
   }
+  
 
   .navbar {
     display: none;

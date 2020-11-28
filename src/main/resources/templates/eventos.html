@@ -95,8 +95,7 @@
 									<div class="card-body">
 										<h5 class="card-title" th:text="${e.nombre}"></h5>
 										<p class="card-text" th:text="${e.descripcion}"></p>
-										<a th:href="@{/extra/perfilextra/} +
-										${e.id}" class="btn btn-primary">Ver mas</a>
+										<a class="btn btn-primary" th:href="@{/extra/sitio/} + ${e.id}" >Ver mas</a>
 									</div>
 								</div>
 							</div>
@@ -106,6 +105,7 @@
 					</div>
 
 				</div>
+			
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
