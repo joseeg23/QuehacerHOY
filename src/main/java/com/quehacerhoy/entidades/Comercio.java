@@ -31,7 +31,7 @@ public class Comercio implements Serializable {
     private String id;
     private String nombre;
     private String rangoDeHorario;
-    
+    private String telefono;
     @Enumerated(EnumType.STRING)
     private Rubro rubro;
     private String direccion; //calle...
@@ -113,6 +113,14 @@ public class Comercio implements Serializable {
 
     public void setRangoEdadPublico(String rangoEdadPublico) {
         this.rangoEdadPublico = rangoEdadPublico;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
 

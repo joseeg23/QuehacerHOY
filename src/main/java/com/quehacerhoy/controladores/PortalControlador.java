@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,8 +35,11 @@ public class PortalControlador {
     private ComentarioService comentarioS;
 
     @GetMapping("/")
-    public String index() {
-        return "indexalterno.html";
+    public String index(ModelMap modelo) {
+         modelo.put("comercios", comercioS.lista());
+        modelo.put("zonass", zonaS.listarZona());
+        System.out.println(zonaS.listarZona());
+        return "principalalterno.html";
     }
 
     @GetMapping("/login")
@@ -66,20 +70,24 @@ public class PortalControlador {
 
     }
 
-    @GetMapping("/principal")
-    public String principal(ModelMap modelo) {
-        modelo.put("comercios", comercioS.lista());
-        modelo.put("zonass", zonaS.listarZona());
-        System.out.println(zonaS.listarZona());
-        return "principalalterno.html";
-    }
+//    @GetMapping("/principal")
+//    public String principal(ModelMap modelo) {
+//        modelo.put("comercios", comercioS.lista());
+//        modelo.put("zonass", zonaS.listarZona());
+//        System.out.println(zonaS.listarZona());
+//        return "principalalterno.html";
+//    }
 
     @GetMapping("/contacto")
     public String contacto(ModelMap modelo) {
-        modelo.put("comercios", comercioS.lista());
-        modelo.put("zonasss", zonaS.listarZona());
-        System.out.println(zonaS.listarZona());
+      
         return "contacto.html";
+    }
+    
+    @PostMapping("/contactanos")
+    public String contactanos(ModelMap modelo, @RequestParam String email, @RequestParam String nombre) {
+      usuarioS.enviarPorpuesta(email, nombre);
+        return "redirect:/principal";
     }
 
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")

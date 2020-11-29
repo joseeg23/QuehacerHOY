@@ -81,7 +81,7 @@ public class ExtraService {
             //buscar zona con id
             Zona zona = zonaR.getOne(idZona);
             evento.setZona(zona);
-
+            evento.setHora(hora);
             Usuario usuario = usuarioR.getOne(usernameUsuario);
             evento.setUsuario(usuario);
             

@@ -110,10 +110,17 @@
 												</h6>
 												<p  th:text="${c.descripcion}">
 													</p>
+													<span class="input-group-text">zona</span>
 													<p class="lead" zona th:text="${c.zona.nombre}"></p>
+													<span class="input-group-text">publico</span>
 													<p th:text="${c.rangoEdadPublico}"></p>
+													<span class="input-group-text">direccion</span>
 													<p th:text="${c.direccion}"></p>
+													<span class="input-group-text">horario</span>
 													<p th:text="${c.rangoDeHorario}"></p>
+													<span class="input-group-text">telefono</span>
+													<p th:text="${c.telefono}"></p>
+
 								
 											</div>
 										</div>
@@ -145,9 +152,22 @@
 												<input type="text" class="form-control" name="mail"
 													th:value="${mail}" required>
 											</div>
-											<div class="input-group mb-3"> puntuacion
-												<input type="range" name="puntuacion" min="1" max="5"
-													onchange="updateTextInput(this.value);">
+											<p>puntuacion</p>
+											<div class="input-group mb-3">
+												
+												<br>
+												<p class="clasificacion">
+													<input id="radio1" type="radio" name="puntuacion" value="5"><!--
+													--><label for="radio1">★</label><!--
+													--><input id="radio2" type="radio" name="puntuacion" value="4"><!--
+													--><label for="radio2">★</label><!--
+													--><input id="radio3" type="radio" name="puntuacion" value="3"><!--
+													--><label for="radio3">★</label><!--
+													--><input id="radio4" type="radio" name="puntuacion" value="2"><!--
+													--><label for="radio4">★</label><!--
+													--><input id="radio5" type="radio" name="puntuacion" value="1"><!--
+													--><label for="radio5">★</label>
+												  </p>
 
 											</div>
 											<button type="submit" class="btn btn-primary">COMENTAR</button>
@@ -156,15 +176,18 @@
 								</div>
 
 								<!-- Comentarios -->
-								<div class="media mb-4" th:each="c : ${comentarios}">
-
+								<h3>comentarios</h3>
+								<div class="media mb-4" style="background-color:whitesmoke;" th:each="c : ${comentarios}">
+									
 									<div class="media-body">
-										<h3>comentarios</h3>
-										<p th:text="${c.descripcion}"></p>
-										<h6 class="mt-0" th:text="${c.email}" style="font-size: x-small;"></h6>
+									
+										<p class="text-info" th:text="${c.descripcion}"></p>
+										<h6 class="mt-0" th:text="${c.email}" style="font-size: small;"></h6>
 									</div>
+									
 								</div>
-
+								
+							
 							
 							</div>
 						</div>

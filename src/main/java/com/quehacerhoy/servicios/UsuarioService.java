@@ -71,7 +71,11 @@ public class UsuarioService implements UserDetailsService {
             admin.setAlta(now);
 
             notificacion.enviar("BIENVENIDO A QUEHACERHOY? MENDOZA", "Usted se ha registrado exitosamente, ya puede "
-                    + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos", email);
+                    + " manejar su emprendimiento en nuestra web, publicitarse y registrar eventos. Usted contara con 30 dias de prueba en nuestra web, luego podra elegir entre nuestros "
+                    + " paquetes de subscripcion ; "
+                    + " - Paquete PREMIUM ANUAL= 15.000$ por 12 meses de susbscripcion, registros y publicaciones ilimitados"
+                    + "- Paquete PREMIUM = 1200$ por mes , en el cual podra tener registrado hasta 2 comercios, y contara con publicidades y eventos destacados e ilimitados"
+                    + "-Paquete BASICO = 820$ por mes de subscripcion en el cual podra registrar solo un negocio,  y podra publicar hasta 3 eventos por mes y 2 publicidades por mes", email);
 
             repositorio.save(admin);
         } catch (Exception e) {
@@ -177,6 +181,10 @@ public class UsuarioService implements UserDetailsService {
             repositorio.save(usuario);
         }
     }
+     
+     public void enviarPorpuesta(String email, String nombre){
+         notificacion.enviar("Susbcripcion socio web quehacer hoy web","Bienvenido "+ nombre +  " . Para realizar su susbcripcion como socio, debe dirigirse a este link http://localhost:8080/usuario/registroAdmin al momento de subscribirse recibira 30 dias de prueba en nuestra web, y se le enviara otro mail indicandole los planes que le ofrecemos para que pueda potenciar su negocio en nuestras web", email);
+     }
 
     public List listar() {
         return repositorio.listar();

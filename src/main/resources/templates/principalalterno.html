@@ -24,7 +24,7 @@
 
     </head>
 
-    <body class="sb-nav-fixed" style="background-color: aliceblue;">
+    <body class="sb-nav-fixed">
         <div th:replace="fragments::navbar"></div>
         <!-- sidebar -->
 
@@ -101,7 +101,7 @@
             <div id="layoutSidenav_content">
                 <main>
 
-                    <header>
+                    <header >
                         <div id="carouselExampleIndicators" class="carousel
                             slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -116,7 +116,7 @@
                                 <!-- Slide One - Set the background image for this slide in the line below -->
                                 <div class="carousel-item active"
                                     style="background-image:
-                                    url('https://turismoglobal.com/wp-content/uploads/2020/07/La-Casina.jpg')">
+                                    url('https://turismoglobal.com/wp-content/uploads/2020/07/La-Casina.jpg'); height:100%;">
                                     <div class="carousel-caption d-none
                                         d-md-block">
                                         
@@ -130,7 +130,7 @@
                                 <!-- Slide Two - Set the background image for this slide in the line below -->
                                 <div class="carousel-item"
                                     style="background-image:
-                                    url('https://cdnmundo3.img.sputniknews.com/img/106290/75/1062907509_0:185:1024:738_1000x541_80_0_0_e7a171cb66555c14c2cb282c9eb61f48.jpg')">
+                                    url('https://cdnmundo3.img.sputniknews.com/img/106290/75/1062907509_0:185:1024:738_1000x541_80_0_0_e7a171cb66555c14c2cb282c9eb61f48.jpg'); height:100%;">
                                     <div class="carousel-caption d-none
                                         d-md-block">
                                         <h3 class="display-4">Cines</h3>
@@ -144,7 +144,7 @@
                                 <!-- Slide Three - Set the background image for this slide in the line below -->
                                 <div class="carousel-item"
                                     style="background-image:
-                                    url('https://www.altagracianoticias.com/wp-content/uploads/2020/04/museo-del-prado.jpg')">
+                                    url('https://www.altagracianoticias.com/wp-content/uploads/2020/04/museo-del-prado.jpg'); height:100%;">
                                     <div class="carousel-caption d-none
                                         d-md-block">
                                         <h3 class="display-4">Museos</h3>
@@ -158,7 +158,7 @@
                                 <!-- recorridos -->
                                 <div class="carousel-item"
                                     style="background-image:
-                                    url('https://diariosanrafael.com.ar/wp-content/uploads/2020/03/Aument%C3%B3-la-cantidad-de-turistas-en-Mendoza-en-relaci%C3%B3n-con-enero-de-2018.jpg')">
+                                    url('https://diariosanrafael.com.ar/wp-content/uploads/2020/03/Aument%C3%B3-la-cantidad-de-turistas-en-Mendoza-en-relaci%C3%B3n-con-enero-de-2018.jpg'); height:100%;">
                                     <div class="carousel-caption d-none
                                         d-md-block">
                                         <h3 class="display-4">recorridos</h3>
@@ -172,7 +172,7 @@
                                 <!-- plazas -->
                                 <div class="carousel-item"
                                     style="background-image:
-                                    url('https://media-cdn.tripadvisor.com/media/photo-s/07/2a/22/46/plaza-independencia.jpg')">
+                                    url('https://media-cdn.tripadvisor.com/media/photo-s/07/2a/22/46/plaza-independencia.jpg'); height:100%;">
                                     <div class="carousel-caption d-none
                                         d-md-block">
                                         <h3 class="display-4">plazas</h3>
@@ -186,7 +186,7 @@
                                 <!-- vida nocturno -->
                                 <div class="carousel-item"
                                     style="background-image:
-                                    url('https://ciudaddemendoza.gob.ar/wp-content/uploads/2016/12/4262_cp-1170x630.jpg')">
+                                    url('https://ciudaddemendoza.gob.ar/wp-content/uploads/2016/12/4262_cp-1170x630.jpg'); height:100%;">
                                     <div class="carousel-caption d-none
                                         d-md-block">
                                         <h3 class="display-4">vida nocturna</h3>
@@ -217,16 +217,71 @@
                         <!-- Page Content -->
                         <section>
                             <div class="container">
-                                <h1 class="font-weight-light">Bienvenido!</h1>
-                                <p class="lead">Qué Hacer Hoy puedes encontrar
+                                <h2  style="color: black;" >Bienvenido!</h2>
+                                <p class="lead" style="font-family: cursive; text-align: justify;">En la web Qué Hacer Hoy puedes encontrar
                                     diferentes actividades para realizar con
                                     toda la información necesaria:
                                     descripciones, horarios, precios, rango de
                                     edades, etc.
                                     Además puedes realizar una búsqueda de
-                                    actividades en base a la ubicación más
+                                    actividades en base a la zona más
                                     cercana a la que te encuentres.</p>
                             </div>
+                             <!--Titulo de la pagina-->
+                             <br>
+                             <br>
+                             <br>
+                             <br>
+
+            <h3 class="text-info">Qué Hacer Hoy WEB</h3>
+
+            <div>
+                <ol class="breadcrumb mb-4"
+                    style="background-color:rgb(66, 92, 92)">
+                    <!--Subtitulo 1-->
+                    <h5 class="breadcrumb-item active">¿Qué es?</h5>
+                </ol>
+                <ol>
+                    <p>Qué hacer hoy es un sitio web ideal para vos si estas
+                        aburrido o tenés ganas de salir de tu casa, conocé nueva
+                        gente y juntate en el sitio que más te guste a pasar el
+                        día.</p>
+                </ol>
+            </div>
+
+
+            <ol class="breadcrumb mb-4" 
+            style="background-color:rgb(66, 92, 92)">
+                <!--Subtitulo 2-->
+                <h5 class="breadcrumb-item active">¿Cómo funciona?</h5>
+            </ol>
+            <ol>
+                <p>Al entrar al sitio, primero hacé click en boton azul de abajo
+                    que dice "Empeza!". Después, selecciona en la zona que
+                    querés juntarte como por ejemplo "Mendoza". Al
+                    seleccionarla, ahora tenés que elegir el sitio donde vas a
+                    pasar el rato, como por ejemplo "Restaurantes". Por ultimo,
+                    seleccioná el local del sitio que más te guste. Para poder
+                    organizar un encuentro en el local, primero tenés que
+                    registrarte. Al registrate, andá al apartado de comentarios
+                    en la parte de abajo y chateá con gente para organizar tu
+                    encuentro.</p>
+            </ol>
+            <ol class="breadcrumb mb-4" 
+            style="background-color:rgb(66, 92, 92)">
+                <!--Subtitulo 3-->
+                <h5 class="breadcrumb-item active">Nuestra finalidad</h5>
+            </ol>
+            <ol>
+                <p>La finalidad del sitio web es que vos puedas conocer gente e
+                    ir a sitios a divertirte y pasar el rato. Podes mandarnos
+                    una reseña de tu experiencia con el sitio en el botón del
+                    sidebar donde dice "Reseñas". Ahora que conocés el sitio
+                    bien, solo queda disfrutar, toca el boton de abajo para
+                    empezar!</p>
+            </ol>
+           
+  
                         </section>
        
                     </main>

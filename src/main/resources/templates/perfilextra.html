@@ -98,7 +98,7 @@
 									null}" th:text="${e.nombre}"></h1>
 
 
-								<!-- <h3  style="color: rgb(27, 82, 146);" th:text="${c.rubro}"></h3> -->
+								
 								<hr>
 
 								<!-- Preview Image -->
@@ -115,8 +115,10 @@
 								<span class="input-group-text">descripcion</span>
 								<br>
 								<p class="lead" th:if="${e.descripcion != null}" th:text="${e.descripcion}"></p>
-								<hr>
-
+							
+								<span class="input-group-text" >fecha</span>
+								<br>
+								<p th:if="${e.fecha!= null}" th:text="${e.fecha}"></p>
 								<br>
 								<p  th:text="${e.direccion}"></p>
 								<hr>
@@ -128,10 +130,8 @@
 								<br>
 								<p  th:text="${e.capacidad}"></p>
 								<hr>
-
-								
 								<br>
-								<p th:if="${e.fecha!= null}" th:text="${e.fecha}"></p>
+								
 							</div>
 						</div>
 					</div>
