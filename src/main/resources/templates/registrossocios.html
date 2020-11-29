@@ -51,7 +51,7 @@
         </div>
 
         <!-- registrar comercio -->
-        <div class="registroComercio">
+        <div class="registro">
             <h2>Registrar Comercio</h2>
             <form action="/comercio/registrar/socio" method="POST" enctype="multipart/form-data">
                 <p class="text-success" th:text="${exitoco}"></p>
@@ -89,6 +89,11 @@
                     <span class="input-group-text">direccion </span>
                     <input type="text" class="form-control" name="direccion"
                         th:value="${direccion}" required>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">telefono </span>
+                    <input type="text" class="form-control" name="telefono"
+                        th:value="${telefono}" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -133,7 +138,7 @@
 
        
         <!-- registrar evento-->
-        <div class="registroevento">
+        <div class="registro">
             <h2>Registrar evento</h2>
             <form action="/extra/registroevento/socio" method="POST" enctype="multipart/form-data">
                 <p class="text-success" th:text="${exitoe}"></p>
@@ -214,7 +219,7 @@
 
 
         <!-- registrar publicidad -->
-        <div class="registropublicidad">
+        <div class="registro">
             <h2>Registrar publicidad</h2>
             <form action="/extra/registropublicidad/socio" method="POST" enctype="multipart/form-data">
                 <p class="text-success" th:text="${exitop}"></p>

@@ -48,10 +48,10 @@ public class ComercioControlador {
     public String registrarComercio(ModelMap modelo, @RequestParam String nombre, @RequestParam String rangoDeHorario,
             @RequestParam String rubro, @RequestParam String direccion, @RequestParam String descripcion,
             @RequestParam String rangoEdadPublico, @RequestParam MultipartFile archivo, @RequestParam String idZona,
-            @RequestParam String username) {
+            @RequestParam String username, @RequestParam String telefono) {
 
         try {
-            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
+            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona,telefono, username);
             return "redirect:/registros/superadmin";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,10 +77,10 @@ public class ComercioControlador {
     public String registrarComercioSocio(ModelMap modelo, @RequestParam String nombre, @RequestParam String rangoDeHorario,
             @RequestParam String rubro, @RequestParam String direccion, @RequestParam String descripcion,
             @RequestParam String rangoEdadPublico, @RequestParam MultipartFile archivo, @RequestParam String idZona,
-            @RequestParam String username) {
+            @RequestParam String username, @RequestParam String telefono) {
 
         try {
-            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, username);
+            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona,telefono, username);
             return "redirect:/registros/socio";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -253,9 +253,5 @@ public class ComercioControlador {
 
     }
 
-    @GetMapping("/listarPorUsuario/{username}")
-    public String listarPorUsuario(ModelMap modelo, @PathVariable(name = "username") String username) {
-        modelo.put("comercios", comercioS.listaComerciosPorUsuario(username));
-        return "";
-    }
+   
 }

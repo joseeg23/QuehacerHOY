@@ -56,7 +56,7 @@
         </div>
 
         <!-- lista de zonas -->
-        <section style="padding: 0 10px;">
+        <section class="tabla">
             <h4 class="text-info">Zonas</h4>
             <p class="text-success" th:text="${exito}"></p>
             <p class="text-danger" th:text="${error}"></p>
@@ -93,7 +93,7 @@
         </section>
 
         <!-- lista de RUBROS -->
-        <section style="padding: 0 10px;">
+        <section class="tabla">
             <h4 class="text-info">Rubros</h4>
             <table class="table table-bordered">
 
@@ -117,7 +117,7 @@
 
         </section>
         <!-- lista de SOCIOS -->
-        <section style="padding: 0 10px;">
+        <section class="tabla">
             <h4 class="text-info">Socios</h4>
             <p class="text-success" th:text="${exito}"></p>
             <p class="text-danger" th:text="${error}"></p>
@@ -147,7 +147,7 @@
                         </td>
                         <td>
                             <a class="btn btn-danger" name="username"
-                                th:href="@{/usuario/eliminado/} +
+                                th:href="@{/usuario/baja/} +
                                 ${a.username}">eliminar</a>
                         </td>
 
@@ -159,7 +159,7 @@
 
 
         <!-- lista de Comercios -->
-        <section style="padding: 0 10px;">
+        <section class="tabla">
             <h4 class="text-info">Comercios</h4>
             <p class="text-success" th:text="${exito}"></p>
             <p class="text-danger" th:text="${error}"></p>
@@ -216,7 +216,7 @@
         </section>
         <!-- lista de EVENTOS -->
 
-        <section style="padding: 0 10px;">
+        <section class="tabla">
             <h4 class="text-info">Eventos</h4>
             <p class="text-success" th:text="${exito}"></p>
             <p class="text-danger" th:text="${error}"></p>
@@ -274,7 +274,7 @@
 
         </section>
         <!-- lista de PUBLICIDADES -->
-        <section style="padding: 0 10px;">
+        <section class="tabla">
             <h4 class="text-info">Publicidades</h4>
             <p class="text-success" th:text="${exito}"></p>
             <p class="text-danger" th:text="${error}"></p>
@@ -331,7 +331,7 @@
 
         </section>
         <!-- lista de comentarios -->
-        <section style="padding: 0 10px;">
+        <section class="tabla">
             <h4 class="text-info">Comentarios</h4>
             <p class="text-success" th:text="${exito}"></p>
             <p class="text-danger" th:text="${error}"></p>

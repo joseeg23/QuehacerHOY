@@ -35,7 +35,7 @@ public class ComercioService {
 
     //alta para los comercios
     @Transactional
-    public void alta(String nombre, String rangoDeHorario, String rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona, String usernameUsuario) throws Exception {
+    public void alta(String nombre, String rangoDeHorario, String rubro, String direccion, String descripcion, String rangoEdadPublico, MultipartFile archivo, String idZona,String telefono, String usernameUsuario) throws Exception {
 
         if (nombre.isEmpty()) {
             throw new Exception("Debe indicar un nombre");
@@ -71,6 +71,7 @@ public class ComercioService {
             comercio.setAlta(alta);
             comercio.setDescripcion(descripcion);
             comercio.setDireccion(direccion);
+            comercio.setTelefono(telefono);
             Foto foto = fotoS.guardar(archivo);
             comercio.setFoto(foto);
             comercio.setNombre(nombre);
