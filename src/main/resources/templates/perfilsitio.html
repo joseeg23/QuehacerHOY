@@ -98,17 +98,22 @@
 								<div class="content-wrapper">
 									<div class="row align-items-center"  th:each="c : ${comercio}">
 										<div class="col-12 col-lg-6">
+											<h2 class="card-title mbr-fonts-style display-5 text-info">
+												<strong ><p th:text="${c.nombre}"></p></strong>
+											</h2>
 											<div class="image-wrapper">
-												<img class="card-img-top" th:if="${c.foto != null}"
-									th:src="@{/foto/load/__${c.foto.id}__}" id="img" object-fit="cover" width="900" height="300" alt="...">
+												<img class="img-fluid" th:if="${c.foto != null}"
+									th:src="@{/foto/load/__${c.foto.id}__}" id="img" object-fit="cover" width="900" height="300" >
 											</div>
+											<br>
+										
+											<a class="btn btn-info" name="username" th:href="@{/reservar/} +${c.id}">Reservar</a>
 										</div>
 										<div class="col-12 col-lg">
 											<div class="text-wrapper">
-												<h6 class="card-title mbr-fonts-style display-5">
-													<strong ><p th:text="${c.nombre}"></p></strong>
-												</h6>
-												<p  th:text="${c.descripcion}">
+												<br>
+												<br>
+												<p class="text-info" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; text-align: justify; font-size: large;" th:text="${c.descripcion}">
 													</p>
 													<span class="input-group-text">zona</span>
 													<p class="lead" zona th:text="${c.zona.nombre}"></p>

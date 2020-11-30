@@ -183,7 +183,10 @@ public class UsuarioService implements UserDetailsService {
     }
      
      public void enviarPorpuesta(String email, String nombre){
-         notificacion.enviar("Susbcripcion socio web quehacer hoy web","Bienvenido "+ nombre +  " . Para realizar su susbcripcion como socio, debe dirigirse a este link http://localhost:8080/usuario/registroAdmin al momento de subscribirse recibira 30 dias de prueba en nuestra web, y se le enviara otro mail indicandole los planes que le ofrecemos para que pueda potenciar su negocio en nuestras web", email);
+         notificacion.enviar("Susbcripcion socio web quehacer hoy web","Bienvenido "+ nombre +  ", Nos sobran los motivos!!!!!….. para que te unas a nosotros\n" +
+"Y cuando decimos motivos nos referimos a que podras impulsar tu negocio de manera rapida y efectiva!!!..... desde restaurantes y bares hasta museos y paseos podras mostrar tu negocio e impulsarlo aun mas.\n" +
+"\n" +
+"Unite al Programa de afiliados de Qué Hacer Hoy y empezá a ganar comisión por las reservas realizadas a través de tu página web. ¡Registrarse es gratis, fácil y con confirmación inmediata! . Para realizar su susbcripcion como socio, debe dirigirse a este link http://localhost:8080/usuario/registroAdmin al momento de subscribirse recibira 30 dias de prueba en nuestra web, y se le enviara otro mail indicandole los planes que le ofrecemos para que pueda potenciar su negocio en nuestras web.", email);
      }
 
     public List listar() {

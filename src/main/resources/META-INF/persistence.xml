@@ -8,6 +8,7 @@
     <class>com.quehacerhoy.entidades.Foto</class>
     <class>com.quehacerhoy.entidades.Comentario</class>
     <class>com.quehacerhoy.entidades.Extra</class>
+    <class>com.quehacerhoy.entidades.Reserva</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quehacerhoy?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

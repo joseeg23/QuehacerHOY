@@ -87,7 +87,7 @@ public class PortalControlador {
     @PostMapping("/contactanos")
     public String contactanos(ModelMap modelo, @RequestParam String email, @RequestParam String nombre) {
       usuarioS.enviarPorpuesta(email, nombre);
-        return "redirect:/principal";
+        return "redirect:/";
     }
 
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
