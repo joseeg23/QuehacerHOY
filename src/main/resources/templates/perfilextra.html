@@ -104,7 +104,7 @@
 								<!-- Preview Image -->
 								<div class="card-img-top">
 										<img class="card-img-top" th:if="${e.foto != null}"
-									th:src="@{/foto/load/__${e.foto.id}__}" id="img" alt="...">
+									th:src="@{/foto/load/__${e.foto.id}__}" id="img" object-fit="cover" width="900" height="300">
 								</div>
 							
 								<hr>
@@ -114,7 +114,7 @@
 
 								<span class="input-group-text">descripcion</span>
 								<br>
-								<p class="lead" th:if="${e.descripcion != null}" th:text="${e.descripcion}"></p>
+								<p class="text-info" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; text-align: justify; font-size: large;" th:if="${e.descripcion != null}" th:text="${e.descripcion}"></p>
 							
 								<span class="input-group-text" >fecha</span>
 								<br>

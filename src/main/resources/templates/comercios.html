@@ -87,9 +87,9 @@
 					<!--Cards para mostrar sitios-->
 					<div class="caja-1">
 						<div class="row row-cols-1 row-cols-md-3">
-							<div class="card" th:each="c : ${comercios}" style="background-color: rgb(221, 214, 215);margin-right: auto;" >
+							<div class="card" th:each="c : ${comercios}" style="background-color: rgb(229, 238, 240);margin-right: auto;" >
 								<img class="card-img-top" th:if="${c.foto != null}"
-									th:src="@{/foto/load/__${c.foto.id}__}" id="img"  object-fit="cover" width="100" height="250" alt="...">
+									th:src="@{/foto/load/__${c.foto.id}__}" id="img"  object-fit="cover" width="50" height="250" alt="...">
 								<div class="card-body">
 									<h5 class="card-title" th:text="${c.nombre}"></h5>
 									<div>
