@@ -208,7 +208,7 @@ public class UsuarioService implements UserDetailsService {
             Usuario admin = repositorio.getOne(username);
             UUID idNueva = UUID.randomUUID();
             admin.setClave(idNueva);
-
+            repositorio.save(admin);
             String mensaje = "Su nueva contraseña es: " + idNueva;
             notificacion.enviar("CAMBIO DE CONTRASEÑA", mensaje, admin.getEmail());
 
