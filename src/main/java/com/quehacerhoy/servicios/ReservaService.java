@@ -46,7 +46,7 @@ public class ReservaService {
             reservaR.save(reserva);
             
             //envia al que hizo la reserva
-            notificacion.enviar("Reserva en" + comercio.getNombre() , "Tu reserva se ha realizado con exito. para el dia " + fecha , email);
+            notificacion.enviar("Reserva en " + comercio.getNombre() , "Tu reserva se ha realizado con exito. para el dia " + fecha , email);
            //envia al comercio
             notificacion.enviar("Reserva pendiente", "Se ha realizado una reserva en u comercio " + comercio.getNombre() + " . Detalles : 1. Correo = " + email + ""
                     + ", telefono " + telefono + " Para " +cantidadPersonas + " personas, para el dia  " + fecha  , comercio.getUsuario().getEmail());
@@ -59,9 +59,24 @@ public class ReservaService {
         
     }
     
+    @Transactional
+    public void bajaPorFecha(String id){
+        List<Reserva> r = reservaR.reservasComercio(id);
+       
+        if(!r.isEmpty()){
+            Date now = new Date();
+            for (Reserva reserva : r) {
+                if(reserva.getFechaReserva().before(now)){
+                    reserva.setBaja(now);
+                    reservaR.save(reserva);
+                }                
+            }
+        }
+              
+    }
     
     public List listarReservasPorComercio(String id){
-        
+        bajaPorFecha(id);
         return reservaR.reservasComercio(id);
         
     }

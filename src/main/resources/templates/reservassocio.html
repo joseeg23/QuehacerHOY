@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>comentarios!</title>
+        <title>reservas!</title>
 
         <!-- Colocar favicon en sitio -->
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -53,23 +53,27 @@
             </nav>
         </div>
 
-     <!-- lista de comentarios -->
+     <!-- lista de reservas-->
      <section style="padding: 0 10px;">
 
         <table class="table table-bordered">
 
-            <caption></caption>
+            <caption>reservas</caption>
             <thead class="table-info">
                 <tr class="text-info">
-                    <th scope="col">comercio</th>
-                    <th scope="col">comentario</th>
+                    <th scope="col">email</th>
+                    <th scope="col">telefono</th>
+                    <th scope="col">cantidad de personas</th>
+                    <th scope="col">fecha</th>
                
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="c : ${comentarios}">
-                    <td th:text="${c.comercio.nombre}"></td>
-                    <td th:text="${c.descripcion}"></td>
+                <tr th:each="r : ${reservas}">
+                    <td th:text="${r.email}"></td>
+                    <td th:text="${r.telefono}"></td>
+                    <td th:text="${r.cantidadPersonas}"></td>
+                    <td th:text="${r.fechaReserva}"></td>
                 
                 </tr>
             </tbody>
@@ -80,3 +84,4 @@
 
 
     </body>
+</html>
