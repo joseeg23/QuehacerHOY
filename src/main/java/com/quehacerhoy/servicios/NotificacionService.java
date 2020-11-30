@@ -19,14 +19,14 @@ public class NotificacionService {
 	private JavaMailSender mailSender;
 	
 	@Async
-	public void enviar(String cuerpo,String titulo,String mail) {
+	public void enviar(String asunto,String cuerpo,String mail) {
 	
 		SimpleMailMessage mensaje = new SimpleMailMessage();
 		
 		mensaje.setTo(mail);
 		mensaje.setFrom("quehacerhoy23@gmail.com");
 		mensaje.setSubject(cuerpo);
-		mensaje.setText(titulo);
+		mensaje.setText(asunto);
 		
 		mailSender.send(mensaje);
 		
