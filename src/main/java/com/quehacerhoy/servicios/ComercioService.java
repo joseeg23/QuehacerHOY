@@ -193,10 +193,13 @@ public class ComercioService {
         return repositorio.buscarComercioPorUsuario(usernameUsuario);
     }
     
-      //lista de comercios por usuario
+      //lista de comercios por usuario mo  %mo%
     public List listaComerciosPorPalabras(String buscar) {
-                
-        return repositorio.buscar("%"+buscar+"%");
+        String co= buscar;
+        if(buscar.length()>1){
+         co= buscar.substring(0, 2);}
+        
+        return repositorio.buscar(co+"%");
     }
 
 }
