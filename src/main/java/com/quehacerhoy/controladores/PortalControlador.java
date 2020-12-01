@@ -69,6 +69,12 @@ public class PortalControlador {
         }
 
     }
+    
+    @GetMapping("/nosotros")
+    public String sobreNosotros() {
+        return "acercaNosotros.html";
+    }
+
 
     @GetMapping("/contacto")
     public String contacto(ModelMap modelo) {
@@ -133,11 +139,12 @@ public class PortalControlador {
 
     @GetMapping("/buscar")
     public String buscador(ModelMap modelo, @RequestParam String buscar) {
+      
         if (comercioS.listaComerciosPorPalabras(buscar).isEmpty()) {
             return "redirect:/";
         } else {
             modelo.put("zonass", zonaS.listarZona());
-                
+
             modelo.put("comercios", comercioS.listaComerciosPorPalabras(buscar));
             return "comercios.html";
         }
