@@ -9,28 +9,37 @@ import com.quehacerhoy.utilidades.Rubro;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Comercio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
     private String rangoDeHorario;
+    private String telefono;
+    @Enumerated(EnumType.STRING)
     private Rubro rubro;
     private String direccion; //calle...
+    @Lob 
+    @Size(max=4000)
     private String descripcion; //breve resumen de lo que se ofrece
     private String rangoEdadPublico;
-    private boolean pago;
+    private int puntuacion;
 
     @Temporal(TemporalType.DATE)
     private Date alta;
@@ -39,18 +48,17 @@ public class Comercio implements Serializable {
 
     @OneToOne
     private Foto foto;
-    
+
     @ManyToOne
     private Zona zona;
-    
+
     @ManyToOne
     private Usuario usuario;
 
     public Comercio() {
+        this.puntuacion = 5;
     }
-    
-    
-    
+
     public String getId() {
         return id;
     }
@@ -107,13 +115,15 @@ public class Comercio implements Serializable {
         this.rangoEdadPublico = rangoEdadPublico;
     }
 
-    public boolean isPago() {
-        return pago;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setPago(boolean pago) {
-        this.pago = pago;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
+
+
 
     public Date getAlta() {
         return alta;
@@ -154,8 +164,14 @@ public class Comercio implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
 
     @Override
     public int hashCode() {

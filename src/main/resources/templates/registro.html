@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Registrarse</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <link href="/css/styles.css" rel="stylesheet" />
+    </head>
+
+    <body  style="background-image: url('https://images.clarin.com/2019/11/06/la-provincia-es-autosuficiente-destaca___a8GQ9c_x_1256x620__2.jpg')">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Crear una cuenta de socio</h3>
+                                   <p>Al registrarte te llegara un correo con todos los paquetes pagos de la pagina, en la cual podras potenciar tu negocio y hacerla crecer como siempre 
+                                       lo quisiste
+                                   </p>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="/usuario/registrarAdmin" method="POST">
+                                           
+                                            <p class="text-danger"  th:text="${error}"></p>
+                                            <p class="text-danger"  th:text="${logout}"></p>
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">username</label>
+                                                <input class="form-control py-4"  type="text" name="username"  th:value="${username}" placeholder="username" required />
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputFirstName">Nombre</label>
+                                                        <input class="form-control py-4" type="text" name="nombre"  th:value="${nombre}" placeholder="Ingresar nombre" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputLastName">Apellido</label>
+                                                        <input class="form-control py-4" type="text" name="apellido"  th:value="${apellido}" placeholder="Ingresar apellido" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Correo electronico</label>
+                                                <input class="form-control py-4" type="email" name="mail"  th:value="${mail}" placeholder="Ingresar mail" required/>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputPassword">Contraseña</label>
+                                                        <input class="form-control py-4"  type="password" name="clave" placeholder="Ingresar contraseña" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputConfirmPassword">Confirmar contraseña</label>
+                                                        <input class="form-control py-4"  type="password" name="clave2" placeholder="Repetir contraseña" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                            <button type="submit" class="btn btn-primary" style="background-color: rgb(0, 140, 255);">REGISTRAR</button>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="/login">Ya tenes una cuenta? Click aquí para iniciar sesión</a></div>
+                                        <div class="small"><a href="/">Volver a la pagina</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+<!--          
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Que Hacer Hoy 2020</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer> -->
+         
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
