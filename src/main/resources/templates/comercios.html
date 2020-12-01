@@ -15,6 +15,7 @@
 			href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
 			rel="stylesheet">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@1,800&family=Roboto&display=swap" rel="stylesheet">
 		<link rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
@@ -27,7 +28,7 @@
 
 	</head>
 
-	<body class="sb-nav-fixed" style="background-color:aliceblue;">
+	<body class="sb-nav-fixed" >
 		<div th:replace="fragments::navbar"></div>
 		<!-- sidebar -->
 
@@ -49,7 +50,8 @@
 							<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
 								data-parent="#sidenavAccordion">
 								<nav class="sb-sidenav-menu-nested nav">
-									<a class="nav-link" th:each=" z : ${zonass}"  th:text="${z.nombre}" name="idzona" th:href="@{/comercio/listarPorZona/} + ${z.id}"></a> 
+									<a class="nav-link" th:each="z : ${zonass}" th:text="${z.nombre}"
+										name="idzona" th:href="@{/comercio/listarPorZona/} + ${z.id}"></a>
 								</nav>
 							</div>
 							<a class="nav-link collapsed" data-toggle="collapse"
@@ -74,6 +76,18 @@
 
 							<a class="nav-link" href="/extra/eventos"> Eventos </a>
 							<a class="nav-link" href="/extra/publicidades"> Publicidad </a>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<a class="nav-link" href="/nosotros"> Sobre nosotros </a>
 							<a class="nav-link" href="/contacto"> Contactanos </a>
 						</div>
 					</div>
@@ -87,28 +101,33 @@
 					<!--Cards para mostrar sitios-->
 					<div class="caja-1">
 						<div class="row row-cols-1 row-cols-md-3">
-							<div class="card" th:each="c : ${comercios}" style="background-color: rgb(229, 238, 240);margin-right: auto;" >
+							<div class="card" th:each="c : ${comercios}" style="background-color:
+								rgb(229, 238, 240);margin-right: auto;">
 								<img class="card-img-top" th:if="${c.foto != null}"
-									th:src="@{/foto/load/__${c.foto.id}__}" id="img"  object-fit="cover" width="50" height="250" alt="...">
+									th:src="@{/foto/load/__${c.foto.id}__}" id="img" object-fit="cover"
+									width="50" height="250" alt="...">
 								<div class="card-body">
 									<h5 class="card-title" th:text="${c.nombre}"></h5>
 									<div>
 										<p class="card-text" th:text="${c.zona.nombre}"></p>
-										<p class="clasificacion">
+										<p class="clasificacion2">
 
-											<label>★</label>
-											<!--
-							  
-							  --><label>★</label>
-											<!--
-							  
-							  --><label>★</label>
-											<!--
-							  
-							  --><label>★</label>
-											<!--
-							 
-							  --><label>★</label>
+											<div class="puntaje" th:if="${c.puntuacion == 1}">
+												<label style="color: orange;">★</label>
+											</div>
+											<div th:if="${c.puntuacion == 2}">
+												<label style="color: orange;">★</label><label style="color: orange;">★</label>
+											</div>
+											<div th:if="${c.puntuacion == 3}">
+												<label style="color: orange;">★</label><label style="color: orange;">★</label><label style="color: orange;">★</label>
+											</div>
+											<div th:if="${c.puntuacion == 4}" >
+												<label style="color: orange;">★</label><label style="color: orange;">★</label><label style="color: orange;">★</label><label style="color: orange;">★</label>
+											</div>
+											<div th:if="${c.puntuacion == 5}">
+												<label style="color: orange;">★</label><label style="color: orange;">★</label><label style="color: orange;">★</label><label style="color: orange;">★</label><label style="color: orange;">★</label>
+											</div>
+
 										</p>
 									</div>
 									<a th:href="@{/comercio/verPerfilComercio/} +
@@ -117,11 +136,11 @@
 								</div>
 							</div>
 						</div>
-					
+
 					</div>
 
 				</main>
-				
+
 				<footer class="py-4 bg-light mt-auto">
 					<div class="container-fluid">
 						<div
