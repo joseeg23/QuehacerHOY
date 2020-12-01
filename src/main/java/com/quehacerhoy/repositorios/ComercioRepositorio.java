@@ -23,7 +23,7 @@ public interface ComercioRepositorio extends JpaRepository<Comercio,String> {
   @Query ("SELECT c FROM Comercio c where c.baja is null")   
  public List<Comercio> listar ();
  
-  @Query ("SELECT c FROM Comercio c where c.nombre = :buscar")   
+  @Query ("SELECT c FROM Comercio c where c.nombre like :buscar")   
  public List<Comercio> buscar (@Param("buscar")String buscar);
  
   

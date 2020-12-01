@@ -195,7 +195,8 @@ public class ComercioService {
     
       //lista de comercios por usuario
     public List listaComerciosPorPalabras(String buscar) {
-        return repositorio.buscar(buscar);
+                
+        return repositorio.buscar("%"+buscar+"%");
     }
 
 }

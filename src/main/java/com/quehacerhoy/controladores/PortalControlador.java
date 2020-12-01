@@ -36,7 +36,7 @@ public class PortalControlador {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
-         modelo.put("comercios", comercioS.lista());
+        modelo.put("comercios", comercioS.lista());
         modelo.put("zonass", zonaS.listarZona());
         System.out.println(zonaS.listarZona());
         return "principalalterno.html";
@@ -70,23 +70,15 @@ public class PortalControlador {
 
     }
 
-//    @GetMapping("/principal")
-//    public String principal(ModelMap modelo) {
-//        modelo.put("comercios", comercioS.lista());
-//        modelo.put("zonass", zonaS.listarZona());
-//        System.out.println(zonaS.listarZona());
-//        return "principalalterno.html";
-//    }
-
     @GetMapping("/contacto")
     public String contacto(ModelMap modelo) {
-      
+
         return "contacto.html";
     }
-    
+
     @PostMapping("/contactanos")
     public String contactanos(ModelMap modelo, @RequestParam String email, @RequestParam String nombre) {
-      usuarioS.enviarPorpuesta(email, nombre);
+        usuarioS.enviarPorpuesta(email, nombre);
         return "redirect:/";
     }
 
@@ -140,11 +132,15 @@ public class PortalControlador {
     }
 
     @GetMapping("/buscar")
-    public String buscador(ModelMap modelo, @RequestParam String buscar){
-        
-         modelo.put("comercio", comercioS.listaComerciosPorPalabras(buscar));
-        return "perfilsitio.html";
-        
-        
+    public String buscador(ModelMap modelo, @RequestParam String buscar) {
+        if (comercioS.listaComerciosPorPalabras(buscar).isEmpty()) {
+            return "redirect:/";
+        } else {
+            modelo.put("zonass", zonaS.listarZona());
+                
+            modelo.put("comercios", comercioS.listaComerciosPorPalabras(buscar));
+            return "comercios.html";
+        }
+
     }
 }
