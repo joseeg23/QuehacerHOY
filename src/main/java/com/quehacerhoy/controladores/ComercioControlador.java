@@ -51,7 +51,7 @@ public class ComercioControlador {
             @RequestParam String username, @RequestParam String telefono) {
 
         try {
-            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona,telefono, username);
+            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, telefono, username);
             return "redirect:/registros/superadmin";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,7 +80,7 @@ public class ComercioControlador {
             @RequestParam String username, @RequestParam String telefono) {
 
         try {
-            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona,telefono, username);
+            comercioS.alta(nombre, rangoDeHorario, rubro, direccion, descripcion, rangoEdadPublico, archivo, idZona, telefono, username);
             return "redirect:/registros/socio";
         } catch (Exception ex) {
             Logger.getLogger(ComercioControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,7 +194,7 @@ public class ComercioControlador {
     }
 
     @GetMapping("/baja/{id}")
-    public String baja( @PathVariable String id, HttpSession session) {
+    public String baja(@PathVariable String id, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         String rol = usuario.getRol();
 
@@ -253,5 +253,18 @@ public class ComercioControlador {
 
     }
 
-   
+    @GetMapping("/buscar")
+    public String buscador(ModelMap modelo, @RequestParam String buscar) {
+
+        if (comercioS.listaComerciosPorPalabras(buscar).isEmpty()) {
+            return "redirect:/";
+        } else {
+            modelo.put("zonass", zonaS.listarZona());
+
+            modelo.put("comercios", comercioS.listaComerciosPorPalabras(buscar));
+            return "comercios.html";
+        }
+
+    }
+
 }

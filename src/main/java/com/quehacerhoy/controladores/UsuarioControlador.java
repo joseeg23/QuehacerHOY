@@ -1,8 +1,10 @@
 package com.quehacerhoy.controladores;
 
+import com.quehacerhoy.entidades.Usuario;
 import com.quehacerhoy.servicios.UsuarioService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -85,55 +87,70 @@ public class UsuarioControlador {
         }
 
     }
-    
+
     @GetMapping("/modificar/{username}")
-    public String modificar(ModelMap modelo, @PathVariable String username) {
+    public String modificar(ModelMap modelo, @PathVariable String username, HttpSession session) {
+
         modelo.put("username", username);
         return "editarsocio.html";
 
     }
-    
-     @PostMapping("/modifico")
-    public String modifico(ModelMap modelo, @RequestParam String username, @RequestParam String nombre,@RequestParam String mail,
-            @RequestParam String apellido, @RequestParam String clave,@RequestParam String clave2 ) {
-      
+
+    @GetMapping("/modificar")
+    public String modificarperfil() {
+        return "editarperfil.html";
+    }
+
+    @PostMapping("/modifico")
+    public String modifico(ModelMap modelo, HttpSession session, @RequestParam String username, @RequestParam String nombre, @RequestParam String mail,
+            @RequestParam String apellido, @RequestParam String clave, @RequestParam String clave2) {
+
         try {
             usuarioServicio.modificarUsuario(username, nombre, apellido, mail, clave, clave2);
-             return "redirect:/tablas/superadmin";
+            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+            String rol = usuario.getRol();
+
+            switch (rol) {
+                case "SUPERADMIN":
+                    return "redirect:/registros/superadmin";
+                case "ADMIN":
+                    return "redirect:/registros/socio";
+                default:
+                    return null;
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(UsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
             modelo.put("error", ex.getMessage());
             return "editarsocio.html";
         }
-           
-        
 
     }
-    
+
     @GetMapping("/baja/{username}")
-    public String baja( @PathVariable String username) {
-      usuarioServicio.baja(username);
-      return"redirect:/tablas/superadmin";
+    public String baja(@PathVariable String username) {
+        usuarioServicio.baja(username);
+        return "redirect:/tablas/superadmin";
     }
-    
+
     //Método recuperar clave
-    @GetMapping("/recuperarclave/{username}")
-    public String recuperarClave (ModelMap modelo, @RequestParam String username){
-        modelo.put("username", username);
-        return "recuperarclave.html";
+    @GetMapping("/recuperarclave")
+    public String recuperarClave(ModelMap modelo) {
+        return "password.html";
     }
-    
-    @PostMapping("/recuperarclave")
-    public String recuperarClave1 (ModelMap modelo, @RequestParam String username){
+
+    @PostMapping("/recuperarcontraseña")
+    public String recuperarClave1(ModelMap modelo, @RequestParam String username) {
         try {
             usuarioServicio.recuperarClave(username);
-            return "revisatuemail.html";
+            modelo.put("username", username);
+            modelo.put("exito", "Se ha enviado un correo con tu nueva contraseña");
+            return "login.html";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
-            return "recuperarclave.html";
+            return "pasword.html";
         }
-        
+
     }
-    
 
 }

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registros superadmin!</title>
+        <title>Registros socios!</title>
 
         <!-- Colocar favicon en sitio -->
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -24,16 +24,14 @@
 
     </head>
 
-    <body style="background-color: aliceblue;display: flex;
-    flex-flow: column nowrap;">
+    <body >
         <!--Navbar-->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!--Parte izquierda del navar-->
-            <h2 class="navbar-brand">Qué Hacer Hoy?</h2>
-            <h3 class="text-info" style="text-align: right; text-transform: uppercase;"
+            <h2 class="navbar-brand">Portal socio</h2>
+            <h3 class="text-info" style=" text-transform: uppercase;"
             th:if=" ${session.usuariosession != null}"
-            th:text="' BIENVENIDO ' + ${session.usuariosession.nombre + ' '
-            +session.usuariosession.apellido}"></h3>
+            th:text="' BIENVENIDO ' + ${session.usuariosession.nombre}"></h3>
                 <lu id="lista1">
                     <li>
                         <a href="/registros/socio">home</a>
@@ -42,8 +40,13 @@
                         <a href="/tablas/socio" >listas</a>
                     </li>
                     <li>
+                        <a href="/usuario/modificar">modificar perfil</a>
+                    </li>
+                    <li>
                         <a href="/logout" >salir</a>
                     </li>
+                    
+                   
                 </lu>
 
 

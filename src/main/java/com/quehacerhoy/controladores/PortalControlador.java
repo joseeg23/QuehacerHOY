@@ -45,7 +45,7 @@ public class PortalControlador {
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap modelo) {
         if (error != null && !error.isEmpty()) {
-            modelo.put("error", "Documento o clave incorrecto");
+            modelo.put("error", "Username o clave incorrecto");
         }
         if (logout != null && !logout.isEmpty()) {
             modelo.put("logout", "Usted ha cerrado la sesion");
@@ -80,6 +80,11 @@ public class PortalControlador {
     public String contacto(ModelMap modelo) {
 
         return "contacto.html";
+    }
+     @GetMapping("/ayuda")
+    public String ayuda(ModelMap modelo) {
+
+        return "ayuda.html";
     }
 
     @PostMapping("/contactanos")
@@ -137,17 +142,5 @@ public class PortalControlador {
         return "tablasocio.html";
     }
 
-    @GetMapping("/buscar")
-    public String buscador(ModelMap modelo, @RequestParam String buscar) {
-      
-        if (comercioS.listaComerciosPorPalabras(buscar).isEmpty()) {
-            return "redirect:/";
-        } else {
-            modelo.put("zonass", zonaS.listarZona());
-
-            modelo.put("comercios", comercioS.listaComerciosPorPalabras(buscar));
-            return "comercios.html";
-        }
-
-    }
+ 
 }
