@@ -205,11 +205,12 @@ public class UsuarioService implements UserDetailsService {
         Optional<Usuario> buscar = repositorio.findById(username);
 
         if (buscar.isPresent()) {
-            Usuario admin = repositorio.getOne(username);
-            UUID idNueva = UUID.randomUUID();
-            admin.setClave(idNueva);
+            Usuario admin = buscar.get();
+            String claveNueva = UUID.randomUUID().toString().substring(0, 5);
+            String claveEncriptada = new BCryptPasswordEncoder().encode(claveNueva);
+            admin.setClave(claveEncriptada);
             repositorio.save(admin);
-            String mensaje = "Su nueva contraseña es: " + idNueva;
+            String mensaje = admin.getNombre() + ", su nueva contraseña es: " + claveNueva;
             notificacion.enviar("CAMBIO DE CONTRASEÑA", mensaje, admin.getEmail());
 
         } else {

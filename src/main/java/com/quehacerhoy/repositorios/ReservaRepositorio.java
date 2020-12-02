@@ -20,4 +20,13 @@ public interface ReservaRepositorio extends JpaRepository<Reserva, String>{
     
     @Query("SELECT c FROM Reserva c where c.comercio.id = :id and c.baja is null")
     public List<Reserva> reservasComercio(@Param("id") String id);
+    
+    @Query("SELECT c FROM Reserva c where c.comercio.id = :id and day(c.fechaReserva) like :dia and c.baja is null")
+    public List<Reserva> reservasPorDia(@Param("id") String id, @Param("dia") int dia);
+    
+     @Query("SELECT c FROM Reserva c where c.comercio.id = :id and month(c.fechaReserva) like :mes  and c.baja is null")
+    public List<Reserva> reservasPorMes(@Param("id") String id, @Param("mes") int mes);
+    
+       @Query("SELECT c FROM Reserva c where c.comercio.id = :id and year(c.fechaReserva) like :anio  and c.baja is null")
+    public List<Reserva> reservasPorYear(@Param("id") String id, @Param("anio") int year);
 }
