@@ -81,6 +81,11 @@ public class PortalControlador {
 
         return "contacto.html";
     }
+     @GetMapping("/ayuda")
+    public String ayuda(ModelMap modelo) {
+
+        return "ayuda.html";
+    }
 
     @PostMapping("/contactanos")
     public String contactanos(ModelMap modelo, @RequestParam String email, @RequestParam String nombre) {

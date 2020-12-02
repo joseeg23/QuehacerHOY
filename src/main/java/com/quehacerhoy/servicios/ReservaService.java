@@ -47,7 +47,7 @@ public class ReservaService {
             reservaR.save(reserva);
 
             //envia al que hizo la reserva
-            notificacion.enviar("Reserva en " + comercio.getNombre(), "Tu reserva se ha realizado con exito. para el dia " + fecha, email);
+            notificacion.enviar("Reserva en " + comercio.getNombre(), "Tu reserva para "+ cantidadPersonas + " personas  el dia " + fecha + " se ha realizado con exito.", email);
             //envia al comercio
             notificacion.enviar("Reserva pendiente", "Se ha realizado una reserva en u comercio " + comercio.getNombre() + " . Detalles : 1. Correo = " + email + ""
                     + ", telefono " + telefono + " Para " + cantidadPersonas + " personas, para el dia  " + fecha, comercio.getUsuario().getEmail());
@@ -61,16 +61,20 @@ public class ReservaService {
     @Transactional
     public void bajaPorFecha(String id) {
         List<Reserva> r = reservaR.reservasComercio(id);
-//
-//        if (!r.isEmpty()) {
-//            Date now = new Date();
-//            for (Reserva reserva : r) {
-//                if (reserva.getFechaReserva().before(now)) {
-//                    reserva.setBaja(now);
-//                    reservaR.save(reserva);
-//                }
-//            }
-//        }
+
+        if (!r.isEmpty()) {
+            Calendar now = new GregorianCalendar();
+            Date n = new Date(now.get(Calendar.YEAR) - 1900, now.get(Calendar.MONTH), now.get(Calendar.DATE) - 1);
+            System.out.println(n);
+
+            for (Reserva reserva : r) {
+                if (reserva.getFechaReserva().before(n)) {
+                    Date now2 = new Date();
+                    reserva.setBaja(now2);
+                    reservaR.save(reserva);
+                }
+            }
+        }
 
     }
 
@@ -89,20 +93,21 @@ public class ReservaService {
     public List listarReservasPorTiempo(String id, String tiempo) {
         bajaPorFecha(id);
         Calendar now = new GregorianCalendar();
-      switch(tiempo){
-          case "dia": int dia =  now.get(Calendar.DATE);
-          return reservaR.reservasPorDia(id, dia);
-          case "mes":
-              int mes = now.get(Calendar.MONTH)+1;
-          return reservaR.reservasPorMes(id, mes);
-          case "year":
-              int year = now.get(Calendar.YEAR);
-          return reservaR.reservasPorYear(id, year);
-          default:
-              return reservaR.reservasComercio(id);
+        switch (tiempo) {
+            case "dia":
+                int dia = now.get(Calendar.DATE);
+                return reservaR.reservasPorDia(id, dia);
+            case "mes":
+                int mes = now.get(Calendar.MONTH) + 1;
+                return reservaR.reservasPorMes(id, mes);
+            case "year":
+                int year = now.get(Calendar.YEAR);
+                return reservaR.reservasPorYear(id, year);
+            default:
+                return reservaR.reservasComercio(id);
 //      }
 //      
-    }
+        }
 
-}
+    }
 }
