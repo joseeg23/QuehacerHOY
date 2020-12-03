@@ -48,9 +48,7 @@
                     <li>
                         <a href="/logout">salir</a>
                     </li>
-                    <li >
-                      
-                    </li>
+                   
                 </lu>
                 
 
@@ -59,9 +57,17 @@
 
      <!-- lista de reservas-->
      <section style="padding: 0 10px;">
-
+        <form action="/reserva/por" method="GET">
+        <input type="hidden" name="idComercio" th:value="${idComercio}"/>
+        <select name="select" id="">
+            <option value="dia">Dia</option>
+            <option value="mes">Mes</option>
+            <option value="year">Anio</option>
+          </select>
+          <button type="submit" >click</button>
+        </form>
         <table class="table table-bordered">
-
+            <h4 th:text="${tiempo}"></h4>
             <caption>reservas</caption>
             <thead class="table-info">
                 <tr class="text-info">

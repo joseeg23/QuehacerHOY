@@ -4,11 +4,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>editar socio!</title>
+        <title>editar perfil!</title>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-        
         <!-- Colocar favicon en sitio -->
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"
@@ -60,7 +57,9 @@
 
             <p th:if="${error!= null}" th:text="${error}"></p>
 
-               <input type="hidden" name="username" th:value="${username}"/>
+            <div class="input-group mb-3">
+                <input type="hidden" name="username" th:value="${session.usuariosession.username}" ></input>
+            </div>
               
             <div class="form-row">
                 <div class="col-md-6">
