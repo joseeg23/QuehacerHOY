@@ -27,3 +27,6 @@ _desarrollada en Java, Spring y Thymeleaf_
 ## Expresiones de Gratitud 🎁
 * Agradecemos al equipo de egg educacion por la orientacion en el el proceso de desarrollo
 * Comenta a otros sobre este proyecto 📢
+
+## Vistas 📦
+ * https://drive.google.com/drive/folders/1NkXuSWo6J9hJSjzcmRKII8hyShRX4cQJ *
