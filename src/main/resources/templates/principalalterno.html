@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>home!</title>
+
+        <!-- Colocar favicon en sitio -->
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"
+            crossorigin="anonymous"></script>
+        <!-- Fuente externa https://fonts.google.com/ -->
+        <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
+            rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@1,800&family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous">
+        <!-- Mi hoja de estilos (Siempre la más relevante!) -->
+        <link href="/css/styles.css" rel="stylesheet" />
+
+    </head>
+
+    <body class="sb-nav-fixed">
+        <div th:replace="fragments::navbar"></div>
+        <!-- sidebar -->
+
+
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark"
+                    id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+
+                            <div class="sb-sidenav-menu-heading">Menú</div>
+                            <a class="nav-link collapsed" data-toggle="collapse"
+                                data-target="#collapseLayouts"
+                                aria-expanded="false"
+                                aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas
+                                        fa-columns"></i></div>
+                                Zonas
+                                <div class="sb-sidenav-collapse-arrow"><i
+                                        class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts"
+                                aria-labelledby="headingOne"
+                                data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" th:each="z : ${zonass}"
+                                        th:text="${z.nombre}" name="idzona"
+                                        th:href="@{/comercio/listarPorZona/} +
+                                        ${z.id}"></a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" data-toggle="collapse"
+                                data-target="#collapsePages"
+                                aria-expanded="false"
+                                aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas
+                                        fa-book-open"></i></div>
+                                Sitios
+                                <div class="sb-sidenav-collapse-arrow"><i
+                                        class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages"
+                                aria-labelledby="headingOne"
+                                data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link"
+                                        href="/comercio/listarPorRubro/Restaurante">Restaurantes</a>
+                                    <a class="nav-link"
+                                        href="/comercio/listarPorRubro/Cine">Cines</a>
+                                    <a class="nav-link"
+                                        href="/comercio/listarPorRubro/Museo">Museos</a>
+                                    <a class="nav-link"
+                                        href="/comercio/listarPorRubro/Recorrido">Recorridos</a>
+                                    <a class="nav-link"
+                                        href="/comercio/listarPorRubro/Plaza">Plazas</a>
+                                    <a class="nav-link"
+                                        href="/comercio/listarPorRubro/vidaNocturna">Vida
+                                        Nocturna</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link" href="/extra/eventos"> Eventos
+                            </a>
+                            <a class="nav-link" href="/extra/publicidades"> Publicidad </a>
+                                <br> 
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <a class="nav-link" href="/ayuda"> Ayuda </a>
+                                <a class="nav-link" href="/nosotros"> Sobre nosotros </a>
+                                <a class="nav-link" href="/contacto"> Contactanos </a>
+                        </div>
+                    </div>
+
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+
+                    <header>
+                        <div id="carouselExampleIndicators" class="carousel
+                            slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators"
+                                    data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators"
+                                    data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators"
+                                    data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
+                                <!-- Slide One - Set the background image for this slide in the line below -->
+                                <div class="carousel-item active"
+                                    style="background-image:
+                                    url('https://turismoglobal.com/wp-content/uploads/2020/07/La-Casina.jpg');
+                                    height:100%;">
+                                    <div class="carousel-caption d-none
+                                        d-md-block">
+
+                                        <h3 class="display-4">RESTAURANTES</h3>
+                                        <a class="btn btn-primary"
+                                            href="/comercio/listarPorRubro/Restaurante">VER MAS</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <!-- Slide Two - Set the background image for this slide in the line below -->
+                                <div class="carousel-item"
+                                    style="background-image:
+                                    url('https://cdnmundo3.img.sputniknews.com/img/106290/75/1062907509_0:185:1024:738_1000x541_80_0_0_e7a171cb66555c14c2cb282c9eb61f48.jpg');
+                                    height:100%;">
+                                    <div class="carousel-caption d-none
+                                        d-md-block">
+                                        <h3 class="display-4">Cines</h3>
+                                        <a class="btn btn-primary"
+                                            href="/comercio/listarPorRubro/Cine">ver
+                                            mas</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <!-- Slide Three - Set the background image for this slide in the line below -->
+                                <div class="carousel-item"
+                                    style="background-image:
+                                    url('https://www.altagracianoticias.com/wp-content/uploads/2020/04/museo-del-prado.jpg');
+                                    height:100%;">
+                                    <div class="carousel-caption d-none
+                                        d-md-block">
+                                        <h3 class="display-4">Museos</h3>
+                                        <a class="btn btn-primary"
+                                            href="/comercio/listarPorRubro/Museo">ver
+                                            mas</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <!-- recorridos -->
+                                <div class="carousel-item"
+                                    style="background-image:
+                                    url('https://diariosanrafael.com.ar/wp-content/uploads/2020/03/Aument%C3%B3-la-cantidad-de-turistas-en-Mendoza-en-relaci%C3%B3n-con-enero-de-2018.jpg');
+                                    height:100%;">
+                                    <div class="carousel-caption d-none
+                                        d-md-block">
+                                        <h3 class="display-4">recorridos</h3>
+                                        <a class="btn btn-primary"
+                                            href="/comercio/listarPorRubro/Recorrido">ver
+                                            mas</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <!-- plazas -->
+                                <div class="carousel-item"
+                                    style="background-image:
+                                    url('https://media-cdn.tripadvisor.com/media/photo-s/07/2a/22/46/plaza-independencia.jpg');
+                                    height:100%;">
+                                    <div class="carousel-caption d-none
+                                        d-md-block">
+                                        <h3 class="display-4" style="font-family: 'Barlow', sans-serif;">plazas</h3>
+                                        <a class="btn btn-primary"
+                                            href="/comercio/listarPorRubro/Plaza">ver
+                                            mas</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <!-- vida nocturno -->
+                                <div class="carousel-item"
+                                    style="background-image:
+                                    url('https://ciudaddemendoza.gob.ar/wp-content/uploads/2016/12/4262_cp-1170x630.jpg');
+                                    height:100%;">
+                                    <div class="carousel-caption d-none
+                                        d-md-block">
+                                        <h3 class="display-4">vida nocturna</h3>
+                                        <a class="btn btn-primary"
+                                            href="/comercio/listarPorRubro/vidaNocturna">ver
+                                            mas</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev"
+                                    href="#carouselExampleIndicators"
+                                    role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"
+                                        aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next"
+                                    href="#carouselExampleIndicators"
+                                    role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon"
+                                        aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </header>
+
+                        <!-- Page Content -->
+                        <section>
+                          
+                            <br>
+                            <h3 class="text-info" style="text-align: center;font-family: 'Barlow', sans-serif;"> Bienvenido a Qué Hacer Hoy
+                                WEB</h3>
+                                <br>
+                                <ol>
+                                    <p class="text-info">
+                                        En la web Qué Hacer Hoy puedes encontrar
+                                        diferentes actividades para realizar con
+                                        toda la información necesaria:
+                                        descripciones, horarios, precios, rango
+                                        de
+                                        edades, etc.
+                                        Además puedes realizar una búsqueda de
+                                        actividades en base a la zona más
+                                        cercana a la que te encuentres. Qué
+                                        hacer hoy es un sitio web ideal para vos
+                                        si estas
+                                        aburrido o tenés ganas de salir de tu
+                                        casa, conocé nueva
+                                        gente y juntate en el sitio que más te
+                                        guste a pasar el
+                                        día.
+                                        <br>
+                                        <br>
+                                        <a style="text-align: center;" class="btn btn-primary" href="/nosotros"> mas informacion</a></h5></p>
+                                        
+                                </ol>
+
+                        </section>
+
+                    </main>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+            crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script
+            src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
+            crossorigin="anonymous"></script>
+        <script src="assets/demo/datatables-demo.js"></script>
+    </body>
+
+</html>

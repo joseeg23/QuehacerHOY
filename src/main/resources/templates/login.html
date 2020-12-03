@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>login!</title>
+
+		<!-- Colocar favicon en sitio -->
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"
+			crossorigin="anonymous"></script>
+		<!-- Fuente externa https://fonts.google.com/ -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
+			rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@1,800&family=Roboto&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+			integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+			crossorigin="anonymous">
+		<link
+			href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
+			rel="stylesheet" crossorigin="anonymous" />
+
+		<link href="/css/styles.css" rel="stylesheet" />
+
+	</head>
+   
+
+    <body class="body2">
+        <style type="text/css">
+            .bg-login-image {
+                background: url(https://www.argentinaenviaje.com/wp-content/uploads/2020/01/sanrafael-mendoza-med.jpg);
+                background-position: center;
+                background-size: cover;
+            }
+        </style>
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 card shadow-lg border-0  mt-5 d-none d-lg-block bg-login-image">
+                                
+                            </div>
+                              
+                            <div style="margin-left: -20px;" class="col-lg-6">
+                                <div class="card shadow-lg border-0 mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Inicia sesión</h3></div>
+                                    <div class="card-body">
+                                        <form action="/logincheck" method="POST"  >
+                                            <p class="text-info"  th:text="${exito}"></p>
+                                            <p class="text-danger"  th:text="${error}"></p>
+                                            <p class="text-danger"  th:text="${logout}"></p>
+                                           
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="usuario">username</label>
+                                                <input class="form-control py-4" name="username"  th:value="${username}" type="text" placeholder="Ingresa tu usuario" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="clave">Contraseña</label>
+                                                <input class="form-control py-4" name="clave" type="password" placeholder="Ingresa tu clave" required/>
+                                            </div>
+                                           
+                                            <button type="submit" class="btn btn-primary" style="background-color: rgb(0, 140, 255);" >INGRESAR</button>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="/usuario/registroAdmin">No tienes una cuenta? Registrate!</a></div>
+                                        <div  class="small"><a  href="/usuario/recuperarclave">Olvide mi contraseña!</a></div>
+                                        <div class="small"><a href="/">Volver a la pagina</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        
+        <!-- <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Que Hacer Hoy 2020</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer> -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+
+    
+</html>
