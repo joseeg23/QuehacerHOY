@@ -9,6 +9,7 @@ _desarrollada en Java, Spring y Thymeleaf_
 ## Herramientas
 
 * [NetBeans](https://netbeans.org/) - Entorno de desarrollo
+* [Spring](https://spring.io/) - Framework
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
 
 ## Developers ✒️
