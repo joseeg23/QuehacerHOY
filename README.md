@@ -29,4 +29,4 @@ _desarrollada en Java, Spring y Thymeleaf_
 * Comenta a otros sobre este proyecto 📢
 
 ## Vistas 📦
- * https://drive.google.com/drive/folders/1NkXuSWo6J9hJSjzcmRKII8hyShRX4cQJ *
+ * https://drive.google.com/drive/folders/1NkXuSWo6J9hJSjzcmRKII8hyShRX4cQJ?usp=sharing *
